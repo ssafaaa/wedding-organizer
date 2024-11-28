@@ -15,37 +15,29 @@ use App\Http\Controllers\HiburanController;
 use App\Http\Controllers\UndanganController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CustomerController;
-use App\Models\Customer;
-use App\Models\Dekorasi;
-use App\Models\Hiburan;
-use App\Models\Maincourse;
-use App\Models\Undangan;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/user/dashboard', [UserController::class, 'index'])->middleware(['auth', 'verified'])->name('user.dashboard');
-Route::get('/user/booking' , [UserController::class, 'booking'])->name('user.booking');
-Route::get('/user/about' , [UserController::class, 'about'])->name('user.about');
-Route::get('/user/contact' , [UserController::class, 'contact'])->name('user.contact');
-Route::get('/user/project' , [UserController::class, 'project'])->name('user.project');
-Route::get('/user/checkout' , [UserController::class, 'checkout'])->name('user.checkout');
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::group(['prefix' => 'user'], function () {
+        Route::get('/dashboard', [UserController::class, 'index'])->name('user.dashboard');
+        Route::get('/booking' , [UserController::class, 'booking'])->name('user.booking');
+        Route::get('/about' , [UserController::class, 'about'])->name('user.about');
+        Route::get('/contact', [UserController::class, 'contact'])->name('user.contact');
+        Route::get('/project' , [UserController::class, 'project'])->name('user.project');
+        Route::get('/checkout' , [UserController::class, 'checkout'])->name('user.checkout');
+
+        Route::get('/profile', [CustomerController::class, 'edit'])->name('customer.edit');
+        Route::put('/profile/update/{customer}', [CustomerController::class, 'update'])->name('customer.update');
+    });
+});
 
 Route::post('/send-question', [UserController::class, 'sendQuestion'])->name('send-question');
 Route::get('/send-question', function () {
     return redirect('/user/contact')->with('error', 'Silakan gunakan form untuk mengirimkan pertanyaan.');
 });
-
-
-// route::post('user/profile/store', [CustomerController::class, 'store'])->name('profile.store');
-// route::put('user/profile/update/{customers}', [CustomerController::class, 'update'])->name('customer.update');
-
-// route::get('user/profile',[CustomerController::class, 'index'])->name('customer');
-Route::get('/user/profile', [CustomerController::class, 'index'])->name('customer.edit');
-Route::put('/user/profile/update/{customer}', [CustomerController::class, 'update'])->name('customer.update');
-
-
 
 // Route::get('/user/keranjang/dekorasi', [CartController::class, 'indexdekorasi'])->name('keranjangdekorasi.index');
 Route::get('/user/keranjang', [CartController::class, 'indexkeranjang'])->name('keranjang.index');
@@ -54,12 +46,6 @@ Route::post('/user/keranjang/dokum/store', [CartController::class, 'storedokum']
 Route::post('/user/keranjang/hiburan/store', [CartController::class, 'storehiburan'])->name('keranjanghiburan.store');
 Route::post('/user/keranjang/gedung/store', [CartController::class, 'storegedung'])->name('keranjanggedung.store');
 Route::post('/user/keranjang/sourvenir/store', [CartController::class, 'storesourvenir'])->name('keranjangsourvenir.store');
-
-Route::middleware('auth')->group(function () {
-    // Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    // Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
 
 require __DIR__.'/auth.php';
 

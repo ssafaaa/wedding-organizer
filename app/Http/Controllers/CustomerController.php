@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
-// use App\Http\Controllers\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,10 +13,9 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        // $customers = Customer::all();
-        // return view('customer.edit', compact('customers'));
-        $customer = Customer::findOrFail(Auth::user()->id_user);
-        return view('customer.edit', compact('customer'));
+        $customer = Customer::where('user_id', Auth::user()->id_user)->first();
+        dd($customer);
+        return view('user.profile', compact('customer'));
 
     }
 
@@ -63,8 +61,8 @@ class CustomerController extends Controller
 
     public function edit()
     {
-        $customer = Customer::findOrFail(Auth::user()->id_user);
-        return view('customer.edit', compact('customer'));
+        $customer = Customer::where('user_id', Auth::user()->id_user)->first();
+        return view('user.profile', compact('customer'));
     }
 
 
