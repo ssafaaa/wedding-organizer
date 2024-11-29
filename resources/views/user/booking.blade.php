@@ -48,12 +48,12 @@
         <div class="container-menu-desktop">
             <!-- Topbar -->
             <div class="top-bar">
-                <div class="content-topbar flex-sb-m h-full container">
+                <div class="container h-full content-topbar flex-sb-m">
                     <div class="left-top-bar">
                         Free shipping for standard order over $100
                     </div>
 
-                    <div class="right-top-bar flex-w h-full">
+                    <div class="h-full right-top-bar flex-w">
                         <a href="#" class="flex-c-m trans-04 p-lr-25">
                             Help & FAQs
                         </a>
@@ -74,7 +74,7 @@
             </div>
 
             <div class="wrap-menu-desktop how-shadow1">
-                <nav class="limiter-menu-desktop container">
+                <nav class="container limiter-menu-desktop">
 
                     <!-- Logo desktop -->
                     <a href="#" class="logo">
@@ -175,7 +175,7 @@
                 </li>
 
                 <li>
-                    <div class="right-top-bar flex-w h-full">
+                    <div class="h-full right-top-bar flex-w">
                         <a href="#" class="flex-c-m p-lr-10 trans-04">
                             Help & FAQs
                         </a>
@@ -417,7 +417,7 @@
                     </h4>
 
                     <form>
-                        <div class="wrap-input1 w-full p-b-4">
+                        <div class="w-full wrap-input1 p-b-4">
                             <input class="input1 bg-none plh1 stext-107 cl7" type="text" name="email"
                                 placeholder="email@example.com">
                             <div class="focus-input1 trans-04"></div>
@@ -509,7 +509,6 @@
                                     <div class="item-slick3" data-thumb="images/product-detail-02.jpg">
                                         <div class="wrap-pic-w pos-relative">
                                             <img src="images/product-detail-02.jpg" alt="IMG-PRODUCT">
-
                                             <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
                                                 href="images/product-detail-02.jpg">
                                                 <i class="fa fa-expand"></i>

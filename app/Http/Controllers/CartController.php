@@ -20,41 +20,49 @@ class CartController extends Controller
         return view('user.keranjang');
     }
 
+
     public function indexkeranjang()
     {
-        // Ambil semua data dekorasi dari database
+        $total = 0;
+        
         $dekorasi = Dekorasi::all();
-        // Cek apakah ada dekorasi yang sudah dipilih (dari session)
+
         $dekorasiTerpilih = session('dekorasi_terpilih');
+        $dekorasi = Dekorasi::find($dekorasiTerpilih);
 
-        // dd($dekorasiTerpilih);
-
-        // Ambil semua data dekorasi dari database
         $dokumentasi = Dokumentasi::all();
-        // Cek apakah ada dekorasi yang sudah dipilih (dari session)
+
         $dokumentasiTerpilih = session('dokumentasi_terpilih');
 
-        // Ambil semua data dekorasi dari database
         $hiburan = Hiburan::all();
-        // Cek apakah ada dekorasi yang sudah dipilih (dari session)
+
         $hiburanTerpilih = session('hiburan_terpilih');
 
-        // Ambil semua data dekorasi dari database
         $gedung = Gedung::all();
-        // Cek apakah ada dekorasi yang sudah dipilih (dari session)
+
         $gedungTerpilih = session('gedung_terpilih');
+        $gedung = Gedung::find($gedungTerpilih);
 
-        // // Ambil ID gedung yang tersimpan di session
-        // $gedungTerpilih = session('gedung_terpilih');
-        // return view('keranjanggedung.store', compact('gedungTerpilih'));
-
-        // Ambil semua data dekorasi dari database
         $sourvenir = Sourvenir::all();
-        // Cek apakah ada dekorasi yang sudah dipilih (dari session)
         $sourvenirTerpilih = session('sourvenir_terpilih');
 
-        // Tampilkan view dan kirim data dekorasi beserta dekorasi yang dipilih (jika ada)
-        return view('user.keranjang', compact('dokumentasi', 'dokumentasiTerpilih', 'dekorasi', 'dekorasiTerpilih', 'hiburan', 'hiburanTerpilih', 'gedung', 'gedungTerpilih', 'sourvenir', 'sourvenirTerpilih'));
+        if (session()->has('gedung_terpilih') && session()->has('dekorasi_terpilih') && session()->has('dokumentasi_terpilih') && session()->has('hiburan_terpilih') && session()->has('sourvenir_terpilih')) {
+            $total = $gedung->harga_sewa_gedung + $dekorasi->harga_dekorasi;
+        }
+
+        return view('user.keranjang', [
+            'total' => $total,
+            'dokumentasi' => $dokumentasi,
+            'dokumentasiTerpilih' => $dokumentasiTerpilih,
+            'dekorasi' => $dekorasi,
+            'dekorasiTerpilih' => $dekorasiTerpilih,
+            'hiburan' => $hiburan,
+            'hiburanTerpilih' => $hiburanTerpilih,
+            'gedung' => $gedung,
+            'gedungTerpilih' => $gedungTerpilih,
+            'sourvenir' => $sourvenir,
+            'sourvenirTerpilih' => $sourvenirTerpilih
+        ]);
     }
 
     // public function addToCart(Request $request)

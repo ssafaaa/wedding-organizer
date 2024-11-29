@@ -35,19 +35,18 @@
 </head>
 
 <body class="animsition">
-
     <!-- Header -->
     <header class="header-v4">
         <!-- Header desktop -->
         <div class="container-menu-desktop">
             <!-- Topbar -->
             <div class="top-bar">
-                <div class="content-topbar flex-sb-m h-full container">
+                <div class="container h-full content-topbar flex-sb-m">
                     <div class="left-top-bar">
                         Free shipping for standard order over $100
                     </div>
 
-                    <div class="right-top-bar flex-w h-full">
+                    <div class="h-full right-top-bar flex-w">
                         <a href="#" class="flex-c-m trans-04 p-lr-25">
                             Help & FAQs
                         </a>
@@ -68,7 +67,7 @@
             </div>
 
             <div class="wrap-menu-desktop how-shadow1">
-                <nav class="limiter-menu-desktop container">
+                <nav class="container limiter-menu-desktop">
 
                     <!-- Logo desktop -->
                     <a href="#" class="logo">
@@ -168,7 +167,7 @@
                 </li>
 
                 <li>
-                    <div class="right-top-bar flex-w h-full">
+                    <div class="h-full right-top-bar flex-w">
                         <a href="#" class="flex-c-m p-lr-10 trans-04">
                             Help & FAQs
                         </a>
@@ -256,7 +255,7 @@
             </div>
 
             <div class="header-cart-content flex-w js-pscroll">
-                <ul class="header-cart-wrapitem w-full">
+                <ul class="w-full header-cart-wrapitem">
                     <li class="header-cart-item flex-w flex-t m-b-12">
                         <div class="header-cart-item-img">
                             <img src="images/item-cart-01.jpg" alt="IMG">
@@ -307,11 +306,11 @@
                 </ul>
 
                 <div class="w-full">
-                    <div class="header-cart-total w-full p-tb-40">
+                    <div class="w-full header-cart-total p-tb-40">
                         Total: $75.00
                     </div>
 
-                    <div class="header-cart-buttons flex-w w-full">
+                    <div class="w-full header-cart-buttons flex-w">
                         <a href="shoping-cart.html"
                             class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10">
                             View Cart
@@ -342,8 +341,6 @@
         </div>
     </div>
 
-
-
     <!-- Shoping Cart -->
     {{-- <form id="form-dekorasi" method="POST" action="{{ route('keranjangdekorasi.store') }}">
         @csrf --}}
@@ -352,8 +349,7 @@
             <div class="row">
                 <div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
                     <div class="m-l-25 m-r--38 m-lr-0-xl">
-                        <form action="{{ route('user.checkout') }}" method="POST">
-                            @csrf
+                        <form action="{{ route('user.checkout') }}" method="GET">
                         <div class="wrap-table-shopping-cart">
                             <table class="table-shopping-cart">
                                 <tr class="table_head">
@@ -463,12 +459,12 @@
                             <!-- Baris Total -->
                             <tr>
                                 <td colspan="5" class="text-end"><strong>Total</strong></td>
-                                <td id="total">Rp.0</td>
+                                <td id="total">{{ $total ? 'Rp.' . number_format($total, 0, ',', '.') : 'Rp.0' }}</td>
                             </tr>
                             </table>
                         </div>
                         <!-- Tombol Checkout -->
-                    <div class="d-flex justify-content-end mt-4">
+                    <div class="mt-4 d-flex justify-content-end">
                         <form action="{{ route('user.checkout') }}" method="POST">
                             @csrf
                             <button type="submit" class="btn btn-primary">
@@ -587,7 +583,7 @@
                         </h4>
 
                         <form>
-                            <div class="wrap-input1 w-full p-b-4">
+                            <div class="w-full wrap-input1 p-b-4">
                                 <input class="input1 bg-none plh1 stext-107 cl7" type="text" name="email"
                                     placeholder="email@example.com">
                                 <div class="focus-input1 trans-04"></div>
@@ -648,7 +644,7 @@
             </span>
         </div>
 
-        <script>
+        {{-- <script>
             document.addEventListener('DOMContentLoaded', function () {
                 const checkboxes = document.querySelectorAll('.item-checkbox');
                 const subtotalElement = document.getElementById('subtotal');
@@ -677,7 +673,7 @@
                 // Inisialisasi perhitungan saat halaman dimuat
                 updateTotals();
             });
-        </script>
+        </script> --}}
 
 
         <!--===============================================================================================-->

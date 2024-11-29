@@ -31,7 +31,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/about' , [UserController::class, 'about'])->name('user.about');
         Route::get('/contact', [UserController::class, 'contact'])->name('user.contact');
         Route::get('/project' , [UserController::class, 'project'])->name('user.project');
+        
         Route::get('/checkout' , [UserController::class, 'checkout'])->name('user.checkout');
+        
+        Route::post('/checkout' , [UserController::class, 'store'])->name('user.checkout.store');
+
+        Route::get('/keranjang', [CartController::class, 'indexkeranjang'])->name('keranjang.index');
 
         Route::get('/profile', [CustomerController::class, 'edit'])->name('customer.edit');
         Route::put('/profile/update/{customer}', [CustomerController::class, 'update'])->name('customer.update');
@@ -44,11 +49,12 @@ Route::get('/send-question', function () {
 });
 
 // Route::get('/user/keranjang/dekorasi', [CartController::class, 'indexdekorasi'])->name('keranjangdekorasi.index');
-Route::get('/user/keranjang', [CartController::class, 'indexkeranjang'])->name('keranjang.index');
 Route::post('/user/keranjang/dekorasi/store', [CartController::class, 'storedekorasi'])->name('keranjangdekorasi.store');
 Route::post('/user/keranjang/dokum/store', [CartController::class, 'storedokum'])->name('keranjangdokum.store');
 Route::post('/user/keranjang/hiburan/store', [CartController::class, 'storehiburan'])->name('keranjanghiburan.store');
+// session
 Route::post('/user/keranjang/gedung/store', [CartController::class, 'storegedung'])->name('keranjanggedung.store');
+// session
 Route::post('/user/keranjang/sourvenir/store', [CartController::class, 'storesourvenir'])->name('keranjangsourvenir.store');
 
 require __DIR__.'/auth.php';

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Customer extends Authenticatable
@@ -15,17 +16,7 @@ class Customer extends Authenticatable
     protected $table = 'customers';
 
 
-    protected $fillable = [
-        'id_customer',
-        'user_id',
-        'name',
-        'email',
-        'password',
-        'address',
-        'phone',
-        'nik',
-        'gender',
-    ];
+    protected $guarded = [''];
 
     protected $hidden = [
         'password',
@@ -50,10 +41,13 @@ class Customer extends Authenticatable
         });
     }
 
-
-
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id', 'id_user');
+    }
+
+    public function pemesanan(): HasMany
+    {
+        return $this->hasMany(Pemesanan::class);
     }
 }
