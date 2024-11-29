@@ -36,7 +36,7 @@ class Bridalstyle extends Model
         });
     }
 
-    public function images()
+    public function bridalImages()
     {
         return $this->hasMany(BridalImage::class, 'bridalstyle_id', 'id_bridalstyle');
     }

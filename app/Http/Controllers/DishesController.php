@@ -50,7 +50,7 @@ class DishesController extends Controller
 
                 // Simpan path ke dalam database
                 DishesImage::create([
-                    'dishes_id' => $dishes->id_dishes,  // Pastikan id dekorasi benar
+                    'dishes_id' => $dishes->id_dishes,  // Pastikan id dishes benar
                     'image_path' => $imagePath,  // Simpan path gambar ke database
                 ]);
             }
@@ -80,7 +80,37 @@ class DishesController extends Controller
      */
     public function update(Request $request, Dishes $dishes)
     {
-        //
+        // return $request;
+        // Mengambil data request dan update dishes
+
+        // Jika ada file 'foto_dishes' yang diunggah, simpan dan dapatkan path-nya
+    if ($request->hasFile('foto_dishes')) {
+        $fotoPath = $request->file('foto_dishes')->store('foto_dishes', 'public');
+    } else {
+        $fotoPath = $dishes->foto_dishes; // Jika tidak ada file baru, tetap gunakan foto lama
+    }
+
+    // Update data dishes
+    $dishes->update([
+        'nama_paket_dishes' => $request->nama_paket_dishes,
+        'harga_paket_dishes' => $request->harga_paket_dishes,
+        'deskripsi_dishes' => $request->deskripsi_dishes,
+        'foto_dishes' => $fotoPath, // Menggunakan foto baru atau foto lama jika tidak ada file baru
+    ]);
+
+    // Mengelola multiple_foto jika ada
+    if ($request->hasFile('multiple_foto')) {
+        foreach ($request->file('multiple_foto') as $file) {
+            $imagePath = $file->store('multiple_foto_dishes', 'public');
+
+            // Membuat entri baru untuk setiap foto multiple
+            $dishes->images()->create([
+                'image_path' => $imagePath,
+            ]);
+        }
+    }
+
+        return redirect()->back()->with('success', 'dishes berhasil diperbarui.');
     }
 
     /**

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('nama_paket_mainC');
             $table->text('deskripsi_mainC');
             $table->bigINteger('harga_paket_mainC');
-            $table->string('foto_mainC')->nullable();
+            $table->string('foto_mainC')->default('foto_maincourse.png');
             $table->timestamps();
         });
     }

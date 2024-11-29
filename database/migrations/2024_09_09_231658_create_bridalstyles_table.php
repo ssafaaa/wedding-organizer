@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('nama_paket_bridalstyle');
             $table->string('deskripsi_paket');
             $table->bigInteger('harga_paket');
-            $table->string('foto_bridalstyle'); 
+            $table->string('foto_bridalstyle')->default('foto_bridalstyle.png'); 
             $table->timestamps();
         });
     }

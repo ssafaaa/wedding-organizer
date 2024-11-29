@@ -377,17 +377,75 @@
             <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity rounded-lg">
               <p class="text-white text-center font-semibold">Grey & Anastasia</p>
             </div>
-          </div>
-
-
+        </div>
         <!-- Tambahkan lebih banyak item sesuai kebutuhan -->
       </div>
     </div>
   </section>
 
+    <!-- Testimoni Section -->
+<section class="bg-gray-50 py-10">
+    <div class="container mx-auto px-4">
+        <h3 class="text-2xl font-semibold text-center mb-8">Testimoni</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Testimoni Card -->
+            <div class="bg-white shadow-lg rounded-lg p-6">
+                <div class="flex items-center mb-4">
+                    <img
+                        src="{{ asset('cst/booking/images/testi-1.jpg') }}"
+                        alt="Avatar"
+                        class="w-12 h-12 rounded-full mr-4"
+                    />
+                    <div>
+                        <h4 class="text-lg font-semibold">Hardin & Tessa</h4>
+                        <p class="text-gray-500 text-sm">5/5</p>
+                    </div>
+                </div>
+                <p class="text-gray-700">
+                    "Layanan yang sangat profesional! Acara pernikahan kami berjalan sempurna, dan semua tamu sangat terkesan dengan dekorasi dan tempatnya."
+                </p>
+            </div>
 
-		</div>
-	</section>
+            <!-- Testimoni Card -->
+            <div class="bg-white shadow-lg rounded-lg p-6">
+                <div class="flex items-center mb-4">
+                    <img
+                        src="{{ asset('cst/booking/images/testi-2.jpg') }}"
+                        alt="Avatar"
+                        class="w-12 h-12 rounded-full mr-4"
+                    />
+                    <div>
+                        <h4 class="text-lg font-semibold">Nathan & Fefe</h4>
+                        <p class="text-gray-500 text-sm">4.5/5</p>
+                    </div>
+                </div>
+                <p class="text-gray-700">
+                    "Tempatnya sangat indah, dan dokumentasinya luar biasa! Terima kasih untuk momen yang tak terlupakan."
+                </p>
+            </div>
+
+            <!-- Testimoni Card -->
+            <div class="bg-white shadow-lg rounded-lg p-6">
+                <div class="flex items-center mb-4">
+                    <img
+                        src="{{ asset('cst/booking/images/testi-3.jpg') }}"
+                        alt="Avatar"
+                        class="w-12 h-12 rounded-full mr-4"
+                    />
+                    <div>
+                        <h4 class="text-lg font-semibold">Jay & Pien</h4>
+                        <p class="text-gray-500 text-sm">4.8/5</p>
+                    </div>
+                </div>
+                <p class="text-gray-700">
+                    "Dari awal hingga akhir, semuanya berjalan lancar. Pelayanan terbaik yang pernah kami dapatkan!"
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+    
 
    
 

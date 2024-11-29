@@ -9,10 +9,10 @@ class BridalImage extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['bridal_id', 'image_path'];
+    protected $fillable = ['bridalstyle_id', 'image_path'];
 
-    public function bridal()
+    public function bridalstyle()
     {
-        return $this->belongsTo(Bridalstyle::class, 'bridal_id', 'id_bridal');
+        return $this->belongsTo(Bridalstyle::class, 'bridalstyle_id', 'id_bridalstyle');
     }
 }

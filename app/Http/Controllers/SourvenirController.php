@@ -37,10 +37,10 @@ class SourvenirController extends Controller
         };
 
         $sourvenir = Sourvenir::create([
-            'nama_sourvenir' => $request->nama_sourvenir,
-            'harga_sourvenir' => $request->harga_sourvenir,
-            'deskripsi_sourvenir' => $request->deskripsi_sourvenir,
-            'foto_sourvenir' => $request->foto_sourvenir,
+            'nama_paket_sourvenir' => $request->input('nama_paket_sourvenir'),
+            'deskripsi_sourvenir' => $request->input('deskripsi_sourvenir'),
+            'harga_sourvenir' => $request->input('harga_sourvenir'),
+            'foto_sourvenir' => $fotoPath,
         ]);
 
         if ($request->hasFile('multiple_foto')) {
@@ -50,13 +50,13 @@ class SourvenirController extends Controller
 
                 // Simpan path ke dalam database
                 SourvenirImage::create([
-                    'sourvenir_id' => $sourvenir->id_sourvenir,  // Pastikan id dekorasi benar
+                    'sourvenir_id' => $sourvenir->id_sourvenir,  // Pastikan id sourvenir benar
                     'image_path' => $imagePath,  // Simpan path gambar ke database
                 ]);
             }
         }
 
-        return redirect('admin/sourvenir')->with('succes', 'Item berhasil ditambahkan');
+        return redirect('admin/sourvenir')->with('Succes', 'Item berhasil ditambahkan');
     }
 
     /**
@@ -80,7 +80,37 @@ class SourvenirController extends Controller
      */
     public function update(Request $request, Sourvenir $sourvenir)
     {
-        //
+        // return $request;
+        // Mengambil data request dan update sourvenir
+
+        // Jika ada file 'foto_sourvenir' yang diunggah, simpan dan dapatkan path-nya
+    if ($request->hasFile('foto_sourvenir')) {
+        $fotoPath = $request->file('foto_sourvenir')->store('foto_sourvenir', 'public');
+    } else {
+        $fotoPath = $sourvenir->foto_sourvenir; // Jika tidak ada file baru, tetap gunakan foto lama
+    }
+
+    // Update data sourvenir
+    $sourvenir->update([
+        'nama_paket_sourvenir' => $request->nama_paket_sourvenir,
+        'harga_sourvenir' => $request->harga_sourvenir,
+        'deskripsi_sourvenir' => $request->deskripsi_sourvenir,
+        'foto_sourvenir' => $fotoPath, // Menggunakan foto baru atau foto lama jika tidak ada file baru
+    ]);
+
+    // Mengelola multiple_foto jika ada
+    if ($request->hasFile('multiple_foto')) {
+        foreach ($request->file('multiple_foto') as $file) {
+            $imagePath = $file->store('multiple_foto_sourvenir', 'public');
+
+            // Membuat entri baru untuk setiap foto multiple
+            $sourvenir->sourvenirImages()->create([
+                'image_path' => $imagePath,
+            ]);
+        }
+    }
+
+        return redirect()->back()->with('success', 'sourvenir berhasil diperbarui.');
     }
 
     /**

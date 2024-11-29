@@ -5,6 +5,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\BridalstyleController;
 use App\Http\Controllers\GedungController;
 use App\Http\Controllers\DekorasiController;
 use App\Http\Controllers\SourvenirController;
@@ -15,6 +16,9 @@ use App\Http\Controllers\HiburanController;
 use App\Http\Controllers\UndanganController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CustomerController;
+use App\Models\Bridalstyle;
+use App\Models\Dishes;
+use App\Models\Sourvenir;
 
 Route::get('/', function () {
     return view('welcome');
@@ -63,6 +67,11 @@ route::put('admin/dekorasi/update/{dekorasi}', [DekorasiController::class, 'upda
 
 route::get('admin/sourvenir',[SourvenirController::class, 'index'])->name('sourvenir');
 route::post('admin/sourvenir/store', [SourvenirController::class, 'store'])->name('sourvenir.store');
+route::put('admin/sourvenir/update/{sourvenir}', [SourvenirController::class, 'update'])->name('sourvenir.update');
+
+route::get('admin/bridalstyle',[BridalstyleController::class, 'index'])->name('bridalstyle');
+route::post('admin/bridalstyle/store', [BridalstyleController::class, 'store'])->name('bridalstyle.store');
+route::put('admin/bridalstyle/update/{bridal}', [BridalstyleController::class, 'update'])->name('bridalstyle.update');
 
 route::get('admin/dokumentasi',[DokumentasiController::class, 'index'])->name('dokumentasi');
 route::post('admin/dokumentasi/store', [DokumentasiController::class, 'store'])->name('dokumentasi.store');
@@ -74,6 +83,7 @@ route::put('admin/maincourse/update/{maincourse}', [MaincourseController::class,
 
 route::get('admin/dishes',[DishesController::class, 'index'])->name('dishes');
 route::post('admin/dishes/store', [DishesController::class, 'store'])->name('dishes.store');
+route::put('admin/dishes/update/{dishes}', [DishesController::class, 'update'])->name('dishes.update');
 
 route::get('admin/hiburan',[HiburanController::class, 'index'])->name('hiburan');
 route::post('admin/hiburan/store', [HiburanController::class, 'store'])->name('hiburan.store');

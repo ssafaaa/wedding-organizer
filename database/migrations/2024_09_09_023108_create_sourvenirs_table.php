@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('sourvenirs', function (Blueprint $table) {
             $table->string('id_sourvenir')->primary();
-            $table->string('nama_sourvenir');
+            $table->string('nama_paket_sourvenir');
             $table->bigInteger('harga_sourvenir');
             $table->text('deskripsi_sourvenir');
             $table->string('foto_sourvenir')->default('foto_sourvenir.png');

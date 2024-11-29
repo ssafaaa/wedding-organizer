@@ -352,6 +352,8 @@
             <div class="row">
                 <div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
                     <div class="m-l-25 m-r--38 m-lr-0-xl">
+                        <form action="{{ route('user.checkout') }}" method="POST">
+                            @csrf
                         <div class="wrap-table-shopping-cart">
                             <table class="table-shopping-cart">
                                 <tr class="table_head">
@@ -447,9 +449,9 @@
                                             </div>
                                         </td>
                                         <td>-</td>
-                                        <td>Rp.{{ number_format($gd->harga_dokumentasi, 0, ',', '.') }}</td>
+                                        <td>Rp.{{ number_format($dok->harga_dokumentasi, 0, ',', '.') }}</td>
                                         <td>1</td>
-                                        <td>Rp.{{ number_format($gd->harga_dokumentasi, 0, ',', '.') }}</td>
+                                        <td>Rp.{{ number_format($dok->harga_dokumentasi, 0, ',', '.') }}</td>
                                     </tr>
                                 @endif
                                     <!-- Baris Subtotal -->
@@ -476,6 +478,7 @@
                     </div>
                     </div>
                 </div>
+            </form>
 
 
             </div>

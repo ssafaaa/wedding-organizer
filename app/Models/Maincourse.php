@@ -36,7 +36,7 @@ class Maincourse extends Model
         });
     }
 
-    public function images()
+    public function maincourseImages()
     {
         return $this->hasMany(MainCImage::class, 'maincourse_id', 'id_maincourse');
     }

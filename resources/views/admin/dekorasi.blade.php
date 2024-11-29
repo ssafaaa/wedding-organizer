@@ -444,39 +444,6 @@
                     @endforelse
                 </tbody>
             </table>
-
-                                                {{-- <!-- Tabel Data -->
-                                                <table class="table datatables" id="dataTable-1">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>ID Dekorasi</th>
-                                                            <th>Nama Dekorasi</th>
-                                                            <th>Harga Dekorasi</th>
-                                                            <th>Aksi</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        @foreach ($dekorasis as $dk)
-                                                            <tr>
-                                                                <td>{{ $dk->id_dekorasi }}</td>
-                                                                <td>{{ $dk->nama_dekorasi }}</td>
-                                                                <td>{{ $dk->harga_dekorasi }}</td>
-                                                            <td><span
-                                                                    class="text-muted sr-only">Action</span>
-                                                                <button type="button"
-                                                                    data-target="#verticalModal{{ $dk->id_dekorasi }}"
-                                                                    data-toggle="modal"
-                                                                    class="btn mb-2 btn-primary">
-                                                                    <span class="fe fe-20  fe-eye"></span>
-                                                                </button>
-
-                                                                <button type="button"
-                                                                    data-target="#varyModal{{ $dk->id_dekorasi }}"
-                                                                    data-toggle="modal"
-                                                                    class="btn mb-2 btn-warning">
-                                                                    <span class="fe fe-20 fe-edit-2"></span>
-                                                                </button> --}}
-
                                                                         {{-- Modal edit --}}
                                                                         <div
                                                                         class="modal fade"

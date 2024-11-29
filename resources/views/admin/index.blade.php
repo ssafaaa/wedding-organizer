@@ -58,7 +58,7 @@
               </span>
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="#">Profile</a>
+              <a class="dropdown-item" href="{{route ('customer.edit')}}">Profile</a>
               <a class="dropdown-item" href="#">Settings</a>
               <a class="dropdown-item" href="#">Activities</a>
             </div>
@@ -119,7 +119,7 @@
                       <a class="nav-link pl-3" href="{{url('admin/undangan')}}"><span class="ml-1 item-text">Undangan</span></a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link pl-3" href="{{url('admin/bridal')}}"><span class="ml-1 item-text">Bridalstyle</span></a>
+                      <a class="nav-link pl-3" href="{{url('admin/bridalstyle')}}"><span class="ml-1 item-text">Bridalstyle</span></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link pl-3" href="{{url('admin/hiburan')}}"><span class="ml-1 item-text">Hiburan</span></a>

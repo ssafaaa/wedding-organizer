@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="favicon.ico">
-    <title>Tiny Dashboard - A Bootstrap Dashboard Template</title>
+    <title>Tiny Dassvoard - A Bootstrap Dassvoard Template</title>
     <!-- Simple bar CSS -->
     <link rel="stylesheet" href="/admin/light/css/simplebar.css">
     <!-- Fonts CSS -->
@@ -416,13 +416,13 @@
                                         <strong class="card-title">Form row</strong>
                                     </div>
                                     <div class="card-body">
-                                        <form action="{{ route('sourvenir.store') }}" method="POST">
+                                        <form action="{{ route('sourvenir.store') }}" method="POST" enctype='multipart/form-data'>
                                             @csrf
                                             <div class="form-row">
                                                 <div class="form-group col-md-12">
-                                                    <label for="nama_sourvenir">Nama Sourvenir</label>
-                                                    <input type="text" class="form-control" id="nama_sourvenir"
-                                                        name="nama_sourvenir">
+                                                    <label for="nama_paket_sourvenir">Nama Sourvenir</label>
+                                                    <input type="text" class="form-control" id="nama_paket_sourvenir"
+                                                        name="nama_paket_sourvenir">
                                                 </div>
                                                 <div class="form-group col-md-12">
                                                     <label for="harga_sourvenir">Harga Sourvenir</label>
@@ -480,7 +480,7 @@
                                                                 @foreach ($sourvenirs as $sv)
                                                                     <tr>
                                                                         <td>{{ $sv->id_sourvenir }}</td>
-                                                                        <td>{{ $sv->nama_sourvenir }}</td>
+                                                                        <td>{{ $sv->nama_paket_sourvenir }}</td>
                                                                         <td>{{ $sv->harga_sourvenir }}</td>
                                                                         <td><span
                                                                                 class="text-muted sr-only">Action</span>
@@ -488,7 +488,110 @@
                                                                                 data-target="#verticalModal{{ $sv->id_sourvenir }}"
                                                                                 data-toggle="modal"
                                                                                 class="btn mb-2 btn-primary"><span
-                                                                                    class="fe fe-20  fe-eye"></span></button>
+                                                                                class="fe fe-20  fe-eye"></span></button>
+                                                                            <button type="button"
+                                                                                    data-target="#varyModal{{ $sv->id_sourvenir }}"
+                                                                                    data-toggle="modal"
+                                                                                    class="btn mb-2 btn-warning"><span
+                                                                                    class="fe fe-20 fe-edit-2"></span>
+                                                                                </button>
+
+                                                                            {{-- Modal edit --}}
+                                        <div
+                                        class="modal fade"
+                                        id="varyModal{{ $sv->id_sourvenir }}"
+                                        tabindex="-1"
+                                        role="dialog"
+                                        aria-labelledby="varyModalLabel"
+                                        aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="varyModalLabel">Edit sourvenir</h5>
+                                                    <button
+                                                        type="button"
+                                                        class="close"
+                                                        data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form
+                                                        action="{{ route('sourvenir.update', $sv->id_sourvenir) }}"
+                                                        method="POST"
+                                                        enctype="multipart/form-data">
+                                                        @csrf
+                                                        @method('PUT')
+
+                                                        <!-- Nama sourvenir -->
+                                                        <div class="form-group">
+                                                            <label for="nama_paket_sourvenir" class="col-form-label">Nama sourvenir:</label>
+                                                            <input
+                                                                type="text"
+                                                                class="form-control"
+                                                                id="nama_paket_sourvenir"
+                                                                name="nama_paket_sourvenir"
+                                                                value="{{ $sv->nama_paket_sourvenir }}">
+                                                        </div>
+
+                                                        <!-- Harga sourvenir -->
+                                                        <div class="form-group">
+                                                            <label for="harga_sourvenir" class="col-form-label">Harga Sewa sourvenir:</label>
+                                                            <input
+                                                                type="text"
+                                                                class="form-control"
+                                                                id="harga_sourvenir"
+                                                                name="harga_sourvenir"
+                                                                value="{{ $sv->harga_sourvenir }}">
+                                                        </div>
+
+                                                        <!-- Deskripsi sourvenir -->
+                                                        <div class="form-group">
+                                                            <label for="deskripsi_sourvenir" class="col-form-label">Deskripsi:</label>
+                                                            <textarea
+                                                                class="form-control"
+                                                                id="deskripsi_sourvenir"
+                                                                name="deskripsi_sourvenir">{{ $sv->deskripsi_sourvenir }}</textarea>
+                                                        </div>
+
+                                                        <!-- Foto sourvenir -->
+                                                        <div class="form-group">
+                                                            <label for="foto_sourvenir">Foto sourvenir</label>
+                                                            <div class="custom-file">
+                                                                <input
+                                                                    type="file"
+                                                                    class="custom-file-input"
+                                                                    id="foto_sourvenir"
+                                                                    name="foto_sourvenir">
+                                                                <label class="custom-file-label" for="foto_sourvenir">Pilih Foto</label>
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- Foto Multiple -->
+                                                        <div class="form-group">
+                                                            <label for="multiple_foto">Foto Multiple</label>
+                                                            <div class="custom-file">
+                                                                <input
+                                                                    type="file"
+                                                                    class="custom-file-input"
+                                                                    id="multiple_foto"
+                                                                    name="multiple_foto[]"
+                                                                    multiple>
+                                                                <label class="custom-file-label" for="multiple_foto">Pilih Foto</label>
+                                                            </div>
+                                                        </div>
+
+
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
                                                                             <!-- Modal -->
                                                                             <div class="modal fade"
@@ -516,7 +619,7 @@
                                                                                                 {{ $sv->id_sourvenir }}
                                                                                             </h5>
                                                                                             <h5>Nama Dekorasi :
-                                                                                                {{ $sv->nama_sourvenir }}
+                                                                                                {{ $sv->nama_paket_sourvenir }}
                                                                                             </h5>
                                                                                             <h5>Deskripsi Dekorasi :
                                                                                                 {{ $sv->deskripsi_sourvenir }}
@@ -525,6 +628,21 @@
                                                                                                 {{ $sv->harga_sourvenir }}
                                                                                             </h5>
                                                                                         </div>
+                                                                                        <!-- Foto Thumbnail -->
+                <h5>Foto Thumbnail dekorasi:</h5>
+                <img src="{{ asset('storage/' . $sv->foto_sourvenir) }}" alt="Foto Thumbnail dekorasi"
+                    class="img-thumbnail" style="width: 100%; max-width: 300px;">
+
+                <!-- Foto Lainnya -->
+                <h5>Foto Lainnya:</h5>
+                <div class="d-flex flex-wrap">
+                    @forelse ($sv->sourvenirImages as $image) <!-- Pastikan relasi `dekorasiImages` sudah diatur di model dekorasi -->
+                        <img src="{{ asset('storage/' . $image->image_path) }}" alt="Foto Lainnya"
+                            class="img-thumbnail m-2" style="width: 100px; height: auto;">
+                    @empty
+                        <p class="text-muted">Tidak ada foto tambahan.</p>
+                    @endforelse
+                </div>
                                                                                         <div class="modal-footer">
                                                                                             <button type="button"
                                                                                                 class="btn mb-2 btn-secondary"
@@ -534,12 +652,6 @@
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
-
-                                                                            <button type="button"
-                                                                                data-target="#varyModal{{ $sv->id_sourvenir }}"
-                                                                                data-toggle="modal"
-                                                                                class="btn mb-2 btn-warning"><span
-                                                                                class="fe fe-20 fe-edit-2"></span></button>
                                                                             @endforeach
                                                     </div> <!-- end section -->
                                                 </div> <!-- .col-12 -->

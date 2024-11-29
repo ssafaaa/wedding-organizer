@@ -354,7 +354,7 @@
                       <strong class="card-title">Form row</strong>
                     </div>
                     <div class="card-body">
-                      <form action="{{route('maincourse.store')}}" method="POST">
+                      <form action="{{route('maincourse.store')}}" method="POST" enctype='multipart/form-data'>
                         @csrf
                         <div class="form-row">
                             <div class="form-group col-md-12">
@@ -369,15 +369,32 @@
                                 <div class="form-group">
                                     <label for="example-textarea">Deskripsi</label>
                                     <textarea class="form-control" id="deskripsi_mainC" rows="2" name="deskripsi_mainC"></textarea>
-                                  </div>
-                                  <div class="col-md-12">
-                                    <label for="customFile">Foto Paket Main Course</label>
+                                  <!-- Foto dekorasi -->
+                                  <div class="form-group">
+                                    <label for="foto_mainC">Foto dekorasi</label>
                                     <div class="custom-file">
-                                      <input type="file" class="custom-file-input" id="foto_mainC" name="foto_mainC">
-                                      <label class="custom-file-label" for="foto_mainC">Pilih Foto</label>
+                                        <input
+                                            type="file"
+                                            class="custom-file-input"
+                                            id="foto_mainC"
+                                            name="foto_mainC">
+                                        <label class="custom-file-label" for="foto_dekorasi">Pilih Foto</label>
                                     </div>
-                                    <br><br>
-                                  </div>
+                                </div>
+
+                                <!-- Foto Multiple -->
+                                <div class="form-group">
+                                    <label for="multiple_foto">Foto Multiple</label>
+                                    <div class="custom-file">
+                                        <input
+                                            type="file"
+                                            class="custom-file-input"
+                                            id="multiple_foto"
+                                            name="multiple_foto[]"
+                                            multiple>
+                                        <label class="custom-file-label" for="multiple_foto">Pilih Foto</label>
+                                    </div>
+                                </div>
                                   <button type="submit" class="btn btn-primary mb-2">Submit</button>
                               </div>
                       </form>

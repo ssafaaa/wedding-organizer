@@ -694,36 +694,8 @@
             </span>
         </div>
 
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                const checkboxes = document.querySelectorAll('.item-checkbox');
-                const subtotalElement = document.getElementById('subtotal');
-                const totalElement = document.getElementById('total');
-        
-                function updateTotals() {
-                    let subtotal = 0;
-        
-                    // Menghitung subtotal berdasarkan item yang dipilih
-                    checkboxes.forEach(checkbox => {
-                        if (checkbox.checked) {
-                            subtotal += parseFloat(checkbox.getAttribute('data-harga'));
-                        }
-                    });
-        
-                    // Update elemen subtotal dan total
-                    subtotalElement.textContent = `Rp.${subtotal.toLocaleString('id-ID')}`;
-                    totalElement.textContent = `Rp.${subtotal.toLocaleString('id-ID')}`;
-                }
-        
-                // Menambahkan event listener pada checkbox
-                checkboxes.forEach(checkbox => {
-                    checkbox.addEventListener('change', updateTotals);
-                });
-        
-                // Inisialisasi perhitungan saat halaman dimuat
-                updateTotals();
-            });
-        </script>
+       
+                 
         
 
         <!--===============================================================================================-->

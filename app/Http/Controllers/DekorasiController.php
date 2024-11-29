@@ -13,23 +13,37 @@ class DekorasiController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        $dekorasis = Dekorasi::all();
-        return view('admin.dekorasi', compact('dekorasis'));
+    // public function index()
+    // {
+    //     $dekorasis = Dekorasi::all();
+    //     return view('admin.dekorasi', compact('dekorasis'));
 
+    //     $search = $request->input('search');
+
+    // $dekorasis = Dekorasi::when($search, function ($query, $search) {
+    //     return $query->where('id_dekorasi', 'like', "%{$search}%")
+    //         ->orWhere('nama_dekorasi', 'like', "%{$search}%")
+    //         ->orWhere('harga_dekorasi', 'like', "%{$search}%");
+    // })->get();
+
+    // return view('admin.dekorasi', compact('dekorasis', 'search'));
+
+    // }
+
+    public function index(Request $request)
+    {
         $search = $request->input('search');
 
-    $dekorasis = Dekorasi::when($search, function ($query, $search) {
-        return $query->where('id_dekorasi', 'like', "%{$search}%")
+        $dekorasis = $search ? Dekorasi::where('id_dekorasi', 'like', "%{$search}%")
             ->orWhere('nama_dekorasi', 'like', "%{$search}%")
-            ->orWhere('harga_dekorasi', 'like', "%{$search}%");
-    })->get();
+            ->orWhere('harga_dekorasi', 'like', "%{$search}%")->get()
+            : Dekorasi::all();
 
-    return view('admin.dekorasi', compact('dekorasis', 'search'));
-
+        return view('admin.dekorasi', [
+            'dekorasis' => $dekorasis,
+            'search' => $search
+        ]);
     }
-
     /**
      * Show the form for creating a new resource.
      */

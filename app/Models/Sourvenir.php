@@ -16,10 +16,10 @@ class Sourvenir extends Model
 
     protected $fillable = [
         'id_sourvenir',
-        'nama_sourvenir',
+        'nama_paket_sourvenir',
         'harga_sourvenir',
         'deskripsi_sourvenir',
-        'gambar_sourvenir'
+        'foto_sourvenir'
     ];
 
     protected static function boot()
@@ -36,7 +36,7 @@ class Sourvenir extends Model
         });
     }
 
-    public function images()
+    public function sourvenirImages()
     {
         return $this->hasMany(SourvenirImage::class, 'sourvenir_id', 'id_sourvenir');
     }
