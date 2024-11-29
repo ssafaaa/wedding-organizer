@@ -56,4 +56,9 @@ class Customer extends Authenticatable
     {
         return $this->belongsTo(User::class, 'user_id', 'id_user');
     }
+
+    public function histori()
+    {
+        return $this->hasMany(Histori::class, 'histori_id', 'id_histori');
+    }
 }

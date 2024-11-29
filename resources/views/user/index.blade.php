@@ -147,7 +147,7 @@
                     <i class="zmdi zmdi-shopping-cart"></i></a>
                 </div>
 
-				<a href="{{ route('customer.edit') }}" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti" data-notify="0">
+				<a href="{{ route('admin.profile') }}" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti" data-notify="0">
 					<i class="zmdi zmdi-favorite-outline"></i>
 				</a>
 			</div>

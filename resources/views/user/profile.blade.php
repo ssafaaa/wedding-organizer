@@ -191,9 +191,9 @@
                                             @csrf
                                             @method('PUT')
                                             <div class="form-group">
-                                                <label for="nama">Nama</label>
-                                                <input type="text" class="form-control" id="nama"
-                                                    name="nama" value="{{ $customer->nama }}">
+                                                <label for="name">Nama</label>
+                                                <input type="text" class="form-control" id="name"
+                                                    name="name" value="{{ $customer->name }}">
                                             </div>
                                             <div class="form-row">
                                                 <div class="form-group col-md-6">
@@ -202,15 +202,15 @@
                                                         name="email" value="{{ $customer->email }}">
                                                 </div>
                                                 <div class="form-group col-md-6">
-                                                    <label for="password">Password</label>
-                                                    <input type="password" class="form-control" id="password"
-                                                        name="password">
+                                                    <label for="phone">Phone</label>
+                                                    <input type="phone" class="form-control" id="phone"
+                                                        name="phone" value="{{$customer->phone}}">
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="alamat">Alamat</label>
-                                                <input type="text" class="form-control" id="alamat"
-                                                    name="alamat" value="{{ $customer->address }}">
+                                                <label for="address">Alamat</label>
+                                                <input type="text" class="form-control" id="address"
+                                                    name="address" value="{{ $customer->address }}">
                                             </div>
                                             <div class="form-row">
                                                 <div class="form-group col-md-6">

@@ -14,9 +14,15 @@ class CustomerController extends Controller
     public function index()
     {
         $customer = Customer::where('user_id', Auth::user()->id_user)->first();
-        dd($customer);
+        // dd($customer);
         return view('user.profile', compact('customer'));
 
+    }
+
+    public function profileAdmin()
+    {
+        $customer = Customer::where('user_id', Auth::user()->id_user)->first();
+        return view('admin.profile', compact('customer'));
     }
 
     /**
@@ -73,9 +79,9 @@ class CustomerController extends Controller
     {
         // dd($customer);
         $customer->update([
-                'nama' => $request->nama,
+                'name' => $request->name,
                 'email' => $request->email,
-                'password' => $request->password,
+                // 'password' => $request->password,
                 'address' => $request->address,
                 'phone' => $request->phone,
                 'nik' => $request->nik,

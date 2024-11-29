@@ -44,4 +44,9 @@ class Pemesanan extends Model
         return $this->hasMany(Customer::class, 'customer_id', 'id_customer');
     }
 
+    public function histori()
+    {
+        return $this->hasMany(Histori::class, 'histori_id', 'id_histori');
+    }
+
 }
