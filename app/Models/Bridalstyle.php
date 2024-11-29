@@ -14,12 +14,7 @@ class Bridalstyle extends Model
     protected $keyType = 'string';
     protected $table = 'bridalstyles';
 
-    protected $fillable = [
-        'nama_paket_bridalstyle',
-        'deskripsi_paket',
-        'harga_paket',
-        'foto_bridalstyle',
-    ];
+    protected $guarded = ['id_bridalstyle'];
 
     protected static function boot()
     {

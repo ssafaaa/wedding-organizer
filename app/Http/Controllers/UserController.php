@@ -17,6 +17,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SendQuestionMail;
+use App\Models\Pemesanan;
+use Illuminate\Support\Facades\Auth;
 use SebastianBergmann\CodeCoverage\Report\Xml\Source;
 
 class UserController extends Controller
@@ -44,9 +46,18 @@ class UserController extends Controller
         // $user = User::all();
         // $customer = Customer::all();
 
-        return view('user.booking', compact('gedung', 'fotogedung','dekorasi', 'fotodekorasi', 'hiburan',
-        'fotohiburan', 'dokumentasi', 'fotodokumentasi', 'sourvenir', 'fotosourvenir'));
-
+        return view('user.booking', compact(
+            'gedung',
+            'fotogedung',
+            'dekorasi',
+            'fotodekorasi',
+            'hiburan',
+            'fotohiburan',
+            'dokumentasi',
+            'fotodokumentasi',
+            'sourvenir',
+            'fotosourvenir'
+        ));
     }
 
     public function about()
@@ -69,7 +80,46 @@ class UserController extends Controller
 
     public function checkout()
     {
-        return view('user.checkout');
+        $total = 0;
+        
+        $dekorasi = Dekorasi::all();
+
+        $dekorasiTerpilih = session('dekorasi_terpilih');
+        $dekorasi = Dekorasi::find($dekorasiTerpilih);
+
+        $dokumentasi = Dokumentasi::all();
+
+        $dokumentasiTerpilih = session('dokumentasi_terpilih');
+
+        $hiburan = Hiburan::all();
+
+        $hiburanTerpilih = session('hiburan_terpilih');
+
+        $gedung = Gedung::all();
+
+        $gedungTerpilih = session('gedung_terpilih');
+        $gedung = Gedung::find($gedungTerpilih);
+
+        $sourvenir = Sourvenir::all();
+        $sourvenirTerpilih = session('sourvenir_terpilih');
+
+        if (session()->has('gedung_terpilih') && session()->has('dekorasi_terpilih') && session()->has('dokumentasi_terpilih') && session()->has('hiburan_terpilih') && session()->has('sourvenir_terpilih')) {
+            $total = $gedung->harga_sewa_gedung + $dekorasi->harga_dekorasi;
+        }
+
+        return view('user.checkout', [
+            'total' => $total,
+            'dokumentasi' => $dokumentasi,
+            'dokumentasiTerpilih' => $dokumentasiTerpilih,
+            'dekorasi' => $dekorasi,
+            'dekorasiTerpilih' => $dekorasiTerpilih,
+            'hiburan' => $hiburan,
+            'hiburanTerpilih' => $hiburanTerpilih,
+            'gedung' => $gedung,
+            'gedungTerpilih' => $gedungTerpilih,
+            'sourvenir' => $sourvenir,
+            'sourvenirTerpilih' => $sourvenirTerpilih
+        ]);
     }
 
     //     public function sendQuestion(Request $request)
@@ -91,16 +141,16 @@ class UserController extends Controller
     // }
 
     public function sendQuestion(Request $request)
-{
-    $request->validate([
-        'msg' => 'required|string|max:500',
-    ]);
+    {
+        $request->validate([
+            'msg' => 'required|string|max:500',
+        ]);
 
-    // Kirim email
-    Mail::to('hello@example.com')->send(new SendQuestionMail($request->msg));
+        // Kirim email
+        Mail::to('hello@example.com')->send(new SendQuestionMail($request->msg));
 
-    return back()->with('success', 'Pertanyaan Anda telah dikirim.');
-}
+        return back()->with('success', 'Pertanyaan Anda telah dikirim.');
+    }
     public function create()
     {
         //
@@ -111,7 +161,23 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $gedung = Gedung::find(session('gedung_terpilih'));
+        $dekorasi = Dekorasi::find(session('dekorasi_terpilih'));
+        $customer = Customer::where('user_id', Auth::user()->id_user)->first();
+
+        $total = $gedung->harga_sewa_gedung + $dekorasi->harga_dekorasi;
+
+        Pemesanan::create([
+            'id_customer' => $customer->id_customer,
+            'tanggal_pemesanan' => now(),
+            'tanggal_acara' => now(),
+            'status_pemesanan' => 'Pending',
+            'total_biaya' => $total
+        ]);
+
+        session()->forget(['gedung_terpilih', 'dekorasi_terpilih']);
+
+        return redirect()->route('user.checkout');
     }
 
     /**

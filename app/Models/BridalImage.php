@@ -9,7 +9,7 @@ class BridalImage extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['bridalstyle_id', 'image_path'];
+    protected $guarded = ['id'];
 
     public function bridalstyle()
     {

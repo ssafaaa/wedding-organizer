@@ -1,3 +1,4 @@
+w
 <!DOCTYPE html>
 <html lang="en">
 
@@ -42,12 +43,12 @@
         <div class="container-menu-desktop">
             <!-- Topbar -->
             <div class="top-bar">
-                <div class="content-topbar flex-sb-m h-full container">
+                <div class="container h-full content-topbar flex-sb-m">
                     <div class="left-top-bar">
                         Free shipping for standard order over $100
                     </div>
 
-                    <div class="right-top-bar flex-w h-full">
+                    <div class="h-full right-top-bar flex-w">
                         <a href="#" class="flex-c-m trans-04 p-lr-25">
                             Help & FAQs
                         </a>
@@ -68,7 +69,7 @@
             </div>
 
             <div class="wrap-menu-desktop how-shadow1">
-                <nav class="limiter-menu-desktop container">
+                <nav class="container limiter-menu-desktop">
 
                     <!-- Logo desktop -->
                     <a href="#" class="logo">
@@ -168,7 +169,7 @@
                 </li>
 
                 <li>
-                    <div class="right-top-bar flex-w h-full">
+                    <div class="h-full right-top-bar flex-w">
                         <a href="#" class="flex-c-m p-lr-10 trans-04">
                             Help & FAQs
                         </a>
@@ -256,7 +257,7 @@
             </div>
 
             <div class="header-cart-content flex-w js-pscroll">
-                <ul class="header-cart-wrapitem w-full">
+                <ul class="w-full header-cart-wrapitem">
                     <li class="header-cart-item flex-w flex-t m-b-12">
                         <div class="header-cart-item-img">
                             <img src="images/item-cart-01.jpg" alt="IMG">
@@ -307,11 +308,11 @@
                 </ul>
 
                 <div class="w-full">
-                    <div class="header-cart-total w-full p-tb-40">
+                    <div class="w-full header-cart-total p-tb-40">
                         Total: $75.00
                     </div>
 
-                    <div class="header-cart-buttons flex-w w-full">
+                    <div class="w-full header-cart-buttons flex-w">
                         <a href="shoping-cart.html"
                             class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10">
                             View Cart
@@ -353,89 +354,94 @@
                 <div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
                     <div class="m-l-25 m-r--38 m-lr-0-xl">
                         <div class="wrap-table-shopping-cart">
-                            <table class="table-shopping-cart">
-                                <tr class="table_head">
-                                    @php
-                                        use App\Models\Dekorasi;
-                                        use App\Models\Dokumentasi;
-                                        use App\Models\Hiburan;
-                                        use App\Models\Gedung;
-                                    @endphp
-                                    <th class="column-1">#</th>
-                                    <th class="column-2">Nama Item</th>
-                                    <th class="column-3">Variant</th>
-                                    <th class="column-4">Harga</th>
-                                    <th class="column-5">Quantity</th>
-                                    <th class="column-6">Total</th>
-                                </tr>
-
-                                @if (session()->has('dekorasi_terpilih'))
-                                    <?php $dk = Dekorasi::find(session('dekorasi_terpilih')); ?>
-                                    <tr>
-                                        <td>
-                                            <input type="checkbox" class="item-checkbox"
-                                                data-harga="{{ $dk->harga_dekorasi }}"
-                                                value="{{ $dk->id_dekorasi }}">
-                                        </td>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <div class="image-container me-3">
-                                                    @if ($dk->foto_dekorasi)
-                                                        <img src="{{ asset('storage/' . $dk->foto_dekorasi) }}"
-                                                            alt="Foto Dekorasi" class="img-fluid">
-                                                    @else
-                                                        <p>Tidak ada Foto</p>
-                                                    @endif
-                                                </div>
-                                                <h6 class="mb-0">{{ $dk->nama_dekorasi }}</h6>
-                                            </div>
-                                        </td>
-                                        <td>-</td>
-                                        <td>Rp.{{ number_format($dk->harga_dekorasi, 0, ',', '.') }}</td>
-                                        <td>1</td>
-                                        <td>Rp.{{ number_format($dk->harga_dekorasi, 0, ',', '.') }}</td>
+                            <form id="form-checkout" action="{{ route('user.checkout.store') }}" method="POST">
+                                @csrf
+                                <table class="table-shopping-cart">
+                                    <tr class="table_head">
+                                        @php
+                                            use App\Models\Dekorasi;
+                                            use App\Models\Dokumentasi;
+                                            use App\Models\Hiburan;
+                                            use App\Models\Gedung;
+                                        @endphp
+                                        <th class="column-1">#</th>
+                                        <th class="column-2">Nama Item</th>
+                                        <th class="column-3">Variant</th>
+                                        <th class="column-4">Harga</th>
+                                        <th class="column-5">Quantity</th>
+                                        <th class="column-6">Total</th>
                                     </tr>
-                                @endif
 
-                                @if (session()->has('gedung_terpilih'))
-                                    <?php $gd = Gedung::find(session('gedung_terpilih')); ?>
-                                    <tr>
-                                        <td>
-                                            <input type="checkbox" class="item-checkbox"
-                                                data-harga="{{ $gd->harga_sewa_gedung }}"
-                                                value="{{ $gd->id_gedung }}">
-                                        </td>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <div class="image-container me-3">
-                                                    @if ($gd->foto_gedung)
-                                                        <img src="{{ asset('storage/' . $gd->foto_gedung) }}"
-                                                            alt="Foto Gedung" class="img-fluid">
-                                                    @else
-                                                        <p>Tidak ada Foto</p>
-                                                    @endif
+                                    @if (session()->has('dekorasi_terpilih'))
+                                        <?php $dk = Dekorasi::find(session('dekorasi_terpilih')); ?>
+
+                                        <tr>
+                                            <td>
+                                                <input type="checkbox" class="item-checkbox"
+                                                    data-harga="{{ $dk->harga_dekorasi }}"
+                                                    value="{{ $dk->id_dekorasi }}">
+                                            </td>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <div class="image-container me-3">
+                                                        @if ($dk->foto_dekorasi)
+                                                            <img src="{{ asset('storage/' . $dk->foto_dekorasi) }}"
+                                                                alt="Foto Dekorasi" class="img-fluid">
+                                                        @else
+                                                            <p>Tidak ada Foto</p>
+                                                        @endif
+                                                    </div>
+                                                    <h6 class="mb-0">{{ $dk->nama_dekorasi }}</h6>
                                                 </div>
-                                                <h6 class="mb-0">{{ $gd->nama_gedung }}</h6>
-                                            </div>
-                                        </td>
-                                        <td>-</td>
-                                        <td>Rp.{{ number_format($gd->harga_sewa_gedung, 0, ',', '.') }}</td>
-                                        <td>1</td>
-                                        <td>Rp.{{ number_format($gd->harga_sewa_gedung, 0, ',', '.') }}</td>
-                                    </tr>
-                                @endif
+                                            </td>
+                                            <td>-</td>
+                                            <td>Rp.{{ number_format($dk->harga_dekorasi, 0, ',', '.') }}</td>
+                                            <td>1</td>
+                                            <td>Rp.{{ number_format($dk->harga_dekorasi, 0, ',', '.') }}</td>
+                                        </tr>
+                                    @endif
+
+                                    @if (session()->has('gedung_terpilih'))
+                                        <?php $gd = Gedung::find(session('gedung_terpilih')); ?>
+                                        <tr>
+                                            <td>
+                                                <input type="checkbox" class="item-checkbox"
+                                                    data-harga="{{ $gd->harga_sewa_gedung }}"
+                                                    value="{{ $gd->id_gedung }}">
+                                            </td>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <div class="image-container me-3">
+                                                        @if ($gd->foto_gedung)
+                                                            <img src="{{ asset('storage/' . $gd->foto_gedung) }}"
+                                                                alt="Foto Gedung" class="img-fluid">
+                                                        @else
+                                                            <p>Tidak ada Foto</p>
+                                                        @endif
+                                                    </div>
+                                                    <h6 class="mb-0">{{ $gd->nama_gedung }}</h6>
+                                                </div>
+                                            </td>
+                                            <td>-</td>
+                                            <td>Rp.{{ number_format($gd->harga_sewa_gedung, 0, ',', '.') }}</td>
+                                            <td>1</td>
+                                            <td>Rp.{{ number_format($gd->harga_sewa_gedung, 0, ',', '.') }}</td>
+                                        </tr>
+                                    @endif
                                     <!-- Baris Subtotal -->
-                            <tr>
-                                <td colspan="5" class="text-end"><strong>Subtotal</strong></td>
-                                <td id="subtotal">Rp.0</td>
-                            </tr>
+                                    <tr>
+                                        <td colspan="5" class="text-end"><strong>Subtotal</strong></td>
+                                        <td id="subtotal">Rp.0</td>
+                                    </tr>
 
-                            <!-- Baris Total -->
-                            <tr>
-                                <td colspan="5" class="text-end"><strong>Total</strong></td>
-                                <td id="total">Rp.0</td>
-                            </tr>
-                            </table>
+                                    <!-- Baris Total -->
+                                    <tr>
+                                        <td colspan="5" class="text-end"><strong>Total</strong></td>
+                                        <td id="total">
+                                            {{ $total ? 'Rp.' . number_format($total, 0, ',', '.') : 'Rp.0' }}</td>
+                                    </tr>
+                                </table>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -455,7 +461,7 @@
 
                             <div class="size-209">
                                 <span class="mtext-110 cl2">
-                                    $79.65
+                                    {{ $total ? 'Rp.' . number_format($total, 0, ',', '.') : 'Rp.0' }}
                                 </span>
                             </div>
                         </div>
@@ -517,12 +523,13 @@
 
                             <div class="size-209 p-t-1">
                                 <span class="mtext-110 cl2">
-                                    $79.65
+                                    {{ $total ? 'Rp.' . number_format($total, 0, ',', '.') : 'Rp.0' }}
                                 </span>
                             </div>
                         </div>
 
-                        <button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
+                        <button type="submit" form="form-checkout"
+                            class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
                             Proceed to Checkout
                         </button>
                     </div>
@@ -530,8 +537,6 @@
             </div>
         </div>
         </form>
-
-
 
 
         <!-- Footer -->
@@ -633,7 +638,7 @@
                         </h4>
 
                         <form>
-                            <div class="wrap-input1 w-full p-b-4">
+                            <div class="w-full wrap-input1 p-b-4">
                                 <input class="input1 bg-none plh1 stext-107 cl7" type="text" name="email"
                                     placeholder="email@example.com">
                                 <div class="focus-input1 trans-04"></div>
@@ -694,9 +699,9 @@
             </span>
         </div>
 
-       
-                 
-        
+
+
+
 
         <!--===============================================================================================-->
         <script src="{{ asset('cst/booking/vendor/jquery/jquery-3.2.1.min.js') }}"></script>
