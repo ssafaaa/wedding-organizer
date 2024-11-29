@@ -13,19 +13,17 @@ return new class extends Migration
     {
         Schema::create('pemesanans', function (Blueprint $table) {
             $table->string('id_pemesanan')->primary();
-            $table->string('id_customer');
+            $table->string('id_customer')->nullable();
             $table->date('tanggal_pemesanan');
             $table->date('tanggal_acara');
             $table->enum('status_pemesanan', ['Pending', 'Ongoing', 'Success']);
             $table->bigInteger('total_biaya');
             $table->timestamps();
 
-            // Definisikan foreign key
-            $table->foreign('customer_id')
-            ->references('id_customer')
-            ->on('customers')
-            ->onDelete('cascade')
-            ->onUpdate('cascade');
+            $table->foreign('id_customer')
+                ->references('id_customer')
+                ->on('customers')
+                ->onDelete('set null');
         });
     }
 

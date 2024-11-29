@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Pemesanan extends Model
 {
@@ -15,33 +16,24 @@ class Pemesanan extends Model
     protected $table = 'pemesanans';
 
 
-    protected $fillable = [
-        'id_pemesanan',
-        'id_customer',
-        'tanggal_pemesanan',
-        'tanggal_acara',
-        'status_pemesanan',
-        'total_biaya',
-    ];
+    protected $guarded = [''];
 
     protected static function boot()
     {
         parent::boot();
 
-        static::creating(function($product) {
+        static::creating(function($pemesanan) {
             do {
                 $lastPemesanan = Pemesanan::orderBy('id_pemesanan', 'desc')->first();
                 $lastId = $lastPemesanan ? intval(substr($lastPemesanan->id_pemesanan, 3)) : 0;
-                $newId = 'CO' . str_pad($lastId + 1, 4, '0', STR_PAD_LEFT);
+                $newId = 'PS' . str_pad($lastId + 1, 4, '0', STR_PAD_LEFT);
             } while (Pemesanan::where('id_pemesanan', $newId)->exists());
 
-            $product->id_customer = $newId;
+            $pemesanan->id_pemesanan = $newId;
         });
     }
 
-    public function customer()
-    {
-        return $this->hasMany(Customer::class, 'customer_id', 'id_customer');
+    public function customer(): BelongsTo {
+        return $this->belongsTo(Customer::class);
     }
-
 }
