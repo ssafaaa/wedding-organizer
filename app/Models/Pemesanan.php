@@ -36,4 +36,10 @@ class Pemesanan extends Model
     public function customer(): BelongsTo {
         return $this->belongsTo(Customer::class);
     }
+
+    public function histori()
+    {
+        return $this->hasMany(Histori::class, 'histori_id', 'id_histori');
+    }
+
 }

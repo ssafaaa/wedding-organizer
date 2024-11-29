@@ -63,6 +63,8 @@ require __DIR__.'/auth.php';
 route::get('admin/dashboard', [HomeController::class, 'index'])->
     middleware(['auth','admin']);
 
+
+Route::get('/profile', [CustomerController::class, 'profileAdmin'])->name('admin.profile');
 route::get('admin/gedung',[GedungController::class, 'index'])->name('gedung');
 route::post('admin/gedung/store', [GedungController::class, 'store'])->name('gedung.store');
 route::put('admin/gedung/update/{gedung}', [GedungController::class, 'update'])->name('gedung.update');
