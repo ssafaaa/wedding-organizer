@@ -12,7 +12,10 @@ class PemesananController extends Controller
      */
     public function index()
     {
-        
+        $pemesanans = Pemesanan::all();
+
+        // dd($pemesanans[0]);
+        return view('admin.pemesanan', compact('pemesanans'));
     }
 
     /**
@@ -44,7 +47,7 @@ class PemesananController extends Controller
      */
     public function edit(Pemesanan $pemesanan)
     {
-        //
+        
     }
 
     /**
@@ -52,7 +55,16 @@ class PemesananController extends Controller
      */
     public function update(Request $request, Pemesanan $pemesanan)
     {
-        //
+        $pemesanan->update([
+            'id_pemesanan' => $request->id_pemesanan,
+            'id_customer' => $request->id_customer,
+            'total_biaya' => $request->total_biaya,
+            'tanggal_acara' => $request->tanggal_acara,
+            'status_pemesanan' => $request->status_pemesanan,
+
+        ]);
+
+        return redirect()->back()->with('success', 'Dekorasi berhasil diperbarui.');
     }
 
     /**

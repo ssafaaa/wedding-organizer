@@ -16,8 +16,10 @@ use App\Http\Controllers\HiburanController;
 use App\Http\Controllers\UndanganController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\PemesananController;
 use App\Models\Bridalstyle;
 use App\Models\Dishes;
+use App\Models\Pemesanan;
 use App\Models\Sourvenir;
 
 Route::get('/', function () {
@@ -48,6 +50,9 @@ Route::get('/send-question', function () {
     return redirect('/user/contact')->with('error', 'Silakan gunakan form untuk mengirimkan pertanyaan.');
 });
 
+Route::get('/admin/pemesanan', [PemesananController::class, 'index'])->name('admin.pemesanan');
+Route::put('/admin/pemesanan/{pemesanan}', [PemesananController::class, 'update'])->name('pemesanan.update');
+
 // Route::get('/user/keranjang/dekorasi', [CartController::class, 'indexdekorasi'])->name('keranjangdekorasi.index');
 Route::post('/user/keranjang/dekorasi/store', [CartController::class, 'storedekorasi'])->name('keranjangdekorasi.store');
 Route::post('/user/keranjang/dokum/store', [CartController::class, 'storedokum'])->name('keranjangdokum.store');
@@ -62,7 +67,6 @@ require __DIR__.'/auth.php';
 
 route::get('admin/dashboard', [HomeController::class, 'index'])->
     middleware(['auth','admin']);
-
 
 Route::get('/profile', [CustomerController::class, 'profileAdmin'])->name('admin.profile');
 route::get('admin/gedung',[GedungController::class, 'index'])->name('gedung');
