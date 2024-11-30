@@ -16,6 +16,7 @@ use App\Http\Controllers\HiburanController;
 use App\Http\Controllers\UndanganController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\TestimoniController;
 use App\Models\Bridalstyle;
 use App\Models\Dishes;
 use App\Models\Sourvenir;
@@ -63,6 +64,8 @@ require __DIR__.'/auth.php';
 route::get('admin/dashboard', [HomeController::class, 'index'])->
     middleware(['auth','admin']);
 
+// testimoni
+Route::get('/admin/testimoni', [TestimoniController::class, 'index'])->name('testimoni.index');
 
 Route::get('/profile', [CustomerController::class, 'profileAdmin'])->name('admin.profile');
 route::get('admin/gedung',[GedungController::class, 'index'])->name('gedung');
