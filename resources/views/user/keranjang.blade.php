@@ -465,8 +465,7 @@
                         </div>
                         <!-- Tombol Checkout -->
                     <div class="mt-4 d-flex justify-content-end">
-                        <form action="{{ route('user.checkout') }}" method="POST">
-                            @csrf
+                        <form action="{{ route('user.checkout') }}" method="GET">
                             <button type="submit" class="btn btn-primary">
                                 Checkout
                             </button>
