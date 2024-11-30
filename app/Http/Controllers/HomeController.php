@@ -16,8 +16,10 @@ class HomeController extends Controller
     {
         $countUser = Customer::count();
         $totalOrder = Pemesanan::count();
-        $closeVanue = Histori::count();
-        return view('admin.index', compact('countUser', 'totalOrder', 'closeVanue'));
+        $closeVanue = Pemesanan::where('status_pemesanan', 'success')->count();
+        $pendapatan = Pemesanan::sum('total_biaya');
+        // dd($pemdapatam)
+        return view('admin.index', compact('countUser', 'totalOrder', 'closeVanue', 'pendapatan'));
     }
 
     /**
