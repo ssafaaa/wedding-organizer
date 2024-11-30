@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use App\Models\Pemesanan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -13,11 +14,12 @@ class CustomerController extends Controller
      */
     public function index()
     {
+        $pemesanan = Pemesanan::all();
         $customer = Customer::where('user_id', Auth::user()->id_user)->first();
-        // dd($customer);
-        return view('user.profile', compact('customer'));
+        return view('user.profile', compact('customer', 'pemesanan'));
 
     }
+    
 
     public function profileAdmin()
     {
@@ -67,8 +69,12 @@ class CustomerController extends Controller
 
     public function edit()
     {
+
         $customer = Customer::where('user_id', Auth::user()->id_user)->first();
-        return view('user.profile', compact('customer'));
+
+        $pemesanans = Pemesanan::where('id_customer', $customer->id_customer)->get();
+        // dd($pemesanans);
+        return view('user.profile', compact('customer', 'pemesanans'));
     }
 
 
