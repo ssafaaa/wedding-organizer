@@ -2,22 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Customer;
 use App\Models\Histori;
-use App\Models\Pemesanan;
 use Illuminate\Http\Request;
 
-class HomeController extends Controller
+class HistoriController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $countUser = Customer::count();
-        $totalOrder = Pemesanan::count();
-        $closeVanue = Histori::count();
-        return view('admin.index', compact('countUser', 'totalOrder', 'closeVanue'));
+        //
     }
 
     /**
@@ -39,7 +34,7 @@ class HomeController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Histori $histori)
     {
         //
     }
@@ -47,7 +42,7 @@ class HomeController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Histori $histori)
     {
         //
     }
@@ -55,7 +50,7 @@ class HomeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Histori $histori)
     {
         //
     }
@@ -63,7 +58,7 @@ class HomeController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Histori $histori)
     {
         //
     }
