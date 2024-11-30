@@ -204,7 +204,7 @@
                                                 <div class="form-group col-md-6">
                                                     <label for="phone">Phone</label>
                                                     <input type="phone" class="form-control" id="phone"
-                                                        name="phone" value="{{$customer->phone}}">
+                                                        name="phone" value="{{ $customer->phone }}">
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -237,6 +237,101 @@
                                 </div> <!-- .row -->
                             </div> <!-- .container-fluid -->
                         </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container-fluid">
+                <div class="row justify-content-center">
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="container-fluid">
+                                <div class="row justify-content-center">
+                                    <div class="col-12">
+                                        <div class="my-4 row">
+                                            <!-- Small table -->
+                                            <div class="col-md-12">
+                                                <div class="shadow card">
+                                                    <div class="card-body">
+
+                                                        <!-- Search Form -->
+                                                        <form action="{{ route('customer.edit') }}" method="GET">
+                                                            <div class="form-group d-flex align-items-center">
+                                                                <input type="text" name="search"
+                                                                    class="form-control" value="{{ $search ?? '' }}"
+                                                                    placeholder="Cari berdasarkan ID, Nama, atau Harga...">
+                                                                <button type="submit"
+                                                                    class="ml-2 btn btn-primary">Search</button>
+                                                            </div>
+                                                        </form>
+
+                                                        <!-- Tabel Dekorasi -->
+                                                        <table class="table">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>ID Pemesanan</th>
+                                                                    <th>ID Customer</th>
+                                                                    <th>Total Biaya</th>
+                                                                    <th>Tanggal Acara</th>
+                                                                    <th>Status Pemasanan</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                @foreach ($pemesanans as $ps)
+                                                                    <tr>
+                                                                        <td>{{ $ps->id_pemesanan }}</td>
+                                                                        <td>{{ $ps->id_customer }}</td>
+                                                                        <td>{{ $ps->total_biaya }}</td>
+                                                                        <td>{{ $ps->tanggal_acara }}</td>
+                                                                        <td>{{ $ps->status_pemesanan }}</td>
+                                                                    </tr>
+                                                                @endforeach
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                                </td>
+                                                </tr>
+                                                {{-- @endforeach --}}
+                                                </tbody>
+
+                                                <!-- js fitur search -->
+                                                <script>
+                                                    $(document).ready(function() {
+                                                        // Inisialisasi DataTable
+                                                        var table = $('#dataTable-1').DataTable();
+
+                                                        // Fitur pencarian dengan tombol Search
+                                                        $('#btn-search').on('click', function() {
+                                                            var searchValue = $('#search').val(); // Ambil nilai input pencarian
+                                                            table
+                                                                .columns([0, 1, 2]) // Kolom ID, Nama, dan Harga
+                                                                .search(searchValue) // Set pencarian
+                                                                .draw(); // Tampilkan hasil pencarian
+                                                        });
+                                                    });
+                                                </script>
+
+                                                <!-- Include jQuery -->
+                                                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+                                                <!-- Include CSS DataTables -->
+                                                <link rel="stylesheet" type="text/css"
+                                                    href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+
+                                                <!-- Include JS DataTables -->
+                                                <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js">
+                                                </script>
+
+                                            </div> <!-- end section -->
+                                        </div> <!-- .col-12 -->
+                                    </div> <!-- .row -->
+                                </div> <!-- .container-fluid -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </main>
 
         <!-- JavaScript -->
