@@ -50,9 +50,15 @@ class Customer extends Authenticatable
     public function histori()
     {
         return $this->hasMany(Histori::class, 'histori_id', 'id_histori');
+    }
 
-    public function pemesanan(): HasMany
+    public function pemesanan()
     {
         return $this->hasMany(Pemesanan::class);
+    }
+
+    public function testimoni()
+    {
+        return $this->hasMany(Testimoni::class, 'testimoni_id', 'id_testimoni');
     }
 }

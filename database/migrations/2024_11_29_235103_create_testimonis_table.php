@@ -11,24 +11,25 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('historis', function (Blueprint $table) {
-            $table->string('id_history')->primary();
-            $table->string('customer_id')->constrained()->onDelete('cascade');
+        Schema::create('testimonis', function (Blueprint $table) {
+            $table->string('id_testimoni')->primary();
             $table->string('pemesanan_id')->constrained()->onDelete('cascade');
-            $table->date('tanggal_pemesanan');
+            $table->text('testimoni');
+            $table->integer('rating');
+            $table->string('customer_id')->constrained()->onDelete('cascade');
             $table->timestamps();
 
-            // // Definisikan foreign key
+            //  // Definisikan foreign key
+            //  $table->foreign('pemesanan_id')
+            //  ->references('id_pemesanan') // Kolom id di tabel users
+            //  ->on('pemesanans')
+            //  ->onDelete('cascade')
+            //  ->onUpdate('cascade');
+
+            //   // Definisikan foreign key
             // $table->foreign('customer_id')
             // ->references('id_customer') // Kolom id di tabel users
             // ->on('customers')
-            // ->onDelete('cascade')
-            // ->onUpdate('cascade');
-
-            // // Definisikan foreign key
-            // $table->foreign('pemesanan_id')
-            // ->references('id_pemesanan') // Kolom id di tabel users
-            // ->on('pemesanans')
             // ->onDelete('cascade')
             // ->onUpdate('cascade');
         });
@@ -39,6 +40,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('historis');
+        Schema::dropIfExists('testimonis');
     }
 };

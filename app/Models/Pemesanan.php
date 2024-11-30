@@ -42,4 +42,14 @@ class Pemesanan extends Model
         return $this->hasMany(Histori::class, 'histori_id', 'id_histori');
     }
 
+    public function testimoni()
+    {
+        return $this->hasMany(Testimoni::class, 'testimoni_id', 'id_testimoni');
+    }
+
+    public function pembayaran()
+    {
+        return $this->hasOne(Pembayaran::class, 'pembayaran_id', 'id_pembayaran');
+    }
+
 }
