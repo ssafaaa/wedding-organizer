@@ -13,17 +13,18 @@ return new class extends Migration
     {
         Schema::create('pemesanans', function (Blueprint $table) {
             $table->string('id_pemesanan')->primary();
-            $table->string('customer_id')->constrained()->onDelete('cascade');
+            $table->string('id_customer');
+            $table->integer('banyak_tamu');
             $table->date('tanggal_pemesanan');
             $table->date('tanggal_acara');
             $table->enum('status_pemesanan', ['Pending', 'Ongoing', 'Success']);
             $table->bigInteger('total_biaya');
             $table->timestamps();
 
-            // $table->foreign('id_customer')
-            //     ->references('id_customer')
-            //     ->on('customers')
-            //     ->onDelete('set null');
+            $table->foreign('id_customer')
+                ->references('id_customer')
+                ->on('customers')
+                ->cascadeOnDelete();
         });
     }
 

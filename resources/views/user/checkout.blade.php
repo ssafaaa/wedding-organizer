@@ -354,189 +354,172 @@ w
                 <div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
                     <div class="m-l-25 m-r--38 m-lr-0-xl">
                         <div class="wrap-table-shopping-cart">
-                            <form id="form-checkout" action="{{ route('user.checkout.store') }}" method="POST">
-                                @csrf
-                                <table class="table-shopping-cart">
-                                    <tr class="table_head">
-                                        @php
-                                            use App\Models\Dekorasi;
-                                            use App\Models\Dokumentasi;
-                                            use App\Models\Hiburan;
-                                            use App\Models\Gedung;
-                                        @endphp
-                                        <th class="column-1">#</th>
-                                        <th class="column-2">Nama Item</th>
-                                        <th class="column-3">Variant</th>
-                                        <th class="column-4">Harga</th>
-                                        <th class="column-5">Quantity</th>
-                                        <th class="column-6">Total</th>
-                                    </tr>
+                            <table class="table-shopping-cart">
+                                <tr class="table_head">
+                                    @php
+                                        use App\Models\Dekorasi;
+                                        use App\Models\Dokumentasi;
+                                        use App\Models\Hiburan;
+                                        use App\Models\Gedung;
+                                    @endphp
+                                    <th class="column-1">#</th>
+                                    <th class="column-2">Nama Item</th>
+                                    <th class="column-3">Variant</th>
+                                    <th class="column-4">Harga</th>
+                                    <th class="column-5">Quantity</th>
+                                    <th class="column-6">Total</th>
+                                </tr>
 
-                                    @if (session()->has('dekorasi_terpilih'))
-                                        <?php $dk = Dekorasi::find(session('dekorasi_terpilih')); ?>
+                                @if (session()->has('dekorasi_terpilih'))
+                                    <?php $dk = Dekorasi::find(session('dekorasi_terpilih')); ?>
 
-                                        <tr>
-                                            <td>
-                                                <input type="checkbox" class="item-checkbox"
-                                                    data-harga="{{ $dk->harga_dekorasi }}"
-                                                    value="{{ $dk->id_dekorasi }}">
-                                            </td>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <div class="image-container me-3">
-                                                        @if ($dk->foto_dekorasi)
-                                                            <img src="{{ asset('storage/' . $dk->foto_dekorasi) }}"
-                                                                alt="Foto Dekorasi" class="img-fluid">
-                                                        @else
-                                                            <p>Tidak ada Foto</p>
-                                                        @endif
-                                                    </div>
-                                                    <h6 class="mb-0">{{ $dk->nama_dekorasi }}</h6>
-                                                </div>
-                                            </td>
-                                            <td>-</td>
-                                            <td>Rp.{{ number_format($dk->harga_dekorasi, 0, ',', '.') }}</td>
-                                            <td>1</td>
-                                            <td>Rp.{{ number_format($dk->harga_dekorasi, 0, ',', '.') }}</td>
-                                        </tr>
-                                    @endif
-
-                                    @if (session()->has('gedung_terpilih'))
-                                        <?php $gd = Gedung::find(session('gedung_terpilih')); ?>
-                                        <tr>
-                                            <td>
-                                                <input type="checkbox" class="item-checkbox"
-                                                    data-harga="{{ $gd->harga_sewa_gedung }}"
-                                                    value="{{ $gd->id_gedung }}">
-                                            </td>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <div class="image-container me-3">
-                                                        @if ($gd->foto_gedung)
-                                                            <img src="{{ asset('storage/' . $gd->foto_gedung) }}"
-                                                                alt="Foto Gedung" class="img-fluid">
-                                                        @else
-                                                            <p>Tidak ada Foto</p>
-                                                        @endif
-                                                    </div>
-                                                    <h6 class="mb-0">{{ $gd->nama_gedung }}</h6>
-                                                </div>
-                                            </td>
-                                            <td>-</td>
-                                            <td>Rp.{{ number_format($gd->harga_sewa_gedung, 0, ',', '.') }}</td>
-                                            <td>1</td>
-                                            <td>Rp.{{ number_format($gd->harga_sewa_gedung, 0, ',', '.') }}</td>
-                                        </tr>
-                                    @endif
-                                    <!-- Baris Subtotal -->
                                     <tr>
-                                        <td colspan="5" class="text-end"><strong>Subtotal</strong></td>
-                                        <td id="subtotal">Rp.0</td>
+                                        <td>
+                                            <input type="checkbox" class="item-checkbox"
+                                                data-harga="{{ $dk->harga_dekorasi }}"
+                                                value="{{ $dk->id_dekorasi }}">
+                                        </td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="image-container me-3">
+                                                    @if ($dk->foto_dekorasi)
+                                                        <img src="{{ asset('storage/' . $dk->foto_dekorasi) }}"
+                                                            alt="Foto Dekorasi" class="img-fluid">
+                                                    @else
+                                                        <p>Tidak ada Foto</p>
+                                                    @endif
+                                                </div>
+                                                <h6 class="mb-0">{{ $dk->nama_dekorasi }}</h6>
+                                            </div>
+                                        </td>
+                                        <td>-</td>
+                                        <td>Rp.{{ number_format($dk->harga_dekorasi, 0, ',', '.') }}</td>
+                                        <td>1</td>
+                                        <td>Rp.{{ number_format($dk->harga_dekorasi, 0, ',', '.') }}</td>
                                     </tr>
+                                @endif
 
-                                    <!-- Baris Total -->
+                                @if (session()->has('gedung_terpilih'))
+                                    <?php $gd = Gedung::find(session('gedung_terpilih')); ?>
                                     <tr>
-                                        <td colspan="5" class="text-end"><strong>Total</strong></td>
-                                        <td id="total">
-                                            {{ $total ? 'Rp.' . number_format($total, 0, ',', '.') : 'Rp.0' }}</td>
+                                        <td>
+                                            <input type="checkbox" class="item-checkbox"
+                                                data-harga="{{ $gd->harga_sewa_gedung }}"
+                                                value="{{ $gd->id_gedung }}">
+                                        </td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="image-container me-3">
+                                                    @if ($gd->foto_gedung)
+                                                        <img src="{{ asset('storage/' . $gd->foto_gedung) }}"
+                                                            alt="Foto Gedung" class="img-fluid">
+                                                    @else
+                                                        <p>Tidak ada Foto</p>
+                                                    @endif
+                                                </div>
+                                                <h6 class="mb-0">{{ $gd->nama_gedung }}</h6>
+                                            </div>
+                                        </td>
+                                        <td>-</td>
+                                        <td>Rp.{{ number_format($gd->harga_sewa_gedung, 0, ',', '.') }}</td>
+                                        <td>1</td>
+                                        <td>Rp.{{ number_format($gd->harga_sewa_gedung, 0, ',', '.') }}</td>
                                     </tr>
-                                </table>
+                                @endif
+                                <!-- Baris Subtotal -->
+                                <tr>
+                                    <td colspan="5" class="text-end"><strong>Subtotal</strong></td>
+                                    <td id="subtotal">Rp.0</td>
+                                </tr>
+
+                                <!-- Baris Total -->
+                                <tr>
+                                    <td colspan="5" class="text-end"><strong>Total</strong></td>
+                                    <td id="total">
+                                        {{ $total ? 'Rp.' . number_format($total, 0, ',', '.') : 'Rp.0' }}</td>
+                                </tr>
+                            </table>
                             </form>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-sm-10 col-lg-7 col-xl-5 m-lr-auto m-b-50">
-                    <div class="bor10 p-lr-40 p-t-30 p-b-40 m-l-63 m-r-40 m-lr-0-xl p-lr-15-sm">
-                        <h4 class="mtext-109 cl2 p-b-30">
-                            Cart Totals
-                        </h4>
+                    <form id="form-checkout" action="{{ route('user.checkout.store') }}" method="POST">
+                        @csrf
+                        <div class="bor10 p-lr-40 p-t-30 p-b-40 m-l-63 m-r-40 m-lr-0-xl p-lr-15-sm">
+                            <h4 class="mtext-109 cl2 p-b-30">
+                                Cart Totals
+                            </h4>
 
-                        <div class="flex-w flex-t bor12 p-b-13">
-                            <div class="size-208">
-                                <span class="stext-110 cl2">
-                                    Subtotal:
-                                </span>
-                            </div>
-
-                            <div class="size-209">
-                                <span class="mtext-110 cl2">
-                                    {{ $total ? 'Rp.' . number_format($total, 0, ',', '.') : 'Rp.0' }}
-                                </span>
-                            </div>
-                        </div>
-
-                        <div class="flex-w flex-t bor12 p-t-15 p-b-30">
-                            <div class="size-208 w-full-ssm">
-                                <span class="stext-110 cl2">
-                                    Shipping:
-                                </span>
-                            </div>
-
-                            <div class="size-209 p-r-18 p-r-0-sm w-full-ssm">
-                                <p class="stext-111 cl6 p-t-2">
-                                    There are no shipping methods available. Please double check your address, or
-                                    contact us if you need any help.
-                                </p>
-
-                                <div class="p-t-15">
-                                    <span class="stext-112 cl8">
-                                        Calculate Shipping
+                            <div class="flex-w flex-t bor12 p-b-13">
+                                <div class="size-208">
+                                    <span class="stext-110 cl2">
+                                        Subtotal:
                                     </span>
+                                </div>
 
-                                    <div class="rs1-select2 rs2-select2 bor8 bg0 m-b-12 m-t-9">
-                                        <select class="js-select2" name="time">
-                                            <option>Select a country...</option>
-                                            <option>USA</option>
-                                            <option>UK</option>
-                                        </select>
-                                        <div class="dropDownSelect2"></div>
-                                    </div>
-
-                                    <div class="bor8 bg0 m-b-12">
-                                        <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text"
-                                            name="state" placeholder="State /  country">
-                                    </div>
-
-                                    <div class="bor8 bg0 m-b-22">
-                                        <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text"
-                                            name="postcode" placeholder="Postcode / Zip">
-                                    </div>
-
-                                    <div class="flex-w">
-                                        <div
-                                            class="flex-c-m stext-101 cl2 size-115 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer">
-                                            Update Totals
-                                        </div>
-                                    </div>
-
+                                <div class="size-209">
+                                    <span class="mtext-110 cl2">
+                                        {{ $total ? 'Rp.' . number_format($total, 0, ',', '.') : 'Rp.0' }}
+                                    </span>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="flex-w flex-t p-t-27 p-b-33">
-                            <div class="size-208">
-                                <span class="mtext-101 cl2">
-                                    Total:
-                                </span>
+                            <div class="flex-w flex-t bor12 p-t-15 p-b-30">
+                                <div class="size-208 w-full-ssm">
+                                    <span class="stext-110 cl2">
+                                        Mohon Diisi:
+                                    </span>
+                                </div>
+
+                                <div class="size-209 p-r-18 p-r-0-sm w-full-ssm">
+                                    <p class="stext-109 cl6 p-t-2">
+                                        Diisi guna melemgkapi data pemesanan
+                                    </p>
+
+                                    <div class="p-t-15">
+                                        <label for="banyak_tamu" class="form-label">Banyak Tamu</label>
+                                        <input type="number" class="form-control" name="banyak_tamu">
+                                    </div>
+                                    
+                                    <div class="p-t-15">
+                                        <label for="tanggal_pemesanan" class="form-label">Tanggal
+                                            Pemesanan</label>
+                                        <input type="date" class="form-control" name="tanggal_pemesanan"
+                                            value="{{ date('Y-m-d') }}">
+                                    </div>
+
+                                    <div class="p-t-15">
+                                        <label for="tanggal_acara" class="form-label">Tanggal Acara</label>
+                                        <input type="date" class="form-control" name="tanggal_acara">
+                                    </div>
+                                </div>
                             </div>
 
-                            <div class="size-209 p-t-1">
-                                <span class="mtext-110 cl2">
-                                    {{ $total ? 'Rp.' . number_format($total, 0, ',', '.') : 'Rp.0' }}
-                                </span>
-                            </div>
-                        </div>
+                            <div class="flex-w flex-t p-t-27 p-b-33">
+                                <div class="size-208">
+                                    <span class="mtext-101 cl2">
+                                        Total:
+                                    </span>
+                                </div>
 
-                        <button type="submit" form="form-checkout"
-                            class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
-                            Proceed to Checkout
-                        </button>
-                    </div>
+                                <div class="size-209 p-t-1">
+                                    <span class="mtext-110 cl2">
+                                        {{ $total ? 'Rp.' . number_format($total, 0, ',', '.') : 'Rp.0' }}
+                                    </span>
+                                </div>
+                            </div>
+
+                            <button type="submit" form="form-checkout"
+                                class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
+                                Checkout!
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
-        </form>
 
 
         <!-- Footer -->

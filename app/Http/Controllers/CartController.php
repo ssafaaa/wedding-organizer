@@ -46,7 +46,7 @@ class CartController extends Controller
         $sourvenir = Sourvenir::all();
         $sourvenirTerpilih = session('sourvenir_terpilih');
 
-        if (session()->has('gedung_terpilih') && session()->has('dekorasi_terpilih') && session()->has('dokumentasi_terpilih') && session()->has('hiburan_terpilih') && session()->has('sourvenir_terpilih')) {
+        if (session()->has('gedung_terpilih') && session()->has('dekorasi_terpilih')) {
             $total = $gedung->harga_sewa_gedung + $dekorasi->harga_dekorasi;
         }
 

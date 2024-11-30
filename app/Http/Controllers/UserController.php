@@ -103,7 +103,7 @@ class UserController extends Controller
         $sourvenir = Sourvenir::all();
         $sourvenirTerpilih = session('sourvenir_terpilih');
 
-        if (session()->has('gedung_terpilih') && session()->has('dekorasi_terpilih') && session()->has('dokumentasi_terpilih') && session()->has('hiburan_terpilih') && session()->has('sourvenir_terpilih')) {
+        if (session()->has('gedung_terpilih') && session()->has('dekorasi_terpilih')) {
             $total = $gedung->harga_sewa_gedung + $dekorasi->harga_dekorasi;
         }
 
@@ -169,9 +169,10 @@ class UserController extends Controller
 
         Pemesanan::create([
             'id_customer' => $customer->id_customer,
-            'tanggal_pemesanan' => now(),
-            'tanggal_acara' => now(),
+            'tanggal_pemesanan' => $request->tanggal_pemesanan,
+            'tanggal_acara' => $request->tanggal_acara,
             'status_pemesanan' => 'Pending',
+            'banyak_tamu' => $request->banyak_tamu,
             'total_biaya' => $total
         ]);
 
