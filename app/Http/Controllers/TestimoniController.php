@@ -12,7 +12,11 @@ class TestimoniController extends Controller
      */
     public function index()
     {
-        //
+        $testimonis = Testimoni::all();
+
+        return view('admin.testimoni', [
+            'testimonis' => $testimonis
+        ]);
     }
 
     /**
