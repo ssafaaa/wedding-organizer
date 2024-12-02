@@ -93,6 +93,7 @@ class UserController extends Controller
 
         $pemesanan->update([
             'bukti_pembayaran' => $fotoPath,
+            'status_pemesanan' => 'Ongoing'
         ]);
 
         return redirect()->back()->with('success', 'Bukti pembayaran berhasil diunggah.');
