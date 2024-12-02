@@ -10,12 +10,29 @@ class PemesananController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        $pemesanans = Pemesanan::all();
+    // public function index()
+    // {
+    //     $pemesanans = Pemesanan::all();
 
-        // dd($pemesanans[0]);
-        return view('admin.pemesanan', compact('pemesanans'));
+    //     // dd($pemesanans[0]);
+    //     return view('admin.pemesanan', compact('pemesanans'));
+    // }
+
+    public function index(Request $request)
+    {
+        $search = $request->input('search');
+
+        $pemesanans = $search ? Pemesanan::where('id_pemesanan', 'like', "%{$search}%")
+            ->orWhere('id_pemesanan', 'like', "%{$search}%")
+            ->orWhere('total_biaya', 'like', "%{$search}%")
+            ->orWhere('tanggal_acara', 'like', "%{$search}%")
+            ->orWhere('id_customer', 'like', "%{$search}%")->get()
+            : Pemesanan::all();
+
+        return view('admin.pemesanan', [
+            'pemesanans' => $pemesanans,
+            'search' => $search
+        ]);
     }
 
     /**

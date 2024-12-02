@@ -16,7 +16,7 @@ class Histori extends Model
 
 
     protected $fillable = [
-        'id_histori', 'id_customer', 'id_pemesanan', 'tanggal_pemesanan'
+        'id_histori', 'id_customer', 'id_pemesanan', 'tanggal_pemesanan', 'status_pemesanan'
     ];
 
     protected static function boot()
@@ -44,4 +44,5 @@ class Histori extends Model
     {
         return $this->belongsTo(Pemesanan::class, 'pemesanan_id', 'id_pemesanan');
     }
+    
 }
