@@ -145,18 +145,115 @@
                   </div>
                   <div class="row mb-4">
                     <div class="col-md-7">
-                      <p class="text-muted"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris blandit nisl ullamcorper, rutrum metus in, congue lectus. In hac habitasse platea dictumst. Cras urna quam, malesuada vitae risus at, pretium blandit sapien. </p>
+                      <p class="text-muted">{{$customer->address}}</p>
                     </div>
                     <div class="col">
-                      <p class="small mb-0 text-muted">Nec Urna Suscipit Ltd</p>
-                      <p class="small mb-0 text-muted">P.O. Box 464, 5975 Eget Avenue</p>
-                      <p class="small mb-0 text-muted">(537) 315-1481</p>
+                      <p class="small mb-0 text-muted">{{$customer->phone}}</p>
+                      <p class="small mb-0 text-muted">{{$customer->gender}}</p>
+                      <p class="small mb-0 text-muted">{{$customer->nik}}</p>
                     </div>
                   </div>
                 </div>
               </div>
+              <div class="container-fluid">
+                <div class="row justify-content-center">
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="mb-4 shadow card">
+                                    <div class="card-header">
+                                        <strong class="card-title">Edit Profile</strong>
+                                    </div>
+                                    <div class="card-body">
+                                        <form action="{{ route('customer.update', $customer->id_customer) }}"
+                                            method="POST" enctype="multipart/form-data">
+                                            @csrf
+                                            @method('PUT')
+                                            <div class="form-group">
+                                                <label for="name">Nama</label>
+                                                <input type="text" class="form-control" id="name"
+                                                    name="name" value="{{ $customer->name }}">
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group col-md-6">
+                                                    <label for="email">Email</label>
+                                                    <input type="email" class="form-control" id="email"
+                                                        name="email" value="{{ $customer->email }}">
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label for="phone">Phone</label>
+                                                    <input type="phone" class="form-control" id="phone"
+                                                        name="phone" value="{{ $customer->phone }}">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="password">Password</label>
+                                                <div class="input-group">
+                                                    <input type="password" class="form-control" id="password" name="password" value="{{ $customer->password }}">
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text" id="togglePassword" style="cursor: pointer;">
+                                                            <i class="fas fa-eye"></i>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="address">Alamat</label>
+                                                <input type="text" class="form-control" id="address"
+                                                    name="address" value="{{ $customer->address }}">
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group col-md-6">
+                                                    <label for="nik">NIK</label>
+                                                    <input type="text" class="form-control" id="nik"
+                                                        name="nik" value="{{ $customer->nik }}">
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label for="gender">Gender</label>
+                                                    <select id="gender" class="form-control" name="gender">
+                                                        <option value="Pria"
+                                                            {{ $customer->gender == 'Pria' ? 'selected' : '' }}>Pria
+                                                        </option>
+                                                        <option value="Wanita"
+                                                            {{ $customer->gender == 'Wanita' ? 'selected' : '' }}>
+                                                            Wanita</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Update</button>
+                                        </form>
+
+                                    </div> <!-- .col-12 -->
+                                </div> <!-- .row -->
+                            </div> <!-- .container-fluid -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
       </main> <!-- main -->
     </div> <!-- .wrapper -->
+
+    <script>
+        const togglePassword = document.querySelector("#togglePassword");
+        const passwordField = document.querySelector("#password");
+
+        togglePassword.addEventListener("click", function () {
+            // Ubah tipe input
+            const type = passwordField.type === "password" ? "text" : "password";
+            passwordField.type = type;
+
+            // Ganti icon (opsional, jika pakai Font Awesome)
+            this.querySelector('i').classList.toggle("fa-eye");
+            this.querySelector('i').classList.toggle("fa-eye-slash");
+        });
+    </script>
+
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+/>
+
     <script src="/admin/light/js/jquery.min.js"></script>
     <script src="/admin/light/js/popper.min.js"></script>
     <script src="/admin/light/js/moment.min.js"></script>

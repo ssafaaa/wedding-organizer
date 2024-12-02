@@ -433,78 +433,79 @@
                                                                     class="btn mb-2 btn-primary"><span
                                                                     class="fe fe-20  fe-eye"></span></button>
 
-                <!-- Modal -->
-                <div class="modal fade"
-                id="verticalModal{{ $mc->id_maincourse }}"
-                tabindex="-1" role="dialog"
-                aria-labelledby="verticalModalTitle"
-                aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered"
-                    role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title"
-                                id="verticalModalTitle">
-                                Detail Main Course</h5>
-                            <button type="button"
-                                class="close"
-                                data-dismiss="modal"
-                                aria-label="Close">
-                                <span
-                                    aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <h5>ID Main Course :
-                                {{ $mc->id_maincourse }}
-                            </h5>
-                            <h5>Nama Main Course :
-                                {{ $mc->nama_paket_mainC }}
-                            </h5>
-                            <h5>Deskripsi Main Course :
-                                {{ $mc->deskripsi_mainC }}
-                            </h5>
-                            <h5>Harga Main Course :
-                                {{ $mc->harga_mainC }}
-                            </h5>
-                            <!-- Foto Thumbnail -->
-                            <h5>Foto Thumbnail dekorasi:</h5>
-                            <img src="{{ asset('storage/' . $mc->foto_mainC) }}"
-                                alt="Foto Thumbnail dekorasi"
-                                class="img-thumbnail"
-                                style="width: 100%; max-width: 300px;">
-
-                            <!-- Foto Lainnya -->
-                            <h5>Foto Lainnya:</h5>
-                            <div class="flex-wrap d-flex">
-                                @forelse ($mc->maincourseImages as $image)
-                                    <!-- Pastikan relasi `dekorasiImages` sudah diatur di model dekorasi -->
-                                    <img src="{{ asset('storage/' . $image->image_path) }}"
-                                        alt="Foto Lainnya"
-                                        class="m-2 img-thumbnail"
-                                        style="width: 100px; height: auto;">
-                                @empty
-                                    <p class="text-muted">Tidak
-                                        ada foto
-                                        tambahan.</p>
-                                @endforelse
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button"
-                                class="btn mb-2 btn-secondary"
-                                data-dismiss="modal">Close</button>
-                            {{-- <button type="button" class="btn mb-2 btn-primary">Save changes</button> --}}
-                        </div>
-                    </div>
-                </div>
-            </div>
-
                                                                 <button type="button"
                                                                     data-target="#varyModal{{ $mc->id_maincourse }}"
                                                                     data-toggle="modal"
                                                                     class="btn mb-2 btn-warning"><span
                                                                     class="fe fe-20 fe-edit-2"></span></button>
+
+                                                                    <!-- Modal -->
+                                                                    <div class="modal fade"
+                                                                        id="verticalModal{{ $mc->id_maincourse }}"
+                                                                        tabindex="-1" role="dialog"
+                                                                        aria-labelledby="verticalModalTitle"
+                                                                        aria-hidden="true">
+                                                                        <div class="modal-dialog modal-dialog-centered modal-lg"
+                                                                            role="document">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <h5 class="modal-title"
+                                                                                        id="verticalModalTitle">Detail
+                                                                                        dishes
+                                                                                    </h5>
+                                                                                    <button type="button"
+                                                                                        class="close"
+                                                                                        data-dismiss="modal"
+                                                                                        aria-label="Close">
+                                                                                        <span
+                                                                                            aria-hidden="true">&times;</span>
+                                                                                    </button>
+                                                                                </div>
+                                                                                <div class="modal-body">
+                                                                                    <h5>ID dekorasi:
+                                                                                        {{ $mc->id_maincourse }}</h5>
+                                                                                    <h5>Nama dekorasi:
+                                                                                        {{ $mc->nama_paket_mainC }}
+                                                                                    </h5>
+                                                                                    <h5>Harga dekorasi:
+                                                                                        {{ $mc->harga_paket_mainC }}
+                                                                                    </h5>
+                                                                                    <h5>Deskripsi dekorasi:
+                                                                                        {{ $mc->deskripsi_mainC }}
+                                                                                    </h5>
+
+                                                                                    <!-- Foto Thumbnail -->
+                                                                                    <h5>Foto Thumbnail dekorasi:</h5>
+                                                                                    <img src="{{ asset('storage/' . $mc->foto_mainC) }}"
+                                                                                        alt="Foto Thumbnail dekorasi"
+                                                                                        class="img-thumbnail"
+                                                                                        style="width: 100%; max-width: 300px;">
+
+                                                                                    <!-- Foto Lainnya -->
+                                                                                    <h5>Foto Lainnya:</h5>
+                                                                                    <div class="flex-wrap d-flex">
+                                                                                        @forelse ($mc->maincourseImages as $image)
+                                                                                            <!-- Pastikan relasi `dekorasiImages` sudah diatur di model dekorasi -->
+                                                                                            <img src="{{ asset('storage/' . $image->image_path) }}"
+                                                                                                alt="Foto Lainnya"
+                                                                                                class="m-2 img-thumbnail"
+                                                                                                style="width: 100px; height: auto;">
+                                                                                        @empty
+                                                                                            <p class="text-muted">Tidak
+                                                                                                ada foto
+                                                                                                tambahan.</p>
+                                                                                        @endforelse
+                                                                                    </div>
+
+                                                                                </div>
+                                                                                <div class="modal-footer">
+                                                                                    <button type="button"
+                                                                                        class="mb-2 btn btn-secondary"
+                                                                                        data-dismiss="modal">Close</button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
 
                             {{-- Modal edit --}}
                             <div class="modal fade"

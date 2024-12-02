@@ -13,11 +13,14 @@ return new class extends Migration
     {
         Schema::create('testimonis', function (Blueprint $table) {
             $table->string('id_testimoni')->primary();
-            $table->string('pemesanan_id')->constrained()->onDelete('cascade');
+            $table->string('pemesanan_id')->constrained('pemesanans')->onDelete('cascade');
+            $table->string('nama');
             $table->text('testimoni');
             $table->integer('rating');
-            $table->string('customer_id')->constrained()->onDelete('cascade');
+            $table->string('customer_id')->constrained('customers')->onDelete('cascade');
             $table->timestamps();
+        });
+
 
             //  // Definisikan foreign key
             //  $table->foreign('pemesanan_id')
@@ -32,7 +35,7 @@ return new class extends Migration
             // ->on('customers')
             // ->onDelete('cascade')
             // ->onUpdate('cascade');
-        });
+
     }
 
     /**
