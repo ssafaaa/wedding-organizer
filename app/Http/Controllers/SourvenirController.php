@@ -11,10 +11,19 @@ class SourvenirController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $sourvenirs = Sourvenir::all();
-        return view('admin.sourvenir', compact('sourvenirs'));
+        $search = $request->input('search');
+
+        $sourvenirs = $search ? Sourvenir::where('id_sourvenir', 'like', "%{$search}%")
+            ->orWhere('nama_paket_sourvenir', 'like', "%{$search}%")
+            ->orWhere('harga_sourvenir', 'like', "%{$search}%")->get()
+            : Sourvenir::all();
+
+        return view('admin.sourvenir', [
+            'sourvenirs' => $sourvenirs,
+            'search' => $search
+        ]);
     }
 
     /**
@@ -36,7 +45,7 @@ class SourvenirController extends Controller
             $fotoPath = $request->file('foto_sourvenir')->store('foto_sourvenir', 'public');
         };
 
-        $sourvenir = Sourvenir::create([
+        $sourvenirs = Sourvenir::create([
             'nama_paket_sourvenir' => $request->input('nama_paket_sourvenir'),
             'deskripsi_sourvenir' => $request->input('deskripsi_sourvenir'),
             'harga_sourvenir' => $request->input('harga_sourvenir'),

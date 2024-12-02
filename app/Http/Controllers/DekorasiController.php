@@ -110,7 +110,7 @@ class DekorasiController extends Controller
     {
         // return $request;
         // Mengambil data request dan update dekorasi
-
+        // dd($request);
         // Jika ada file 'foto_dekorasi' yang diunggah, simpan dan dapatkan path-nya
     if ($request->hasFile('foto_dekorasi')) {
         $fotoPath = $request->file('foto_dekorasi')->store('foto_dekorasi', 'public');

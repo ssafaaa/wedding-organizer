@@ -148,7 +148,9 @@
                                 <span class="ml-3 item-text">Widgets</span>
                                 <span class="badge badge-pill badge-primary">New</span>
                             </a>
-
+                        </li>
+                    </ul>
+                </ul>
             </nav>
         </aside>
         <main role="main" class="main-content">

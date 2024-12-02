@@ -36,7 +36,7 @@ class Dishes extends Model
         });
     }
 
-    public function images()
+    public function dishesImages()
     {
         return $this->hasMany(DishesImage::class, 'dishes_id', 'id_dishes');
     }

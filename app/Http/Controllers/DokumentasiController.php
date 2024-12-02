@@ -12,10 +12,19 @@ class DokumentasiController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $dokumentasis = Dokumentasi::all();
-        return view('admin.dokumentasi', compact('dokumentasis'));
+        $search = $request->input('search');
+
+        $dokumentasis = $search ? Dokumentasi::where('id_dokumentasi', 'like', "%{$search}%")
+            ->orWhere('nama_paket_dokumentasi', 'like', "%{$search}%")
+            ->orWhere('harga_dokumentasi', 'like', "%{$search}%")->get()
+            : Dokumentasi::all();
+
+        return view('admin.dokumentasi', [
+            'dokumentasis' => $dokumentasis,
+            'search' => $search
+        ]);
     }
 
     /**

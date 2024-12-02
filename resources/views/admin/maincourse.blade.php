@@ -378,7 +378,7 @@
                                             class="custom-file-input"
                                             id="foto_mainC"
                                             name="foto_mainC">
-                                        <label class="custom-file-label" for="foto_dekorasi">Pilih Foto</label>
+                                        <label class="custom-file-label" for="foto_mainC">Pilih Foto</label>
                                     </div>
                                 </div>
 
@@ -467,6 +467,28 @@
                             <h5>Harga Main Course :
                                 {{ $mc->harga_mainC }}
                             </h5>
+                            <!-- Foto Thumbnail -->
+                            <h5>Foto Thumbnail dekorasi:</h5>
+                            <img src="{{ asset('storage/' . $mc->foto_mainC) }}"
+                                alt="Foto Thumbnail dekorasi"
+                                class="img-thumbnail"
+                                style="width: 100%; max-width: 300px;">
+
+                            <!-- Foto Lainnya -->
+                            <h5>Foto Lainnya:</h5>
+                            <div class="flex-wrap d-flex">
+                                @forelse ($mc->maincourseImages as $image)
+                                    <!-- Pastikan relasi `dekorasiImages` sudah diatur di model dekorasi -->
+                                    <img src="{{ asset('storage/' . $image->image_path) }}"
+                                        alt="Foto Lainnya"
+                                        class="m-2 img-thumbnail"
+                                        style="width: 100px; height: auto;">
+                                @empty
+                                    <p class="text-muted">Tidak
+                                        ada foto
+                                        tambahan.</p>
+                                @endforelse
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button"
@@ -483,50 +505,116 @@
                                                                     data-toggle="modal"
                                                                     class="btn mb-2 btn-warning"><span
                                                                     class="fe fe-20 fe-edit-2"></span></button>
-                <!-- MODAL -->
-                <div class="modal fade" id="varyModal{{ $mc->id_maincourse }}" tabindex="-1" role="dialog"
-                aria-labelledby="varyModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="varyModalLabel">Edit</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form action="{{ route('maincourse.update', $mc->id_maincourse) }}" method="POST">
-                        @csrf @method('put')
-                        <div class="form-group">
-                            <label for="recipient-name" class="col-form-label">Nama Paket Main Course</label>
-                            <input type="text" class="form-control" id="nama_paket_mainC" name="nama_paket_mainC" value="{{ $mc->nama_paket_mainC }}">
+
+                            {{-- Modal edit --}}
+                            <div class="modal fade"
+                            id="varyModal{{ $mc->id_maincourse }}"
+                            tabindex="-1" role="dialog"
+                            aria-labelledby="varyModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title"
+                                            id="varyModalLabel">
+                                            Edit dekorasi</h5>
+                                        <button type="button"
+                                            class="close"
+                                            data-dismiss="modal"
+                                            aria-label="Close">
+                                            <span
+                                                aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form
+                                            action="{{ route('maincourse.update', $mc->id_maincourse) }}"
+                                            method="POST"
+                                            enctype="multipart/form-data">
+                                            @csrf
+                                            @method('PUT')
+
+                                            <!-- Nama dekorasi -->
+                                            <div class="form-group">
+                                                <label for="nama_dekorasi"
+                                                    class="col-form-label">Nama
+                                                    dekorasi:</label>
+                                                <input type="text"
+                                                    class="form-control"
+                                                    id="nama_paket_mainC"
+                                                    name="nama_paket_mainC"
+                                                    value="{{ $mc->nama_paket_mainC }}">
+                                            </div>
+
+                                            <!-- Harga Dekorasi -->
+                                            <div class="form-group">
+                                                <label for="harga_dekorasi"
+                                                    class="col-form-label">Harga
+                                                    Sewa
+                                                    Dekorasi:</label>
+                                                <input type="text"
+                                                    class="form-control"
+                                                    id="harga_paket_mainC"
+                                                    name="harga_paket_mainC"
+                                                    value="{{ $mc->harga_paket_mainC }}">
+                                            </div>
+
+                                            <!-- Deskripsi dekorasi -->
+                                            <div class="form-group">
+                                                <label
+                                                    for="deskripsi_dekorasi"
+                                                    class="col-form-label">Deskripsi:</label>
+                                                <textarea class="form-control" id="deskripsi_mainC" name="deskripsi_mainC">{{ $mc->deskripsi_mainC }}</textarea>
+                                            </div>
+
+                                            <!-- Foto dekorasi -->
+                                            <div class="form-group">
+                                                <label
+                                                    for="foto_dekorasi">Foto
+                                                    dekorasi</label>
+                                                <div class="custom-file">
+                                                    <input type="file"
+                                                        class="custom-file-input"
+                                                        id="foto_mainC"
+                                                        name="foto_mainC">
+                                                    <label
+                                                        class="custom-file-label"
+                                                        for="foto_deC">Pilih
+                                                        Foto</label>
+                                                </div>
+                                            </div>
+
+                                            <!-- Foto Multiple -->
+                                            <div class="form-group">
+                                                <label
+                                                    for="multiple_foto">Foto
+                                                    Multiple</label>
+                                                <div class="custom-file">
+                                                    <input type="file"
+                                                        class="custom-file-input"
+                                                        id="multiple_foto"
+                                                        name="multiple_foto[]"
+                                                        multiple>
+                                                    <label
+                                                        class="custom-file-label"
+                                                        for="multiple_foto">Pilih
+                                                        Foto</label>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="modal-footer">
+                                                <button type="button"
+                                                    class="btn btn-secondary"
+                                                    data-dismiss="modal">Close</button>
+                                                <button type="submit"
+                                                    class="btn btn-primary">Submit</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="message-text" class="col-form-label">Deskripsi</label>
-                            <textarea class="form-control" id="deskripsi_mainC" name="deskripsi_mainC" value="{{ $mc->deskripsi_mainC }}"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="recipient-name" class="col-form-label">Harga Paket Main Course</label>
-                            <input type="text" class="form-control" id="harga_paket_mainC" name="harga_paket_mainC" value="{{ $mc->harga_paket_mainC }}">
-                        </div>
-                    </form>
-                </div>
-                <div class="col-md-12">
-                    <label for="customFile">Foto Paket Main Course</label>
-                    <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="foto_mainC" name="foto_mainC" value="{{ $mc->foto_mainC }}">
-                        <label class="custom-file-label" for="foto_mainC" required>Pilih Foto</label>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn mb-2 btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn mb-2 btn-primary">Submit</button>
-                </div>
-                </div>
-                </div>
-                </div>
-                </td>
-                </tr>
                 @endforeach
                 </tbody>
               </div> <!-- end section -->

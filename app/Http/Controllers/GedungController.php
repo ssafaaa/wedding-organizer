@@ -11,10 +11,19 @@ class GedungController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $gedungs = Gedung::all();
-        return view('admin.gedung', compact('gedungs'));
+        $search = $request->input('search');
+
+        $gedungs = $search ? Gedung::where('id_gedung', 'like', "%{$search}%")
+            ->orWhere('nama_gedung', 'like', "%{$search}%")
+            ->orWhere('harga_sewa_gedung', 'like', "%{$search}%")->get()
+            : Gedung::all();
+
+        return view('admin.gedung', [
+            'gedungs' => $gedungs,
+            'search' => $search
+        ]);
     }
 
     /**
@@ -113,7 +122,7 @@ class GedungController extends Controller
             $imagePath = $file->store('multiple_foto_gedung', 'public');
 
             // Membuat entri baru untuk setiap foto multiple
-            $gedung->images()->create([
+            $gedung->gedungImages()->create([
                 'image_path' => $imagePath,
             ]);
         }

@@ -40,7 +40,7 @@ class DishesController extends Controller
             'nama_paket_dishes' => $request->nama_paket_dishes,
             'deskripsi_dishes' => $request->deskripsi_dishes,
             'harga_paket_dishes' => $request->harga_paket_dishes,
-            'gambar_dishes' => $fotoPath
+            'foto_dishes' => $fotoPath
         ]);
 
         if ($request->hasFile('multiple_foto')) {

@@ -402,6 +402,16 @@
                                 <div class="col-md-12">
                                     <div class="card shadow">
                                         <div class="card-body">
+                                            <!-- Search Form -->
+                                            <form action="{{ route('hiburan') }}" method="GET">
+                                                <div class="form-group d-flex align-items-center">
+                                                    <input type="text" name="search"
+                                                        class="form-control" value="{{ $search ?? '' }}"
+                                                        placeholder="Cari berdasarkan ID, Nama, atau Harga...">
+                                                    <button type="submit"
+                                                        class="ml-2 btn btn-primary">Search</button>
+                                                </div>
+                                            </form>
                                             <!-- table -->
                                             <table class="table datatables" id="dataTable-1">
                                                 <thead>
@@ -413,7 +423,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach ($hiburan as $hb)
+                                                    @foreach ($hiburans as $hb)
                                                         <tr>
                                                             <td>{{ $hb->id_hiburan }}</td>
                                                             <td>{{ $hb->nama_paket_hiburan }}</td>

@@ -1,7 +1,7 @@
 <form id="form-sourvenir" method="POST" action="{{ route('keranjangsourvenir.store') }}">
     @csrf
     <div class="row">
-        @foreach ($sourvenir as $sv)
+        @foreach ($sourvenirs as $sv)
             <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item sourvenir">
                 <div class="d-flex">
                     <div class="block2" style="margin-right: 20px; margin-left: 10px">

@@ -79,16 +79,45 @@ class MaincourseController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, Maincourse $maincourse)
-    {
-        $maincourse->update([
-            'nama_paket_mainC' => $request->nama_paket_mainC,
-            'deskripsi_mainC' => $request->deskripsi_mainC,
-            'harga_paket_mainC' => $request->harga_paket_mainC,
-            'foto_mainC' => $request->foto_mainC,
-        ]);
+{
+    // Validasi input
+    $request->validate([
+        'nama_paket_mainC' => 'required|string|max:255',
+        'deskripsi_mainC' => 'nullable|string',
+        'harga_paket_mainC' => 'required|numeric',
+        'foto_mainC' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+    ]);
 
-        return redirect()->back()->with('success', 'Gedung berhasil diperbarui.');
+    // Mengelola foto_mainC
+    if ($request->hasFile('foto_mainC')) {
+        // Simpan file baru
+        $fotoPath = $request->file('foto_mainC')->store('foto_mainC', 'public');
+    } else {
+        // Gunakan file lama
+        $fotoPath = $maincourse->foto_mainC;
     }
+
+    // Update data maincourse
+    $maincourse->update([
+        'nama_paket_mainC' => $request->nama_paket_mainC,
+        'deskripsi_mainC' => $request->deskripsi_mainC,
+        'harga_paket_mainC' => $request->harga_paket_mainC,
+        'foto_mainC' => $fotoPath, // Menggunakan variabel $fotoPath
+    ]);
+
+    // Mengelola multiple_foto jika ada
+    if ($request->hasFile('multiple_foto')) {
+        foreach ($request->file('multiple_foto') as $file) {
+            $imagePath = $file->store('multiple_foto_maincourse', 'public');
+            $maincourse->maincourseImagesimages()->create([
+                'image_path' => $imagePath,
+            ]);
+        }
+    }
+
+    return redirect()->back()->with('success', 'Maincourse updated successfully!');
+}
+
 
     /**
      * Remove the specified resource from storage.

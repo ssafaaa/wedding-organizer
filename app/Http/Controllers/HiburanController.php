@@ -11,11 +11,19 @@ class HiburanController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $hiburan = Hiburan::all();
-        return view('admin.hiburan', compact('hiburan'));
+        $search = $request->input('search');
 
+        $hiburans = $search ? Hiburan::where('id_hiburan', 'like', "%{$search}%")
+            ->orWhere('nama_paket_hiburan', 'like', "%{$search}%")
+            ->orWhere('harga_sewa_hiburan', 'like', "%{$search}%")->get()
+            : Hiburan::all();
+
+        return view('admin.hiburan', [
+            'hiburans' => $hiburans,
+            'search' => $search
+        ]);
     }
 
     /**

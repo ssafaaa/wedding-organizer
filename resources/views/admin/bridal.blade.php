@@ -408,7 +408,7 @@
             <div class="container-fluid">
                 <div class="row justify-content-center">
                     <div class="col-12">
-                        <h2 class="page-title">Dekorasi</h2>
+                        <h2 class="page-title">Bridalstyle</h2>
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="mb-4 shadow card">
@@ -421,19 +421,19 @@
                                             @csrf
                                             <div class="form-row">
                                                 <div class="form-group col-md-12">
-                                                    <label for="nama_bridalstyle">Nama Dekorasi</label>
-                                                    <input type="text" class="form-control" id="nama_bridalstyle"
-                                                        name="nama_bridalstyle">
+                                                    <label for="nama_paket_bridalstyle">Nama Dekorasi</label>
+                                                    <input type="text" class="form-control"
+                                                        id="nama_paket_bridalstyle" name="nama_paket_bridalstyle">
                                                 </div>
                                                 <div class="form-group col-md-12">
                                                     <label for="harga_bridalstyle">Harga Dekorasi</label>
-                                                    <input type="text" class="form-control" id="harga_bridalstyle"
-                                                        name="harga_bridalstyle">
+                                                    <input type="text" class="form-control" id="harga_paket"
+                                                        name="harga_paket">
                                                 </div>
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label for="example-textarea">Deskripsi</label>
-                                                        <textarea class="form-control" id="deskripsi_bridalstyle" rows="2" name="deskripsi_bridalstyle"></textarea>
+                                                        <textarea class="form-control" id="deskripsi_paket" rows="2" name="deskripsi_paket"></textarea>
                                                     </div>
                                                     <label for="customFile">Foto Thumbnail</label>
                                                     <div class="custom-file">
@@ -473,7 +473,7 @@
                                                         <form action="{{ route('bridalstyle') }}" method="GET">
                                                             <div class="form-group d-flex align-items-center">
                                                                 <input type="text" name="search"
-                                                                    class="form-control" value="{{ $search ?? "" }}"
+                                                                    class="form-control" value="{{ $search ?? '' }}"
                                                                     placeholder="Cari berdasarkan ID, Nama, atau Harga...">
                                                                 <button type="submit"
                                                                     class="ml-2 btn btn-primary">Search</button>
@@ -491,21 +491,21 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                @forelse ($bridalstyles as $dk)
+                                                                @forelse ($bridalstyles as $br)
                                                                     <tr>
-                                                                        <td>{{ $dk->id_bridalstyle }}</td>
-                                                                        <td>{{ $dk->nama_bridalstyle }}</td>
-                                                                        <td>{{ number_format($dk->harga_bridalstyle, 0, ',', '.') }}
+                                                                        <td>{{ $br->id_bridalstyle }}</td>
+                                                                        <td>{{ $br->nama_paket_bridalstyle }}</td>
+                                                                        <td>{{ number_format($br->harga_paket, 0, ',', '.') }}
                                                                         </td>
                                                                         <td>
                                                                             <button type="button"
-                                                                                data-target="#verticalModal{{ $dk->id_bridalstyle }}"
+                                                                                data-target="#verticalModal{{ $br->id_bridalstyle }}"
                                                                                 data-toggle="modal"
                                                                                 class="mb-2 btn btn-primary">
                                                                                 <span class="fe fe-20 fe-eye"></span>
                                                                             </button>
                                                                             <button type="button"
-                                                                                data-target="#varyModal{{ $dk->id_bridalstyle }}"
+                                                                                data-target="#varyModal{{ $br->id_bridalstyle }}"
                                                                                 data-toggle="modal"
                                                                                 class="mb-2 btn btn-warning">
                                                                                 <span
@@ -516,7 +516,7 @@
 
                                                                     {{-- Modal edit --}}
                                                                     <div class="modal fade"
-                                                                        id="varyModal{{ $dk->id_bridalstyle }}"
+                                                                        id="varyModal{{ $br->id_bridalstyle }}"
                                                                         tabindex="-1" role="dialog"
                                                                         aria-labelledby="varyModalLabel"
                                                                         aria-hidden="true">
@@ -525,7 +525,7 @@
                                                                                 <div class="modal-header">
                                                                                     <h5 class="modal-title"
                                                                                         id="varyModalLabel">
-                                                                                        Edit dekorasi</h5>
+                                                                                        Edit bridalstyle</h5>
                                                                                     <button type="button"
                                                                                         class="close"
                                                                                         data-dismiss="modal"
@@ -536,51 +536,50 @@
                                                                                 </div>
                                                                                 <div class="modal-body">
                                                                                     <form
-                                                                                        action="{{ route('bridalstyle.update', $dk->id_bridalstyle) }}"
+                                                                                        action="{{ route('bridalstyle.update', $br->id_bridalstyle) }}"
                                                                                         method="POST"
                                                                                         enctype="multipart/form-data">
                                                                                         @csrf
                                                                                         @method('PUT')
 
-                                                                                        <!-- Nama dekorasi -->
+                                                                                        <!-- Nama bridalstyle -->
                                                                                         <div class="form-group">
-                                                                                            <label for="nama_dekorasi"
+                                                                                            <label for="nama_bridalstyle"
                                                                                                 class="col-form-label">Nama
-                                                                                                dekorasi:</label>
+                                                                                                bridalstyle:</label>
                                                                                             <input type="text"
                                                                                                 class="form-control"
                                                                                                 id="nama_bridalstyle"
                                                                                                 name="nama_bridalstyle"
-                                                                                                value="{{ $dk->nama_bridalstyle }}">
+                                                                                                value="{{ $br->nama_paket_bridalstyle }}">
                                                                                         </div>
 
-                                                                                        <!-- Harga Dekorasi -->
+                                                                                        <!-- Harga bridalstyle -->
                                                                                         <div class="form-group">
-                                                                                            <label
-                                                                                                for="harga_bridalstyle"
+                                                                                            <label for="harga_bridalstyle"
                                                                                                 class="col-form-label">Harga
                                                                                                 Sewa
-                                                                                                Dekorasi:</label>
+                                                                                                bridalstyle:</label>
                                                                                             <input type="text"
                                                                                                 class="form-control"
                                                                                                 id="harga_bridalstyle"
                                                                                                 name="harga_bridalstyle"
-                                                                                                value="{{ $dk->harga_bridalstyle }}">
+                                                                                                value="{{ $br->deskripsi_paket }}">
                                                                                         </div>
 
-                                                                                        <!-- Deskripsi dekorasi -->
+                                                                                        <!-- Deskripsi bridalstyle -->
                                                                                         <div class="form-group">
                                                                                             <label
                                                                                                 for="deskripsi_bridalstyle"
                                                                                                 class="col-form-label">Deskripsi:</label>
-                                                                                            <textarea class="form-control" id="deskripsi_bridalstyle" name="deskripsi_bridalstyle">{{ $dk->deskripsi_bridalstyle }}</textarea>
+                                                                                            <textarea class="form-control" id="deskripsi_bridalstyle" name="deskripsi_bridalstyle">{{ $br->harga_paket }}</textarea>
                                                                                         </div>
 
-                                                                                        <!-- Foto dekorasi -->
+                                                                                        <!-- Foto bridalstyle -->
                                                                                         <div class="form-group">
                                                                                             <label
                                                                                                 for="foto_bridalstyle">Foto
-                                                                                                dekorasi</label>
+                                                                                                bridalstyle</label>
                                                                                             <div class="custom-file">
                                                                                                 <input type="file"
                                                                                                     class="custom-file-input"
@@ -627,7 +626,7 @@
 
                                                                     <!-- Modal -->
                                                                     <div class="modal fade"
-                                                                        id="verticalModal{{ $dk->id_bridalstyle }}"
+                                                                        id="verticalModal{{ $br->id_bridalstyle }}"
                                                                         tabindex="-1" role="dialog"
                                                                         aria-labelledby="verticalModalTitle"
                                                                         aria-hidden="true">
@@ -637,7 +636,7 @@
                                                                                 <div class="modal-header">
                                                                                     <h5 class="modal-title"
                                                                                         id="verticalModalTitle">Detail
-                                                                                        dekorasi
+                                                                                        bridalstyle
                                                                                     </h5>
                                                                                     <button type="button"
                                                                                         class="close"
@@ -649,20 +648,20 @@
                                                                                 </div>
                                                                                 <div class="modal-body">
                                                                                     <h5>ID dekorasi:
-                                                                                        {{ $dk->id_bridalstyle }}</h5>
+                                                                                        {{ $br->id_bridalstyle }}</h5>
                                                                                     <h5>Nama dekorasi:
-                                                                                        {{ $dk->nama_bridalstyle }}
+                                                                                        {{ $br->nama_paket_bridalstyle }}
                                                                                     </h5>
                                                                                     <h5>Harga dekorasi:
-                                                                                        {{ $dk->harga_bridalstyle }}
+                                                                                        {{ $br->harga_paket }}
                                                                                     </h5>
                                                                                     <h5>Deskripsi dekorasi:
-                                                                                        {{ $dk->deskripsi_bridalstyle }}
+                                                                                        {{ $br->deskripsi_paket }}
                                                                                     </h5>
 
                                                                                     <!-- Foto Thumbnail -->
                                                                                     <h5>Foto Thumbnail dekorasi:</h5>
-                                                                                    <img src="{{ asset('storage/' . $dk->foto_bridalstyle) }}"
+                                                                                    <img src="{{ asset('storage/' . $br->foto_bridalstyle) }}"
                                                                                         alt="Foto Thumbnail dekorasi"
                                                                                         class="img-thumbnail"
                                                                                         style="width: 100%; max-width: 300px;">
@@ -670,7 +669,7 @@
                                                                                     <!-- Foto Lainnya -->
                                                                                     <h5>Foto Lainnya:</h5>
                                                                                     <div class="flex-wrap d-flex">
-                                                                                        @forelse ($dk->bridalImages as $image)
+                                                                                        @forelse ($br->bridalImages as $image)
                                                                                             <!-- Pastikan relasi `dekorasiImages` sudah diatur di model dekorasi -->
                                                                                             <img src="{{ asset('storage/' . $image->image_path) }}"
                                                                                                 alt="Foto Lainnya"

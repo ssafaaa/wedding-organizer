@@ -87,8 +87,38 @@ class BridalstyleController extends Controller
      */
     public function update(Request $request, Bridalstyle $bridalstyle)
     {
-        //
+        // Jika ada file 'foto_bridalstyle' yang diunggah, simpan dan dapatkan path-nya
+        if ($request->hasFile('foto_bridalstyle')) {
+            $fotoPath = $request->file('foto_bridalstyle')->store('foto_bridalstyle', 'public');
+        } else {
+            $fotoPath = $bridalstyle->foto_bridalstyle; // Jika tidak ada file baru, tetap gunakan foto lama
+        }
+
+        dd($request);
+        
+        // Update data bridalstyle
+        $bridalstyle->update([
+            'nama_paket_bridalstyle' => $request->nama_paket_bridalstyle,
+            'harga_paket' => $request->harga_paket,
+            'deskripsi_paket' => $request->deskripsi_paket,
+            'foto_bridalstyle' => $fotoPath, // Menggunakan foto baru atau foto lama jika tidak ada file baru
+        ]);
+
+        // Mengelola multiple_foto jika ada
+        if ($request->hasFile('multiple_foto')) {
+            foreach ($request->file('multiple_foto') as $file) {
+                $imagePath = $file->store('multiple_foto_bridalstyle', 'public');
+
+                // Membuat entri baru untuk setiap foto multiple
+                $bridalstyle->images()->create([
+                    'image_path' => $imagePath,
+                ]);
+            }
+        }
+
+        return redirect()->back()->with('success', 'Bridalstyle berhasil diperbarui.');
     }
+
 
     /**
      * Remove the specified resource from storage.

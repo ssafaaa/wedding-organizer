@@ -11,10 +11,19 @@ class UndanganController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $undangans = Undangan::all();
-        return view('admin.undangan', compact('undangans'));
+        $search = $request->input('search');
+
+        $undangans = $search ? Undangan::where('id_undangan', 'like', "%{$search}%")
+            ->orWhere('nama_undangan', 'like', "%{$search}%")
+            ->orWhere('harga_undangan', 'like', "%{$search}%")->get()
+            : Undangan::all();
+
+        return view('admin.undangan', [
+            'undangans' => $undangans,
+            'search' => $search
+        ]);
     }
 
     /**
