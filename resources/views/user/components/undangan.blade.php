@@ -1,22 +1,22 @@
-<form id="form-sourvenir" method="POST" action="{{ route('keranjangsourvenir.store') }}">
+<form id="form-undangan" method="POST" action="{{ route('keranjangundangan.store') }}">
     @csrf
     <div class="row">
-        <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item sourvenir">
+        <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item undangan">
             <div class="d-flex">
-                @foreach ($sourvenirs as $sv)
+                @foreach ($undangans as $undangan)
                     <div class="block2" style="margin-right: 20px; margin-left: 10px">
                         <div class="block2-pic hov-img0" style="height: 242px; width: 200px; overflow: hidden;">
-                            <img src="{{ asset('storage/' . $sv->foto_sourvenir) }}" alt="IMG-PRODUCT">
+                            <img src="{{ asset('storage/' . $undangan->foto_undangan) }}" alt="IMG-PRODUCT">
                         </div>
 
                         <div class="block2-txt flex-w flex-t p-t-14">
                             <div class="block2-txt-child1 flex-col-l">
                                 <label class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
-                                    <input type="radio" name="sourvenir" value="{{ $sv->id_sourvenir }}">
-                                    {{ $sv->nama_paket_sourvenir }}
+                                    <input type="radio" name="undangan" value="{{ $undangan->id_undangan }}">
+                                    {{ $undangan->nama_undangan }}
                                 </label>
                                 <span class="stext-105 cl3">
-                                    Rp{{ number_format($sv->harga_sourvenir, 0, ',', '.') }},00
+                                    Rp{{ number_format($undangan->harga_undangan, 0, ',', '.') }},00
                                 </span>
                             </div>
 
@@ -31,8 +31,8 @@
 
                             <div class="row">
                                 <div class="p-t-15">
-                                    <label for="sourvenir_quantity" class="form-label">Quantity</label>
-                                    <input type="number" class="form-control" name="sourvenir_quantity">
+                                    <label for="undangan_quantity" class="form-label">Quantity</label>
+                                    <input type="number" class="form-control" name="undangan_quantity">
                                 </div>
                                 <div style="margin-right: 30px; margin-left: 20px; width:100%">
                                     <!-- Tambahkan tombol di luar foreach -->

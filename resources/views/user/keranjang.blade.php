@@ -350,130 +350,212 @@
                 <div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
                     <div class="m-l-25 m-r--38 m-lr-0-xl">
                         <form action="{{ route('user.checkout') }}" method="GET">
-                        <div class="wrap-table-shopping-cart">
-                            <table class="table-shopping-cart">
-                                <tr class="table_head">
-                                    @php
-                                        use App\Models\Dekorasi;
-                                        use App\Models\Dokumentasi;
-                                        use App\Models\Hiburan;
-                                        use App\Models\Gedung;
-                                    @endphp
-                                    <th class="column-1">#</th>
-                                    <th class="column-2">Nama Item</th>
-                                    <th class="column-3">Variant</th>
-                                    <th class="column-4">Harga</th>
-                                    <th class="column-5">Quantity</th>
-                                    <th class="column-6">Total</th>
-                                </tr>
-
-                                @if (session()->has('dekorasi_terpilih'))
-                                    <?php $dk = Dekorasi::find(session('dekorasi_terpilih')); ?>
-                                    <tr>
-                                        <td>
-                                            <input type="checkbox" class="item-checkbox"
-                                                data-harga="{{ $dk->harga_dekorasi }}"
-                                                value="{{ $dk->id_dekorasi }}">
-                                        </td>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <div class="image-container me-3">
-                                                    @if ($dk->foto_dekorasi)
-                                                        <img src="{{ asset('storage/' . $dk->foto_dekorasi) }}"
-                                                            alt="Foto Dekorasi" class="img-fluid">
-                                                    @else
-                                                        <p>Tidak ada Foto</p>
-                                                    @endif
-                                                </div>
-                                                <h6 class="mb-0">{{ $dk->nama_dekorasi }}</h6>
-                                            </div>
-                                        </td>
-                                        <td>-</td>
-                                        <td>Rp.{{ number_format($dk->harga_dekorasi, 0, ',', '.') }}</td>
-                                        <td>1</td>
-                                        <td>Rp.{{ number_format($dk->harga_dekorasi, 0, ',', '.') }}</td>
+                            <div class="wrap-table-shopping-cart">
+                                <table class="table-shopping-cart">
+                                    <tr class="table_head">
+                                        @php
+                                            use App\Models\Dekorasi;
+                                            use App\Models\Dokumentasi;
+                                            use App\Models\Hiburan;
+                                            use App\Models\Gedung;
+                                            use App\Models\Sourvenir;
+                                            use App\Models\Undangan;
+                                        @endphp
+                                        <th class="column-1">#</th>
+                                        <th class="column-2">Nama Item</th>
+                                        <th class="column-3">Variant</th>
+                                        <th class="column-4">Harga</th>
+                                        <th class="column-5">Quantity</th>
+                                        <th class="column-6">Total</th>
                                     </tr>
-                                @endif
 
-                                @if (session()->has('gedung_terpilih'))
-                                    <?php $gd = Gedung::find(session('gedung_terpilih')); ?>
-                                    <tr>
-                                        <td>
-                                            <input type="checkbox" class="item-checkbox"
-                                                data-harga="{{ $gd->harga_sewa_gedung }}"
-                                                value="{{ $gd->id_gedung }}">
-                                        </td>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <div class="image-container me-3">
-                                                    @if ($gd->foto_gedung)
-                                                        <img src="{{ asset('storage/' . $gd->foto_gedung) }}"
-                                                            alt="Foto Gedung" class="img-fluid">
-                                                    @else
-                                                        <p>Tidak ada Foto</p>
-                                                    @endif
+                                    @if (session()->has('dekorasi_terpilih'))
+                                        <?php $dk = Dekorasi::find(session('dekorasi_terpilih')); ?>
+                                        <tr>
+                                            <td>
+                                                <input type="checkbox" class="item-checkbox"
+                                                    data-harga="{{ $dk->harga_dekorasi }}"
+                                                    value="{{ $dk->id_dekorasi }}">
+                                            </td>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <div class="image-container me-3">
+                                                        @if ($dk->foto_dekorasi)
+                                                            <img src="{{ asset('storage/' . $dk->foto_dekorasi) }}"
+                                                                alt="Foto Dekorasi" class="img-fluid">
+                                                        @else
+                                                            <p>Tidak ada Foto</p>
+                                                        @endif
+                                                    </div>
+                                                    <h6 class="mb-0">{{ $dk->nama_dekorasi }}</h6>
                                                 </div>
-                                                <h6 class="mb-0">{{ $gd->nama_gedung }}</h6>
-                                            </div>
-                                        </td>
-                                        <td>-</td>
-                                        <td>Rp.{{ number_format($gd->harga_sewa_gedung, 0, ',', '.') }}</td>
-                                        <td>1</td>
-                                        <td>Rp.{{ number_format($gd->harga_sewa_gedung, 0, ',', '.') }}</td>
-                                    </tr>
-                                @endif
+                                            </td>
+                                            <td>-</td>
+                                            <td>Rp.{{ number_format($dk->harga_dekorasi, 0, ',', '.') }}</td>
+                                            <td>1</td>
+                                            <td>Rp.{{ number_format($dk->harga_dekorasi, 0, ',', '.') }}</td>
+                                        </tr>
+                                    @endif
 
-                                @if (session()->has('dokumentasi_terpilih'))
-                                    <?php $dok = Dokumentasi::find(session('dokumentasi_terpilih')); ?>
-                                    <tr>
-                                        <td>
-                                            <input type="checkbox" class="item-checkbox"
-                                                data-harga="{{ $dok->harga_dokumentasi }}"
-                                                value="{{ $dok->id_dokumentasi }}">
-                                        </td>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <div class="image-container me-3">
-                                                    @if ($dok->foto_dokumentasi)
-                                                        <img src="{{ asset('storage/' . $dok->foto_dokumentasi) }}"
-                                                            alt="Foto Dokumentasi" class="img-fluid">
-                                                    @else
-                                                        <p>Tidak ada Foto</p>
-                                                    @endif
+                                    @if (session()->has('gedung_terpilih'))
+                                        <?php $gd = Gedung::find(session('gedung_terpilih')); ?>
+                                        <tr>
+                                            <td>
+                                                <input type="checkbox" class="item-checkbox"
+                                                    data-harga="{{ $gd->harga_sewa_gedung }}"
+                                                    value="{{ $gd->id_gedung }}">
+                                            </td>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <div class="image-container me-3">
+                                                        @if ($gd->foto_gedung)
+                                                            <img src="{{ asset('storage/' . $gd->foto_gedung) }}"
+                                                                alt="Foto Gedung" class="img-fluid">
+                                                        @else
+                                                            <p>Tidak ada Foto</p>
+                                                        @endif
+                                                    </div>
+                                                    <h6 class="mb-0">{{ $gd->nama_gedung }}</h6>
                                                 </div>
-                                                <h6 class="mb-0">{{ $dok->nama_paket_dokumentasi }}</h6>
-                                            </div>
-                                        </td>
-                                        <td>-</td>
-                                        <td>Rp.{{ number_format($dok->harga_dokumentasi, 0, ',', '.') }}</td>
-                                        <td>1</td>
-                                        <td>Rp.{{ number_format($dok->harga_dokumentasi, 0, ',', '.') }}</td>
-                                    </tr>
-                                @endif
-                                    <!-- Baris Subtotal -->
-                            <tr>
-                                <td colspan="5" class="text-end"><strong>Subtotal</strong></td>
-                                <td id="subtotal">Rp.0</td>
-                            </tr>
+                                            </td>
+                                            <td>-</td>
+                                            <td>Rp.{{ number_format($gd->harga_sewa_gedung, 0, ',', '.') }}</td>
+                                            <td>1</td>
+                                            <td>Rp.{{ number_format($gd->harga_sewa_gedung, 0, ',', '.') }}</td>
+                                        </tr>
+                                    @endif
 
-                            <!-- Baris Total -->
-                            <tr>
-                                <td colspan="5" class="text-end"><strong>Total</strong></td>
-                                <td id="total">{{ $total ? 'Rp.' . number_format($total, 0, ',', '.') : 'Rp.0' }}</td>
-                            </tr>
-                            </table>
-                        </div>
-                        <!-- Tombol Checkout -->
-                    <div class="mt-4 d-flex justify-content-end">
-                        <form action="{{ route('user.checkout') }}" method="GET">
-                            <button type="submit" class="btn btn-primary">
-                                Checkout
-                            </button>
-                        </form>
-                    </div>
+                                    @if (session()->has('dokumentasi_terpilih'))
+                                        <?php $dok = Dokumentasi::find(session('dokumentasi_terpilih')); ?>
+                                        <tr>
+                                            <td>
+                                                <input type="checkbox" class="item-checkbox"
+                                                    data-harga="{{ $dok->harga_dokumentasi }}"
+                                                    value="{{ $dok->id_dokumentasi }}">
+                                            </td>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <div class="image-container me-3">
+                                                        @if ($dok->foto_dokumentasi)
+                                                            <img src="{{ asset('storage/' . $dok->foto_dokumentasi) }}"
+                                                                alt="Foto Dokumentasi" class="img-fluid">
+                                                        @else
+                                                            <p>Tidak ada Foto</p>
+                                                        @endif
+                                                    </div>
+                                                    <h6 class="mb-0">{{ $dok->nama_paket_dokumentasi }}</h6>
+                                                </div>
+                                            </td>
+                                            <td>-</td>
+                                            <td>Rp.{{ number_format($dok->harga_dokumentasi, 0, ',', '.') }}</td>
+                                            <td>1</td>
+                                            <td>Rp.{{ number_format($dok->harga_dokumentasi, 0, ',', '.') }}</td>
+                                        </tr>
+                                    @endif
+
+                                    @if (session()->has('sourvenir_terpilih'))
+                                        <?php $sourvenirr = Sourvenir::find(session('sourvenir_terpilih')); ?>
+                                        <tr>
+                                            <td>
+                                                <input type="checkbox" class="item-checkbox"
+                                                    data-harga="{{ $sourvenirr->harga_sourvenir }}"
+                                                    value="{{ $sourvenirr->id_sourvenir }}">
+                                            </td>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <div class="image-container me-3">
+                                                        @if ($sourvenirr->foto_sourvenir)
+                                                            <img src="{{ asset('storage/' . $sourvenirr->foto_sourvenir) }}"
+                                                                alt="Foto Sourvenir" class="img-fluid">
+                                                        @else
+                                                            <p>Tidak ada Foto</p>
+                                                        @endif
+                                                    </div>
+                                                    <h6 class="mb-0">{{ $sourvenirr->nama_paket_sourvenir }}</h6>
+                                                </div>
+                                            </td>
+                                            <td>-</td>
+                                            <td>Rp.{{ number_format($sourvenirr->harga_sourvenir, 0, ',', '.') }}</td>
+                                            <td>{{ session('sourvenir_quantity') }}</td>
+                                            <td>Rp.{{ number_format($sourvenirr->harga_sourvenir * session('sourvenir_quantity'), 0, ',', '.') }}</td>
+                                        </tr>
+                                    @endif
+
+                                    @if (session()->has('hiburan_terpilih'))
+                                        <?php $hiburann = Hiburan::find(session('hiburan_terpilih')); ?>
+                                        <tr>
+                                            <td>
+                                                <input type="checkbox" class="item-checkbox"
+                                                    data-harga="{{ $hiburann->harga_hiburan }}"
+                                                    value="{{ $hiburann->id_hiburan }}">
+                                            </td>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <div class="image-container me-3">
+                                                        @if ($hiburann->foto_hiburan)
+                                                            <img src="{{ asset('storage/' . $hiburann->foto_hiburan) }}"
+                                                                alt="Foto Hiburan" class="img-fluid">
+                                                        @else
+                                                            <p>Tidak ada Foto</p>
+                                                        @endif
+                                                    </div>
+                                                    <h6 class="mb-0">{{ $hiburann->nama_paket_hiburan }}</h6>
+                                                </div>
+                                            </td>
+                                            <td>-</td>
+                                            <td>Rp.{{ number_format($hiburann->harga_sewa_hiburan, 0, ',', '.') }}</td>
+                                            <td>1</td>
+                                            <td>Rp.{{ number_format($hiburann->harga_sewa_hiburan, 0, ',', '.') }}</td>
+                                        </tr>
+                                    @endif
+
+                                    @if (session()->has('undangan_terpilih'))
+                                        <?php $undangant = Undangan::find(session('undangan_terpilih')); ?>
+                                        <tr>
+                                            <td>
+                                                <input type="checkbox" class="item-checkbox"
+                                                    data-harga="{{ $undangant->harga_undangan }}"
+                                                    value="{{ $undangant->id_undangan }}">
+                                            </td>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <div class="image-container me-3">
+                                                        @if ($undangant->foto_undangan)
+                                                            <img src="{{ asset('storage/' . $undangant->foto_undangan) }}"
+                                                                alt="Foto Undangan" class="img-fluid">
+                                                        @else
+                                                            <p>Tidak ada Foto</p>
+                                                        @endif
+                                                    </div>
+                                                    <h6 class="mb-0">{{ $undangant->nama_paket_undangan }}</h6>
+                                                </div>
+                                            </td>
+                                            <td>-</td>
+                                            <td>Rp.{{ number_format($undangant->harga_undangan, 0, ',', '.') }}</td>
+                                            <td>{{ session('undangan_quantity') }}</td>
+                                            <td>Rp.{{ number_format($undangant->harga_undangan * session('undangan_quantity'), 0, ',', '.') }}</td>
+                                        </tr>
+                                    @endif
+
+                                    <!-- Baris Total -->
+                                    <tr>
+                                        <td colspan="5" class="text-end"><strong>Total</strong></td>
+                                        <td id="total">
+                                            {{ $total ? 'Rp.' . number_format($total, 0, ',', '.') : 'Rp.0' }}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <!-- Tombol Checkout -->
+                            <div class="mt-4 d-flex justify-content-end">
+                                <form action="{{ route('user.checkout') }}" method="GET">
+                                    <button type="submit" class="btn btn-primary">
+                                        Checkout
+                                    </button>
+                                </form>
+                            </div>
                     </div>
                 </div>
-            </form>
+                </form>
 
 
             </div>

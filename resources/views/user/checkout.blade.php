@@ -361,6 +361,8 @@ w
                                         use App\Models\Dokumentasi;
                                         use App\Models\Hiburan;
                                         use App\Models\Gedung;
+                                        use App\Models\Sourvenir;
+                                        use App\Models\Undangan;
                                     @endphp
                                     <th class="column-1">#</th>
                                     <th class="column-2">Nama Item</th>
@@ -426,17 +428,135 @@ w
                                         <td>Rp.{{ number_format($gd->harga_sewa_gedung, 0, ',', '.') }}</td>
                                     </tr>
                                 @endif
+
+                                @if (session()->has('hiburan_terpilih'))
+                                    <?php $hb = Hiburan::find(session('hiburan_terpilih')); ?>
+                                    <tr>
+                                        <td>
+                                            <input type="checkbox" class="item-checkbox"
+                                                data-harga="{{ $hb->harga_sewa_hiburan }}"
+                                                value="{{ $hb->id_hiburan }}">
+                                        </td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="image-container me-3">
+                                                    @if ($hb->foto_hiburan)
+                                                        <img src="{{ asset('storage/' . $hb->foto_hiburan) }}"
+                                                            alt="Foto Hiburan" class="img-fluid">
+                                                    @else
+                                                        <p>Tidak ada Foto</p>
+                                                    @endif
+                                                </div>
+                                                <h6 class="mb-0">{{ $hb->nama_paket_hiburan }}</h6>
+                                            </div>
+                                        </td>
+                                        <td>-</td>
+                                        <td>Rp.{{ number_format($hb->harga_sewa_hiburan, 0, ',', '.') }}</td>
+                                        <td>1</td>
+                                        <td>Rp.{{ number_format($hb->harga_sewa_hiburan, 0, ',', '.') }}</td>
+                                    </tr>
+                                @endif
+
+                                @if (session()->has('sourvenir_terpilih'))
+                                    <?php $sourvenirr = Sourvenir::find(session('sourvenir_terpilih')); ?>
+                                    <tr>
+                                        <td>
+                                            <input type="checkbox" class="item-checkbox"
+                                                data-harga="{{ $sourvenirr->harga_sourvenir }}"
+                                                value="{{ $sourvenirr->id_sourvenir }}">
+                                        </td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="image-container me-3">
+                                                    @if ($sourvenirr->foto_sourvenir)
+                                                        <img src="{{ asset('storage/' . $sourvenirr->foto_sourvenir) }}"
+                                                            alt="Foto Sourvenir" class="img-fluid">
+                                                    @else
+                                                        <p>Tidak ada Foto</p>
+                                                    @endif
+                                                </div>
+                                                <h6 class="mb-0">{{ $sourvenirr->nama_paket_sourvenir }}</h6>
+                                            </div>
+                                        </td>
+                                        <td>-</td>
+                                        <td>Rp.{{ number_format($sourvenirr->harga_sourvenir, 0, ',', '.') }}</td>
+                                        <td>{{ session('sourvenir_quantity') }}</td>
+                                        <td>Rp.{{ number_format($sourvenirr->harga_sourvenir * session('sourvenir_quantity'), 0, ',', '.') }}
+                                        </td>
+                                    </tr>
+                                @endif
+
+                                @if (session()->has('dokumentasi_terpilih'))
+                                    <?php $dokumentasii = Dokumentasi::find(session('dokumentasi_terpilih')); ?>
+                                    <tr>
+                                        <td>
+                                            <input type="checkbox" class="item-checkbox"
+                                                data-harga="{{ $dokumentasii->harga_dokumentasi }}"
+                                                value="{{ $dokumentasii->id_dokumentasi }}">
+                                        </td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="image-container me-3">
+                                                    @if ($dokumentasii->foto_dokumentasi)
+                                                        <img src="{{ asset('storage/' . $dokumentasii->foto_dokumentasi) }}"
+                                                            alt="Foto Dokumentasi" class="img-fluid">
+                                                    @else
+                                                        <p>Tidak ada Foto</p>
+                                                    @endif
+                                                </div>
+                                                <h6 class="mb-0">{{ $dokumentasii->nama_paket_dokumentasi }}</h6>
+                                            </div>
+                                        </td>
+                                        <td>-</td>
+                                        <td>Rp.{{ number_format($dokumentasii->harga_dokumentasi, 0, ',', '.') }}</td>
+                                        <td>1</td>
+                                        <td>Rp.{{ number_format($dokumentasii->harga_dokumentasi, 0, ',', '.') }}</td>
+                                    </tr>
+                                @endif
+
+                                @if (session()->has('undangan_terpilih'))
+                                    <?php $undangann = Undangan::find(session('undangan_terpilih')); ?>
+                                    <tr>
+                                        <td>
+                                            <input type="checkbox" class="item-checkbox"
+                                                data-harga="{{ $undangann->harga_undangan }}"
+                                                value="{{ $undangann->id_undangan }}">
+                                        </td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="image-container me-3">
+                                                    @if ($undangann->foto_undangan)
+                                                        <img src="{{ asset('storage/' . $undangann->foto_undangan) }}"
+                                                            alt="Foto Undangan" class="img-fluid">
+                                                    @else
+                                                        <p>Tidak ada Foto</p>
+                                                    @endif
+                                                </div>
+                                                <h6 class="mb-0">{{ $undangann->nama_paket_undangan }}</h6>
+                                            </div>
+                                        </td>
+                                        <td>-</td>
+                                        <td>Rp.{{ number_format($undangann->harga_undangan, 0, ',', '.') }}</td>
+                                        <td>{{ session('undangan_quantity') }}</td>
+                                        <td>Rp.{{ number_format($undangann->harga_undangan * session('undangan_quantity'), 0, ',', '.') }}
+                                        </td>
+                                    </tr>
+                                @endif
+
                                 <!-- Baris Subtotal -->
                                 <tr>
                                     <td colspan="5" class="text-end"><strong>Subtotal</strong></td>
-                                    <td id="subtotal">Rp.0</td>
+                                    <td id="total">
+                                        {{ $total ? 'Rp.' . number_format($total, 0, ',', '.') : 'Rp.0' }}</td>
                                 </tr>
 
                                 <!-- Baris Total -->
                                 <tr>
                                     <td colspan="5" class="text-end"><strong>Total</strong></td>
                                     <td id="total">
-                                        {{ $total ? 'Rp.' . number_format($total, 0, ',', '.') : 'Rp.0' }}</td>
+                                        <input type="hidden" name="total" value="{{ $total }}">
+                                        {{ $total ? 'Rp.' . number_format($total, 0, ',', '.') : 'Rp.0' }}
+                                    </td>
                                 </tr>
                             </table>
                             </form>
@@ -482,7 +602,7 @@ w
                                         <label for="banyak_tamu" class="form-label">Banyak Tamu</label>
                                         <input type="number" class="form-control" name="banyak_tamu">
                                     </div>
-                                    
+
                                     <div class="p-t-15">
                                         <label for="tanggal_pemesanan" class="form-label">Tanggal
                                             Pemesanan</label>
@@ -506,6 +626,7 @@ w
 
                                 <div class="size-209 p-t-1">
                                     <span class="mtext-110 cl2">
+                                        <input type="hidden" name="total" value="{{ $total }}">
                                         {{ $total ? 'Rp.' . number_format($total, 0, ',', '.') : 'Rp.0' }}
                                     </span>
                                 </div>

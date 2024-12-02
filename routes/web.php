@@ -63,6 +63,7 @@ Route::post('/user/keranjang/hiburan/store', [CartController::class, 'storehibur
 Route::post('/user/keranjang/gedung/store', [CartController::class, 'storegedung'])->name('keranjanggedung.store');
 // session
 Route::post('/user/keranjang/sourvenir/store', [CartController::class, 'storesourvenir'])->name('keranjangsourvenir.store');
+Route::post('/user/keranjang/undangan/store', [CartController::class, 'storeundangan'])->name('keranjangundangan.store');
 
 require __DIR__.'/auth.php';
 

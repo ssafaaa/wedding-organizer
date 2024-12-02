@@ -15,6 +15,7 @@ class SourvenirController extends Controller
     {
         $search = $request->input('search');
 
+        $tes = Sourvenir::all();
         $sourvenirs = $search ? Sourvenir::where('id_sourvenir', 'like', "%{$search}%")
             ->orWhere('nama_paket_sourvenir', 'like', "%{$search}%")
             ->orWhere('harga_sourvenir', 'like', "%{$search}%")->get()
@@ -93,31 +94,31 @@ class SourvenirController extends Controller
         // Mengambil data request dan update sourvenir
 
         // Jika ada file 'foto_sourvenir' yang diunggah, simpan dan dapatkan path-nya
-    if ($request->hasFile('foto_sourvenir')) {
-        $fotoPath = $request->file('foto_sourvenir')->store('foto_sourvenir', 'public');
-    } else {
-        $fotoPath = $sourvenir->foto_sourvenir; // Jika tidak ada file baru, tetap gunakan foto lama
-    }
-
-    // Update data sourvenir
-    $sourvenir->update([
-        'nama_paket_sourvenir' => $request->nama_paket_sourvenir,
-        'harga_sourvenir' => $request->harga_sourvenir,
-        'deskripsi_sourvenir' => $request->deskripsi_sourvenir,
-        'foto_sourvenir' => $fotoPath, // Menggunakan foto baru atau foto lama jika tidak ada file baru
-    ]);
-
-    // Mengelola multiple_foto jika ada
-    if ($request->hasFile('multiple_foto')) {
-        foreach ($request->file('multiple_foto') as $file) {
-            $imagePath = $file->store('multiple_foto_sourvenir', 'public');
-
-            // Membuat entri baru untuk setiap foto multiple
-            $sourvenir->sourvenirImages()->create([
-                'image_path' => $imagePath,
-            ]);
+        if ($request->hasFile('foto_sourvenir')) {
+            $fotoPath = $request->file('foto_sourvenir')->store('foto_sourvenir', 'public');
+        } else {
+            $fotoPath = $sourvenir->foto_sourvenir; // Jika tidak ada file baru, tetap gunakan foto lama
         }
-    }
+
+        // Update data sourvenir
+        $sourvenir->update([
+            'nama_paket_sourvenir' => $request->nama_paket_sourvenir,
+            'harga_sourvenir' => $request->harga_sourvenir,
+            'deskripsi_sourvenir' => $request->deskripsi_sourvenir,
+            'foto_sourvenir' => $fotoPath, // Menggunakan foto baru atau foto lama jika tidak ada file baru
+        ]);
+
+        // Mengelola multiple_foto jika ada
+        if ($request->hasFile('multiple_foto')) {
+            foreach ($request->file('multiple_foto') as $file) {
+                $imagePath = $file->store('multiple_foto_sourvenir', 'public');
+
+                // Membuat entri baru untuk setiap foto multiple
+                $sourvenir->sourvenirImages()->create([
+                    'image_path' => $imagePath,
+                ]);
+            }
+        }
 
         return redirect()->back()->with('success', 'sourvenir berhasil diperbarui.');
     }

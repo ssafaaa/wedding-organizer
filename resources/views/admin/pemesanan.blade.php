@@ -548,9 +548,9 @@
                                                                                             <select class="select"
                                                                                                 name="status_pemesanan"
                                                                                                 id="">
+                                                                                                <option selected hidden disabled value="{{ $ps->status_pemesanan }}">{{ $ps->status_pemesanan }}</option>
                                                                                                 <option
-                                                                                                    value="Pending">
-                                                                                                    Pending</option>
+                                                                                                    value="Pending">Pending</option>
                                                                                                 <option
                                                                                                     value="Ongoing">On
                                                                                                     going</option>
