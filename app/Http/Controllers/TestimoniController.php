@@ -32,6 +32,8 @@ class TestimoniController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
+        
         Testimoni::create([
             'id_testimoni' => 'TS' . str_pad(Testimoni::count() + 1, 4, '0', STR_PAD_LEFT), // Membuat ID otomatis (misal: TS0001)
             'pemesanan_id' => $request->pemesanan_id,

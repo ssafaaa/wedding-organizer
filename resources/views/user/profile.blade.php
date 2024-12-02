@@ -405,7 +405,7 @@
                                                                                                         class="form-group">
                                                                                                         <label
                                                                                                             for="nama">Nama</label>
-                                                                                                        <textarea class="form-control" id="nama" name="nama" rows="3"></textarea>
+                                                                                                        <input type="text" class="form-control" id="nama" name="nama" />
                                                                                                     </div>
 
                                                                                                     <div

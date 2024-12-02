@@ -15,7 +15,7 @@ class Testimoni extends Model
     protected $table = 'testimonis';
 
     protected $fillable = [
-       'id_testimoni', 'id_pemesanan', 'testimoni', 'rating', 'id_customer'
+       'id_testimoni', 'pemesanan_id', 'testimoni', 'rating', 'customer_id', 'nama'
     ];
 
     protected static function boot()
