@@ -15,11 +15,13 @@ use App\Http\Controllers\DishesController;
 use App\Http\Controllers\HiburanController;
 use App\Http\Controllers\UndanganController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\HistoriController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\PemesananController;
 use App\Http\Controllers\TestimoniController;
 use App\Models\Bridalstyle;
 use App\Models\Dishes;
+use App\Models\Histori;
 use App\Models\Pemesanan;
 use App\Models\Sourvenir;
 use App\Models\Testimoni;
@@ -74,6 +76,8 @@ route::get('admin/dashboard', [HomeController::class, 'index'])->
 Route::get('/admin/testimoni', [TestimoniController::class, 'index'])->name('testimoni.index');
 route::post('admin/testimoni/store', [TestimoniController::class, 'store'])->name('testimoni.store');
 
+Route::get('/admin/histori', [HistoriController::class, 'index'])->name('histori.index');
+
 
 Route::get('/profile', [CustomerController::class, 'profileAdmin'])->name('admin.profile');
 route::get('admin/gedung',[GedungController::class, 'index'])->name('gedung');
@@ -90,7 +94,7 @@ route::put('admin/sourvenir/update/{sourvenir}', [SourvenirController::class, 'u
 
 route::get('admin/bridalstyle',[BridalstyleController::class, 'index'])->name('bridalstyle');
 route::post('admin/bridalstyle/store', [BridalstyleController::class, 'store'])->name('bridalstyle.store');
-route::put('admin/bridalstyle/update/{id}', [BridalstyleController::class, 'update'])->name('bridalstyle.update');
+route::put('admin/bridalstyle/update/{bridal}', [BridalstyleController::class, 'update'])->name('bridalstyle.update');
 
 route::get('admin/dokumentasi',[DokumentasiController::class, 'index'])->name('dokumentasi');
 route::post('admin/dokumentasi/store', [DokumentasiController::class, 'store'])->name('dokumentasi.store');

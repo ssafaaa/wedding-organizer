@@ -10,9 +10,21 @@ class HistoriController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $search = $request->input('search');
+
+        $histori = $search ? Histori::where('id_history', 'like', "%{$search}%")
+            ->orWhere('id_history', 'like', "%{$search}%")
+            ->orWhere('customer_id', 'like', "%{$search}%")
+            ->orWhere('pemesanan_id', 'like', "%{$search}%")
+            ->orWhere('tanggal pemesanan', 'like', "%{$search}%")->get()
+            : Histori::all();
+
+        return view('admin.histori', [
+            'histori' => $histori,
+            'search' => $search
+        ]);
     }
 
     /**
