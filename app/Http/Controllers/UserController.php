@@ -82,6 +82,22 @@ class UserController extends Controller
         return view('user.project');
     }
 
+    public function buktiPembayaran(Request $request, $id)
+    {
+        $fotoPath = null;
+        $pemesanan = Pemesanan::find($id);
+
+        if ($request->hasFile('bukti_pembayaran')) {
+            $fotoPath = $request->file('bukti_pembayaran')->store('bukti_pembayaran', 'public');
+        }
+
+        $pemesanan->update([
+            'bukti_pembayaran' => $fotoPath,
+        ]);
+
+        return redirect()->back()->with('success', 'Bukti pembayaran berhasil diunggah.');
+    }
+
 
     public function checkout()
     {
@@ -189,9 +205,6 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $datas = session()->all();
-        dd($datas);
-
         $customer = Customer::where('user_id', Auth::user()->id_user)->first();
 
         Pemesanan::create([

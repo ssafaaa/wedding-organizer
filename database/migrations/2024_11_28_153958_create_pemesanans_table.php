@@ -19,6 +19,7 @@ return new class extends Migration
             $table->date('tanggal_acara');
             $table->enum('status_pemesanan', ['Pending', 'Ongoing', 'Success']);
             $table->bigInteger('total_biaya');
+            $table->string('bukti_pembayaran')->nullable();
             $table->timestamps();
 
             $table->foreign('id_customer')

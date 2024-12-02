@@ -44,6 +44,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         Route::get('/profile', [CustomerController::class, 'edit'])->name('customer.edit');
         Route::put('/profile/update/{customer}', [CustomerController::class, 'update'])->name('customer.update');
+
+        Route::post('/buktiPembayaran/{pemesanan}', [UserController::class, 'buktiPembayaran'])->name('buktiPembayaran');
     });
 });
 
