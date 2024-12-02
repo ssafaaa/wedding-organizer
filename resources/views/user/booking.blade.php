@@ -300,19 +300,9 @@
             <div class="row isotope-grid sourvenir">
                 @include('user.components.sourvenir')
             </div>
-            {{-- <div class="row isotope-grid undangan" style="display: none;">
+            <div class="row isotope-grid undangan">
                 @include('user.components.undangan')
             </div>
-            <div class="row isotope-grid katering" style="display: none;">
-                @include('user.components.katering')
-            </div>
-            <div class="row isotope-grid bridalstyle" style="display: none;">
-                @include('user.components.bridalstyle')
-            </div>
-            <div class="row isotope-grid hiburan" style="display: none;">
-                @include('user.components.hiburan')
-            </div>
-             --}}
         </div>
     </div>
 

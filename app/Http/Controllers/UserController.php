@@ -17,7 +17,9 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SendQuestionMail;
+use App\Models\Bridalstyle;
 use App\Models\Pemesanan;
+use App\Models\Undangan;
 use Illuminate\Support\Facades\Auth;
 use SebastianBergmann\CodeCoverage\Report\Xml\Source;
 
@@ -35,29 +37,32 @@ class UserController extends Controller
     {
         $gedung = Gedung::all();
         $fotogedung = GedungImage::all();
-        $dekorasi = Dekorasi::all();
-        $fotodekorasi = DekorasiImage::all();
+        $dekorasi = Dekorasi::with('dekorasiImages')->get();
         $dokumentasi = Dokumentasi::all();
         $fotodokumentasi = DokumentasiImage::all();
         $hiburan = Hiburan::all();
         $fotohiburan = HiburanImage::all();
-        $sourvenir = Sourvenir::all();
+        $sourvenirs = Sourvenir::all();
         $fotosourvenir = SourvenirImage::all();
+        $bridals = Bridalstyle::all();
+        $undangans = Undangan::all();
+
         // $user = User::all();
         // $customer = Customer::all();
 
-        return view('user.booking', compact(
-            'gedung',
-            'fotogedung',
-            'dekorasi',
-            'fotodekorasi',
-            'hiburan',
-            'fotohiburan',
-            'dokumentasi',
-            'fotodokumentasi',
-            'sourvenir',
-            'fotosourvenir'
-        ));
+        return view('user.booking', [
+            'gedung' => $gedung,
+            'fotogedung' => $fotogedung,
+            'dekorasi' => $dekorasi,
+            'dokumentasi' => $dokumentasi,
+            'fotodokumentasi' => $fotodokumentasi,
+            'hiburan' => $hiburan,
+            'fotohiburan' => $fotohiburan,
+            'sourvenirs' => $sourvenirs,
+            'fotosourvenir' => $fotosourvenir,
+            'bridals' => $bridals,
+            'undangans' => $undangans
+        ]);
     }
 
     public function about()
@@ -81,30 +86,49 @@ class UserController extends Controller
     public function checkout()
     {
         $total = 0;
-        
-        $dekorasi = Dekorasi::all();
 
         $dekorasiTerpilih = session('dekorasi_terpilih');
         $dekorasi = Dekorasi::find($dekorasiTerpilih);
 
-        $dokumentasi = Dokumentasi::all();
-
         $dokumentasiTerpilih = session('dokumentasi_terpilih');
-
-        $hiburan = Hiburan::all();
+        $dokumentasi = Dokumentasi::find($dokumentasiTerpilih);
 
         $hiburanTerpilih = session('hiburan_terpilih');
-
-        $gedung = Gedung::all();
+        $hiburan = Hiburan::find($hiburanTerpilih);
 
         $gedungTerpilih = session('gedung_terpilih');
         $gedung = Gedung::find($gedungTerpilih);
 
-        $sourvenir = Sourvenir::all();
         $sourvenirTerpilih = session('sourvenir_terpilih');
+        $sourvenirQuantity = session('sourvenir_quantity');
+        $sourvenir = Sourvenir::find($sourvenirTerpilih);
 
-        if (session()->has('gedung_terpilih') && session()->has('dekorasi_terpilih')) {
-            $total = $gedung->harga_sewa_gedung + $dekorasi->harga_dekorasi;
+        $undanganTerpilih = session('undangan_terpilih');
+        $undanganQuantity = session('undangan_quantity');
+        $undangan = Undangan::find($undanganTerpilih);
+
+        if (session()->has('gedung_terpilih')) {
+            $total += $gedung->harga_sewa_gedung;
+        }
+
+        if (session()->has('dekorasi_terpilih')) {
+            $total += $dekorasi->harga_dekorasi;
+        }
+
+        if (session()->has('dokumentasi_terpilih')) {
+            $total += $dokumentasi->harga_dokumentasi;
+        }
+
+        if (session()->has('hiburan_terpilih')) {
+            $total += $hiburan->harga_sewa_hiburan;
+        }
+
+        if (session()->has('sourvenir_terpilih')) {
+            $total += $sourvenir->harga_sourvenir * $sourvenirQuantity;
+        }
+
+        if (session()->has('undangan_terpilih')) {
+            $total += $undangan->harga_undangan * $undanganQuantity;
         }
 
         return view('user.checkout', [
@@ -118,7 +142,11 @@ class UserController extends Controller
             'gedung' => $gedung,
             'gedungTerpilih' => $gedungTerpilih,
             'sourvenir' => $sourvenir,
-            'sourvenirTerpilih' => $sourvenirTerpilih
+            'sourvenirTerpilih' => $sourvenirTerpilih,
+            'sourvenirQuantity' => $sourvenirQuantity,
+            'undangan' => $undangan,
+            'undanganTerpilih' => $undanganTerpilih,
+            'undanganQuantity' => $undanganQuantity
         ]);
     }
 
@@ -161,11 +189,10 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $gedung = Gedung::find(session('gedung_terpilih'));
-        $dekorasi = Dekorasi::find(session('dekorasi_terpilih'));
-        $customer = Customer::where('user_id', Auth::user()->id_user)->first();
+        $datas = session()->all();
+        dd($datas);
 
-        $total = $gedung->harga_sewa_gedung + $dekorasi->harga_dekorasi;
+        $customer = Customer::where('user_id', Auth::user()->id_user)->first();
 
         Pemesanan::create([
             'id_customer' => $customer->id_customer,
@@ -173,10 +200,10 @@ class UserController extends Controller
             'tanggal_acara' => $request->tanggal_acara,
             'status_pemesanan' => 'Pending',
             'banyak_tamu' => $request->banyak_tamu,
-            'total_biaya' => $total
+            'total_biaya' => $request->total,
         ]);
 
-        session()->forget(['gedung_terpilih', 'dekorasi_terpilih']);
+        session()->forget(['gedung_terpilih', 'dekorasi_terpilih', 'dokumentasi_terpilih', 'hiburan_terpilih', 'sourvenir_terpilih', 'undangan_terpilih', 'sourvenir_quantity', 'undangan_quantity']);
 
         return redirect()->route('user.checkout');
     }

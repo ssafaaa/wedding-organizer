@@ -52,4 +52,8 @@ class Pemesanan extends Model
         return $this->hasOne(Pembayaran::class, 'pembayaran_id', 'id_pembayaran');
     }
 
+    public function detailPemesanan()
+    {
+        return $this->hasMany(DetailPemesanan::class, 'id_pemesanan', 'id_pemesanan');
+    }
 }
