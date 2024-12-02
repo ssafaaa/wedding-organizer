@@ -178,68 +178,107 @@
         <main role="main" class="main-content">
             <div class="container-fluid">
                 <div class="row justify-content-center">
-                    <div class="col-12">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="mb-4 shadow card">
-                                    <div class="card-header">
-                                        <strong class="card-title">Form row</strong>
-                                    </div>
-                                    <div class="card-body">
-                                        <form action="{{ route('customer.update', $customer->id_customer) }}"
-                                            method="POST" enctype="multipart/form-data">
-                                            @csrf
-                                            @method('PUT')
-                                            <div class="form-group">
-                                                <label for="name">Nama</label>
-                                                <input type="text" class="form-control" id="name"
-                                                    name="name" value="{{ $customer->name }}">
-                                            </div>
-                                            <div class="form-row">
-                                                <div class="form-group col-md-6">
-                                                    <label for="email">Email</label>
-                                                    <input type="email" class="form-control" id="email"
-                                                        name="email" value="{{ $customer->email }}">
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <label for="phone">Phone</label>
-                                                    <input type="phone" class="form-control" id="phone"
-                                                        name="phone" value="{{ $customer->phone }}">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="address">Alamat</label>
-                                                <input type="text" class="form-control" id="address"
-                                                    name="address" value="{{ $customer->address }}">
-                                            </div>
-                                            <div class="form-row">
-                                                <div class="form-group col-md-6">
-                                                    <label for="nik">NIK</label>
-                                                    <input type="text" class="form-control" id="nik"
-                                                        name="nik" value="{{ $customer->nik }}">
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <label for="gender">Gender</label>
-                                                    <select id="gender" class="form-control" name="gender">
-                                                        <option value="Pria"
-                                                            {{ $customer->gender == 'Pria' ? 'selected' : '' }}>Pria
-                                                        </option>
-                                                        <option value="Wanita"
-                                                            {{ $customer->gender == 'Wanita' ? 'selected' : '' }}>
-                                                            Wanita</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <button type="submit" class="btn btn-primary">Update</button>
-                                        </form>
-
-                                    </div> <!-- .col-12 -->
-                                </div> <!-- .row -->
-                            </div> <!-- .container-fluid -->
+                  <div class="col-12">
+                    <div class="row mt-5 align-items-center">
+                      <div class="col-md-3 text-center mb-5">
+                        <div class="avatar avatar-xl">
+                          <img src="./assets/avatars/face-1.jpg" alt="..." class="avatar-img rounded-circle">
                         </div>
+                      </div>
+                      <div class="col">
+                        <div class="row align-items-center">
+                          <div class="col-md-7">
+                            <h4 class="mb-1">{{$customer->name}}</h4>
+                            <p class="small mb-3"><span class="badge badge-dark">{{$customer->email}}</span></p>
+                          </div>
+                        </div>
+                        <div class="row mb-4">
+                          <div class="col-md-7">
+                            <p class="text-muted">{{$customer->address}}</p>
+                          </div>
+                          <div class="col">
+                            <p class="small mb-0 text-muted">{{$customer->phone}}</p>
+                            <p class="small mb-0 text-muted">{{$customer->gender}}</p>
+                            <p class="small mb-0 text-muted">{{$customer->nik}}</p>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                </div>
-            </div>
+                    <div class="container-fluid">
+                      <div class="row justify-content-center">
+                          <div class="col-12">
+                              <div class="row">
+                                  <div class="col-md-12">
+                                      <div class="mb-4 shadow card">
+                                          <div class="card-header">
+                                              <strong class="card-title">Edit Profile</strong>
+                                          </div>
+                                          <div class="card-body">
+                                              <form action="{{ route('customer.update', $customer->id_customer) }}"
+                                                  method="POST" enctype="multipart/form-data">
+                                                  @csrf
+                                                  @method('PUT')
+                                                  <div class="form-group">
+                                                      <label for="name">Nama</label>
+                                                      <input type="text" class="form-control" id="name"
+                                                          name="name" value="{{ $customer->name }}">
+                                                  </div>
+                                                  <div class="form-row">
+                                                      <div class="form-group col-md-6">
+                                                          <label for="email">Email</label>
+                                                          <input type="email" class="form-control" id="email"
+                                                              name="email" value="{{ $customer->email }}">
+                                                      </div>
+                                                      <div class="form-group col-md-6">
+                                                          <label for="phone">Phone</label>
+                                                          <input type="phone" class="form-control" id="phone"
+                                                              name="phone" value="{{ $customer->phone }}">
+                                                      </div>
+                                                  </div>
+                                                  <div class="form-group">
+                                                      <label for="password">Password</label>
+                                                      <div class="input-group">
+                                                          <input type="password" class="form-control" id="password" name="password" value="{{ $customer->password }}">
+                                                          <div class="input-group-append">
+                                                              <span class="input-group-text" id="togglePassword" style="cursor: pointer;">
+                                                                  <i class="fas fa-eye"></i>
+                                                              </span>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                                  <div class="form-group">
+                                                      <label for="address">Alamat</label>
+                                                      <input type="text" class="form-control" id="address"
+                                                          name="address" value="{{ $customer->address }}">
+                                                  </div>
+                                                  <div class="form-row">
+                                                      <div class="form-group col-md-6">
+                                                          <label for="nik">NIK</label>
+                                                          <input type="text" class="form-control" id="nik"
+                                                              name="nik" value="{{ $customer->nik }}">
+                                                      </div>
+                                                      <div class="form-group col-md-6">
+                                                          <label for="gender">Gender</label>
+                                                          <select id="gender" class="form-control" name="gender">
+                                                              <option value="Pria"
+                                                                  {{ $customer->gender == 'Pria' ? 'selected' : '' }}>Pria
+                                                              </option>
+                                                              <option value="Wanita"
+                                                                  {{ $customer->gender == 'Wanita' ? 'selected' : '' }}>
+                                                                  Wanita</option>
+                                                          </select>
+                                                      </div>
+                                                  </div>
+                                                  <button type="submit" class="btn btn-primary">Update</button>
+                                              </form>
+
+                                          </div> <!-- .col-12 -->
+                                      </div> <!-- .row -->
+                                  </div> <!-- .container-fluid -->
+                              </div>
+                          </div>
+                      </div>
+                  </div>
 
             <div class="container-fluid">
                 <div class="row justify-content-center">
@@ -273,7 +312,8 @@
                                                                     <th>ID Customer</th>
                                                                     <th>Total Biaya</th>
                                                                     <th>Tanggal Acara</th>
-                                                                    <th>Status Pemasanan</th>
+                                                                    <th>Status Pemesanan</th>
+                                                                    <th>Testimoni</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -281,13 +321,74 @@
                                                                     <tr>
                                                                         <td>{{ $ps->id_pemesanan }}</td>
                                                                         <td>{{ $ps->id_customer }}</td>
-                                                                        <td>{{ $ps->total_biaya }}</td>
+                                                                        <td>{{ number_format($ps->total_biaya, 0, ',', '.') }}</td>
                                                                         <td>{{ $ps->tanggal_acara }}</td>
                                                                         <td>{{ $ps->status_pemesanan }}</td>
+                                                                        <td>
+                                                                            @if ($ps->status_pemesanan === 'Success')
+                                                                            <button type="button"
+                                                                            data-target="#varyModal{{ $ps->id_pemesanan }}"
+                                                                            data-toggle="modal"
+                                                                            class="mb-2 btn btn-primary">
+                                                                            <i class="bi bi-pencil-square"></i> Edit
+                                                                        </button>
+                                                                            @else
+                                                                                <span>-</span>
+                                                                            @endif
+                                                                        </td>
                                                                     </tr>
+                                                                    <div class="modal fade"
+                                                                        id="varyModal{{ $ps->id_pemesanan }}"
+                                                                        tabindex="-1" role="dialog"
+                                                                        aria-labelledby="varyModalLabel"
+                                                                        aria-hidden="true">
+                                                                        <div class="modal-dialog" role="document">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <h5 class="modal-title" id="varyModalLabel">Tambah Testimoni</h5>
+                                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                        <span aria-hidden="true">&times;</span>
+                                                                                    </button>
+                                                                                </div>
+                                                                                <div class="modal-body">
+                                                                                    <form action="{{ route('testimoni.store') }}" method="POST" enctype="multipart/form-data">
+                                                                                        @csrf
+                                                                                        <!-- Tambahkan hidden input untuk mengirim id_pemesanan dan id_customer -->
+                                                                                        <input type="hidden" name="pemesanan_id" value="{{ $ps->id_pemesanan }}">
+                                                                                        <input type="hidden" name="customer_id" value="{{ $ps->id_customer }}">
+
+                                                                                        <div class="form-group">
+                                                                                            <label for="nama">Nama</label>
+                                                                                            <textarea class="form-control" id="nama" name="nama" rows="3"></textarea>
+                                                                                        </div>
+
+                                                                                        <div class="form-group">
+                                                                                            <label for="testimoni">Testimoni</label>
+                                                                                            <textarea class="form-control" id="testimoni" name="testimoni" rows="3"></textarea>
+                                                                                        </div>
+
+                                                                                        <div class="form-group">
+                                                                                            <label for="rating">Rating</label>
+                                                                                            <select class="form-control" id="rating" name="rating">
+                                                                                                <option value="" selected disabled>Pilih Rating</option>
+                                                                                                <option value="1">1 - Sangat Buruk</option>
+                                                                                                <option value="2">2 - Buruk</option>
+                                                                                                <option value="3">3 - Cukup</option>
+                                                                                                <option value="4">4 - Baik</option>
+                                                                                                <option value="5">5 - Sangat Baik</option>
+                                                                                            </select>
+                                                                                        </div>
+
+                                                                                        <button type="submit" class="btn btn-primary">Simpan</button>
+                                                                                    </form>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
                                                                 @endforeach
                                                             </tbody>
                                                         </table>
+
                                                     </div>
                                                 </div>
                                                 </td>

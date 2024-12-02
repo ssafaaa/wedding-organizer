@@ -46,7 +46,7 @@ class SourvenirController extends Controller
             $fotoPath = $request->file('foto_sourvenir')->store('foto_sourvenir', 'public');
         };
 
-        $sourvenirs = Sourvenir::create([
+        $sourvenir = Sourvenir::create([
             'nama_paket_sourvenir' => $request->input('nama_paket_sourvenir'),
             'deskripsi_sourvenir' => $request->input('deskripsi_sourvenir'),
             'harga_sourvenir' => $request->input('harga_sourvenir'),

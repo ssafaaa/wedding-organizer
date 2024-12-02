@@ -475,110 +475,50 @@
                                                         <table class="table datatables" id="dataTable-1">
                                                             <thead>
                                                                 <tr>
-                                                                    <th>ID Dishes</th>
-                                                                    <th>Nama Paket Dishes</th>
-                                                                    <th>Harga Paket Dishes</th>
+                                                                    <th>ID Main Course</th>
+                                                                    <th>Nama Paket Main Course</th>
+                                                                    <th>Harga Paket Main Course</th>
                                                                     <th>Aksi</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                @foreach ($dishes as $ds)
+                                                                @foreach ($dishes as $dis)
                                                                     <tr>
-                                                                        <td>{{ $ds->id_dishes }}</td>
-                                                                        <td>{{ $ds->nama_paket_dishes }}</td>
-                                                                        <td>{{ $ds->harga_paket_dishes }}</td>
-                                                                        <td><span
-                                                                                class="text-muted sr-only">Action</span>
+                                                                        <td>{{ $dis->id_dishes }}</td>
+                                                                        <td>{{ $dis->nama_paket_dishes }}</td>
+                                                                        <td>{{ $dis->harga_paket_dishes }}</td>
+                                                                        <td>
+                                                                            <span class="text-muted sr-only">Action</span>
                                                                             <button type="button"
-                                                                                data-target="#verticalModal{{ $ds->id_dishes }}"
-                                                                                data-toggle="modal"
-                                                                                class="btn mb-2 btn-primary"><span
-                                                                                    class="fe fe-20  fe-eye"></span></button>
-                                                                            <button type="button"
-                                                                                data-target="#varyModal{{ $ds->id_dishes }}"
-                                                                                data-toggle="modal"
-                                                                                class="btn mb-2 btn-warning"><span
-                                                                                    class="fe fe-20 fe-edit-2"></span>
+                                                                                    data-target="#verticalModal{{ $dis->id_dishes }}"
+                                                                                    data-toggle="modal"
+                                                                                    class="btn mb-2 btn-primary">
+                                                                                <span class="fe fe-20 fe-eye"></span>
                                                                             </button>
-                                                                        </td>
-                                                                    </tr>
-                                                                @endforeach
-                                                            </tbody>
-                                                        </table>
+                            
+                                                                            <button type="button"
+                                                                                    data-target="#varyModal{{ $dis->id_dishes }}"
+                                                                                    data-toggle="modal"
+                                                                                    class="btn mb-2 btn-warning">
+                                                                                <span class="fe fe-20 fe-edit-2"></span>
+                                                                            </button>
 
-                                                        <!-- Modal -->
-                                                        <div class="modal fade"
-                                                            id="verticalModal{{ $ds->id_dishes }}" tabindex="-1"
-                                                            role="dialog" aria-labelledby="verticalModalTitle"
-                                                            aria-hidden="true">
-                                                            <div class="modal-dialog modal-dialog-centered"
-                                                                role="document">
-                                                                <div class="modal-content">
-                                                                    <div class="modal-header">
-                                                                        <h5 class="modal-title"
-                                                                            id="verticalModalTitle">
-                                                                            Detail Main Course</h5>
-                                                                        <button type="button" class="close"
-                                                                            data-dismiss="modal" aria-label="Close">
-                                                                            <span aria-hidden="true">&times;</span>
-                                                                        </button>
-                                                                    </div>
-                                                                    <div class="modal-body">
-                                                                        <h5>ID Main Course :
-                                                                            {{ $ds->id_dishes }}
-                                                                        </h5>
-                                                                        <h5>Nama Main Course :
-                                                                            {{ $ds->nama_paket_dishes }}
-                                                                        </h5>
-                                                                        <h5>Deskripsi Main Course :
-                                                                            {{ $ds->deskripsi_dishes }}
-                                                                        </h5>
-                                                                        <h5>Harga Main Course :
-                                                                            {{ $ds->harga_paket_dishes }}
-                                                                        </h5>
-                                                                        <!-- Foto Thumbnail -->
-                                                                        <h5>Foto Thumbnail dekorasi:</h5>
-                                                                        <img src="{{ asset('storage/' . $ds->foto_dishes) }}"
-                                                                            alt="Foto Thumbnail dekorasi"
-                                                                            class="img-thumbnail"
-                                                                            style="width: 100%; max-width: 300px;">
-
-                                                                        <!-- Foto Lainnya -->
-                                                                        <h5>Foto Lainnya:</h5>
-                                                                        <div class="flex-wrap d-flex">
-                                                                            @forelse ($ds->dishesImages as $image)
-                                                                                <!-- Pastikan relasi `dekorasiImages` sudah diatur di model dekorasi -->
-                                                                                <img src="{{ asset('storage/' . $image->image_path) }}"
-                                                                                    alt="Foto Lainnya"
-                                                                                    class="m-2 img-thumbnail"
-                                                                                    style="width: 100px; height: auto;">
-                                                                            @empty
-                                                                                <p class="text-muted">Tidak
-                                                                                    ada foto
-                                                                                    tambahan.</p>
-                                                                            @endforelse
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="modal-footer">
-                                                                        <button type="button"
-                                                                            class="btn mb-2 btn-secondary"
-                                                                            data-dismiss="modal">Close</button>
-                                                                        {{-- <button type="button" class="btn mb-2 btn-primary">Save changes</button> --}}
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-                                                            <!-- MODAL -->
-                                                            <div class="modal fade"
-                                                                id="varyModal{{ $ds->id_dishes }}" tabindex="-1"
-                                                                role="dialog" aria-labelledby="varyModalLabel"
-                                                                aria-hidden="true">
-                                                                {{-- <div class="modal-dialog" role="document">
+                                                                            <!-- Modal -->
+                                                                    <div class="modal fade"
+                                                                    id="verticalModal{{ $dis->id_dishes }}"
+                                                                    tabindex="-1" role="dialog"
+                                                                    aria-labelledby="verticalModalTitle"
+                                                                    aria-hidden="true">
+                                                                    <div class="modal-dialog modal-dialog-centered modal-lg"
+                                                                        role="document">
                                                                         <div class="modal-content">
                                                                             <div class="modal-header">
                                                                                 <h5 class="modal-title"
-                                                                                    id="varyModalLabel">Edit</h5>
-                                                                                <button type="button" class="close"
+                                                                                    id="verticalModalTitle">Detail
+                                                                                    dishes
+                                                                                </h5>
+                                                                                <button type="button"
+                                                                                    class="close"
                                                                                     data-dismiss="modal"
                                                                                     aria-label="Close">
                                                                                     <span
@@ -586,75 +526,160 @@
                                                                                 </button>
                                                                             </div>
                                                                             <div class="modal-body">
-                                                                                <form
-                                                                                    action="{{ route('dishes.update', $ds->id_dishes) }}"
-                                                                                    method="POST">
-                                                                                    @csrf
-                                                                                    <div class="form-group">
-                                                                                        <label for="recipient-name"
-                                                                                            class="col-form-label">Nama
-                                                                                            Paket Dishes</label>
-                                                                                        <input type="text"
-                                                                                            class="form-control"
-                                                                                            id="nama_paket_dishes"
-                                                                                            name="nama_paket_dishes"
-                                                                                            value="{{ $ds->nama_paket_dishes }}">
-                                                                                    </div>
-                                                                                    <div class="form-group">
-                                                                                        <label for="message-text"
-                                                                                            class="col-form-label">Deskripsi</label>
-                                                                                        <textarea class="form-control" id="deskripsi_dishes" name="deskripsi_dishes">value="{{ $ds->deskripsi_dishes }}"</textarea>
-                                                                                    </div>
-                                                                                    <div class="form-group">
-                                                                                        <label for="recipient-name"
-                                                                                            class="col-form-label">Harga
-                                                                                            Paket Dishes</label>
-                                                                                        <input type="text"
-                                                                                            class="form-control"
-                                                                                            id="harga_paket_dishes"
-                                                                                            name="harga_paket_dishes"
-                                                                                            value="{{ $ds->harga_paket_dishes }}">
-                                                                                    </div>
-                                                                            </div>
-                                                                            <div class="col-md-12">
-                                                                                <label for="customFile">Foto Paket
-                                                                                    Dishes</label>
-                                                                                <div class="custom-file">
-                                                                                    <input type="file"
-                                                                                        class="custom-file-input"
-                                                                                        id="foto_dishes"
-                                                                                        name="foto_dishes"
-                                                                                        value="{{ $ds->foto_dishes }}">
-                                                                                    <label class="custom-file-label"
-                                                                                        for="foto_dishes"
-                                                                                        required>Pilih Foto</label>
+                                                                                <h5>ID dekorasi:
+                                                                                    {{ $dis->id_dishes }}</h5>
+                                                                                <h5>Nama dekorasi:
+                                                                                    {{ $dis->nama_paket_dishes }}
+                                                                                </h5>
+                                                                                <h5>Harga dekorasi:
+                                                                                    {{ $dis->harga_paket_dishes }}
+                                                                                </h5>
+                                                                                <h5>Deskripsi dekorasi:
+                                                                                    {{ $dis->deskripsi_dishes }}
+                                                                                </h5>
+
+                                                                                <!-- Foto Thumbnail -->
+                                                                                <h5>Foto Thumbnail dekorasi:</h5>
+                                                                                <img src="{{ asset('storage/' . $dis->foto_dishes) }}"
+                                                                                    alt="Foto Thumbnail dekorasi"
+                                                                                    class="img-thumbnail"
+                                                                                    style="width: 100%; max-width: 300px;">
+
+                                                                                <!-- Foto Lainnya -->
+                                                                                <h5>Foto Lainnya:</h5>
+                                                                                <div class="flex-wrap d-flex">
+                                                                                    @forelse ($dis->dishesImages as $image)
+                                                                                        <!-- Pastikan relasi `dekorasiImages` sudah diatur di model dekorasi -->
+                                                                                        <img src="{{ asset('storage/' . $image->image_path) }}"
+                                                                                            alt="Foto Lainnya"
+                                                                                            class="m-2 img-thumbnail"
+                                                                                            style="width: 100px; height: auto;">
+                                                                                    @empty
+                                                                                        <p class="text-muted">Tidak
+                                                                                            ada foto
+                                                                                            tambahan.</p>
+                                                                                    @endforelse
                                                                                 </div>
+
                                                                             </div>
-                                                                            </form>
                                                                             <div class="modal-footer">
                                                                                 <button type="button"
-                                                                                    class="btn mb-2 btn-secondary"
+                                                                                    class="mb-2 btn btn-secondary"
                                                                                     data-dismiss="modal">Close</button>
-                                                                                <button type="button"
-                                                                                    class="btn mb-2 btn-primary">Submit</button>
                                                                             </div>
                                                                         </div>
-                                                                    </div> --}}
-                                                            </div>
-                                                        </div> <!-- end section -->
-                                                    </div> <!-- .col-12 -->
-                                                </div> <!-- .row -->
+                                                                    </div>
+                                                                </div>
+                            
+                                                                            {{-- Modal edit --}}
+                                                                            <div class="modal fade"
+                                                                                 id="varyModal{{ $dis->id_dishes }}"
+                                                                                 tabindex="-1" role="dialog"
+                                                                                 aria-labelledby="varyModalLabel"
+                                                                                 aria-hidden="true">
+                                                                                <div class="modal-dialog" role="document">
+                                                                                    <div class="modal-content">
+                                                                                        <div class="modal-header">
+                                                                                            <h5 class="modal-title"
+                                                                                                id="varyModalLabel">
+                                                                                                Edit Dishes</h5>
+                                                                                            <button type="button"
+                                                                                                    class="close"
+                                                                                                    data-dismiss="modal"
+                                                                                                    aria-label="Close">
+                                                                                                <span
+                                                                                                    aria-hidden="true">&times;</span>
+                                                                                            </button>
+                                                                                        </div>
+                                                                                        <div class="modal-body">
+                                                                                            <form action="{{ route('dishes.update', $dis->id_dishes) }}"
+                                                                                                  method="POST"
+                                                                                                  enctype="multipart/form-data">
+                                                                                                @csrf
+                                                                                                @method('PUT')
+                            
+                                                                                                <!-- Nama Dishes -->
+                                                                                                <div class="form-group">
+                                                                                                    <label for="nama_paket_dishes"
+                                                                                                           class="col-form-label">Nama Dishes:</label>
+                                                                                                    <input type="text"
+                                                                                                           class="form-control"
+                                                                                                           id="nama_paket_dishes"
+                                                                                                           name="nama_paket_dishes"
+                                                                                                           value="{{ $dis->nama_paket_dishes }}">
+                                                                                                </div>
+                            
+                                                                                                <!-- Harga Dishes -->
+                                                                                                <div class="form-group">
+                                                                                                    <label for="harga_paket_dishes"
+                                                                                                           class="col-form-label">Harga Paket Dishes:</label>
+                                                                                                    <input type="text"
+                                                                                                           class="form-control"
+                                                                                                           id="harga_paket_dishes"
+                                                                                                           name="harga_paket_dishes"
+                                                                                                           value="{{ $dis->harga_paket_dishes }}">
+                                                                                                </div>
+                            
+                                                                                                <!-- Deskripsi Dishes -->
+                                                                                                <div class="form-group">
+                                                                                                    <label for="deskripsi_dishes"
+                                                                                                           class="col-form-label">Deskripsi:</label>
+                                                                                                    <textarea class="form-control" id="deskripsi_dishes"
+                                                                                                              name="deskripsi_dishes">{{ $dis->deskripsi_dishes }}</textarea>
+                                                                                                </div>
+                            
+                                                                                                <!-- Foto Dishes -->
+                                                                                                <div class="form-group">
+                                                                                                    <label for="foto_dishes">Foto Dishes</label>
+                                                                                                    <div class="custom-file">
+                                                                                                        <input type="file"
+                                                                                                               class="custom-file-input"
+                                                                                                               id="foto_dishes"
+                                                                                                               name="foto_dishes">
+                                                                                                        <label class="custom-file-label"
+                                                                                                               for="foto_dishes">Pilih Foto</label>
+                                                                                                    </div>
+                                                                                                </div>
+                            
+                                                                                                <!-- Foto Multiple -->
+                                                                                                <div class="form-group">
+                                                                                                    <label for="multiple_foto">Foto Multiple</label>
+                                                                                                    <div class="custom-file">
+                                                                                                        <input type="file"
+                                                                                                               class="custom-file-input"
+                                                                                                               id="multiple_foto"
+                                                                                                               name="multiple_foto[]"
+                                                                                                               multiple>
+                                                                                                        <label class="custom-file-label"
+                                                                                                               for="multiple_foto">Pilih Foto</label>
+                                                                                                    </div>
+                                                                                                </div>
+                            
+                                                                                                <div class="modal-footer">
+                                                                                                    <button type="button"
+                                                                                                            class="btn btn-secondary"
+                                                                                                            data-dismiss="modal">Close</button>
+                                                                                                    <button type="submit"
+                                                                                                            class="btn btn-primary">Submit</button>
+                                                                                                </div>
+                                                                                            </form>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                @endforeach
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </main> <!-- main -->
-    </div> <!-- .wrapper -->
+                            
     <script src="/admin/light/js/jquery.min.js"></script>
     <script src="/admin/light/js/popper.min.js"></script>
     <script src="/admin/light/js/moment.min.js"></script>

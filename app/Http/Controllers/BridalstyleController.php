@@ -85,39 +85,75 @@ class BridalstyleController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Bridalstyle $bridalstyle)
-    {
-        // Jika ada file 'foto_bridalstyle' yang diunggah, simpan dan dapatkan path-nya
-        if ($request->hasFile('foto_bridalstyle')) {
-            $fotoPath = $request->file('foto_bridalstyle')->store('foto_bridalstyle', 'public');
-        } else {
-            $fotoPath = $bridalstyle->foto_bridalstyle; // Jika tidak ada file baru, tetap gunakan foto lama
-        }
+    // public function update(Request $request, Bridalstyle $bridalstyle)
+    // {
+    //     // Jika ada file 'foto_bridalstyle' yang diunggah, simpan dan dapatkan path-nya
+    //     if ($request->hasFile('foto_bridalstyle')) {
+    //         $fotoPath = $request->file('foto_bridalstyle')->store('foto_bridalstyle', 'public');
+    //     } else {
+    //         $fotoPath = $bridalstyle->foto_bridalstyle; // Jika tidak ada file baru, tetap gunakan foto lama
+    //     }
 
-        dd($request);
-        
-        // Update data bridalstyle
-        $bridalstyle->update([
-            'nama_paket_bridalstyle' => $request->nama_paket_bridalstyle,
-            'harga_paket' => $request->harga_paket,
-            'deskripsi_paket' => $request->deskripsi_paket,
-            'foto_bridalstyle' => $fotoPath, // Menggunakan foto baru atau foto lama jika tidak ada file baru
-        ]);
+    //     // dd($request);
 
-        // Mengelola multiple_foto jika ada
-        if ($request->hasFile('multiple_foto')) {
-            foreach ($request->file('multiple_foto') as $file) {
-                $imagePath = $file->store('multiple_foto_bridalstyle', 'public');
+    //     // Update data bridalstyle
+    //     $bridalstyle->update([
+    //         'nama_paket_bridalstyle' => $request->nama_paket_bridalstyle,
+    //         'harga_paket' => $request->harga_paket,
+    //         'deskripsi_paket' => $request->deskripsi_paket,
+    //         'foto_bridalstyle' => $fotoPath, // Menggunakan foto baru atau foto lama jika tidak ada file baru
+    //     ]);
 
-                // Membuat entri baru untuk setiap foto multiple
-                $bridalstyle->images()->create([
-                    'image_path' => $imagePath,
-                ]);
-            }
-        }
+    //     // Mengelola multiple_foto jika ada
+    //     if ($request->hasFile('multiple_foto')) {
+    //         foreach ($request->file('multiple_foto') as $file) {
+    //             $imagePath = $file->store('multiple_foto_bridalstyle', 'public');
 
-        return redirect()->back()->with('success', 'Bridalstyle berhasil diperbarui.');
+    //             // Membuat entri baru untuk setiap foto multiple
+    //             $bridalstyle->images()->create([
+    //                 'image_path' => $imagePath,
+    //             ]);
+    //         }
+    //     }
+
+    //     return redirect()->back()->with('success', 'Bridalstyle berhasil diperbarui.');
+    // }
+
+    public function update(Request $request, $id)
+{
+
+    $request->validate([
+        'nama_paket_bridalstyle' => 'required|string|max:255',
+        'harga_paket' => 'required|numeric',
+        'deskripsi_paket' => 'nullable|string',
+        'foto_bridalstyle' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        'multiple_foto.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+    ]);
+    
+    $br = BridalStyle::findOrFail($id);
+    
+    $br->nama_paket_bridalstyle = $request->nama_paket_bridalstyle;
+    $br->harga_paket = $request->harga_paket;
+    $br->deskripsi_paket = $request->deskripsi_paket;
+
+    // Jika ada file foto, update file foto
+    if ($request->hasFile('foto_bridalstyle')) {
+        $fotoPath = $request->file('foto_bridalstyle')->store('foto_bridalstyle');
+        $br->foto_bridalstyle = $fotoPath;
     }
+
+    // Update multiple fotos jika ada
+    if ($request->hasFile('multiple_foto')) {
+        foreach ($request->file('multiple_foto') as $foto) {
+            $fotoPath = $foto->store('multiple_foto');
+            $br->multiple_foto()->create(['foto_path' => $fotoPath]);
+        }
+    }
+
+    $br->save();
+
+    return redirect()->route('bridalstyle')->with('success', 'Data berhasil diperbarui');
+}
 
 
     /**

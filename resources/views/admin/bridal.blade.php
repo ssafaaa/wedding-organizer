@@ -426,7 +426,7 @@
                                                         id="nama_paket_bridalstyle" name="nama_paket_bridalstyle">
                                                 </div>
                                                 <div class="form-group col-md-12">
-                                                    <label for="harga_bridalstyle">Harga Dekorasi</label>
+                                                    <label for="harga_paket">Harga Dekorasi</label>
                                                     <input type="text" class="form-control" id="harga_paket"
                                                         name="harga_paket">
                                                 </div>
@@ -514,7 +514,7 @@
                                                                         </td>
                                                                     </tr>
 
-                                                                    {{-- Modal edit --}}
+
                                                                     <div class="modal fade"
                                                                         id="varyModal{{ $br->id_bridalstyle }}"
                                                                         tabindex="-1" role="dialog"
@@ -525,7 +525,7 @@
                                                                                 <div class="modal-header">
                                                                                     <h5 class="modal-title"
                                                                                         id="varyModalLabel">
-                                                                                        Edit bridalstyle</h5>
+                                                                                        Edit Bridalstyle</h5>
                                                                                     <button type="button"
                                                                                         class="close"
                                                                                         data-dismiss="modal"
@@ -542,43 +542,41 @@
                                                                                         @csrf
                                                                                         @method('PUT')
 
-                                                                                        <!-- Nama bridalstyle -->
+                                                                                        <!-- Nama dekorasi -->
                                                                                         <div class="form-group">
-                                                                                            <label for="nama_bridalstyle"
+                                                                                            <label for="nama_paket_bridalstyle"
                                                                                                 class="col-form-label">Nama
-                                                                                                bridalstyle:</label>
+                                                                                                Bridalstyle:</label>
                                                                                             <input type="text"
                                                                                                 class="form-control"
-                                                                                                id="nama_bridalstyle"
-                                                                                                name="nama_bridalstyle"
+                                                                                                id="nama_paket_bridalstyle"
+                                                                                                name="nama_paket_bridalstyle"
                                                                                                 value="{{ $br->nama_paket_bridalstyle }}">
                                                                                         </div>
 
-                                                                                        <!-- Harga bridalstyle -->
+                                                                                        <!-- Harga Dekorasi -->
                                                                                         <div class="form-group">
-                                                                                            <label for="harga_bridalstyle"
-                                                                                                class="col-form-label">Harga
-                                                                                                Sewa
-                                                                                                bridalstyle:</label>
+                                                                                            <label for="harga_paket"
+                                                                                                class="col-form-label">Harga paket:</label>
                                                                                             <input type="text"
                                                                                                 class="form-control"
-                                                                                                id="harga_bridalstyle"
-                                                                                                name="harga_bridalstyle"
-                                                                                                value="{{ $br->deskripsi_paket }}">
+                                                                                                id="harga_paket"
+                                                                                                name="harga_paket"
+                                                                                                value="{{ $br->harga_paket }}">
                                                                                         </div>
 
-                                                                                        <!-- Deskripsi bridalstyle -->
+                                                                                        <!-- Deskripsi dekorasi -->
                                                                                         <div class="form-group">
                                                                                             <label
-                                                                                                for="deskripsi_bridalstyle"
+                                                                                                for="deskripsi_dekorasi"
                                                                                                 class="col-form-label">Deskripsi:</label>
-                                                                                            <textarea class="form-control" id="deskripsi_bridalstyle" name="deskripsi_bridalstyle">{{ $br->harga_paket }}</textarea>
+                                                                                            <textarea class="form-control" id="deskripsi_paket" name="deskripsi_paket">{{ $br->deskripsi_paket }}</textarea>
                                                                                         </div>
 
-                                                                                        <!-- Foto bridalstyle -->
+                                                                                        <!-- Foto dekorasi -->
                                                                                         <div class="form-group">
                                                                                             <label
-                                                                                                for="foto_bridalstyle">Foto
+                                                                                                for="foto_dekorasi">Foto
                                                                                                 bridalstyle</label>
                                                                                             <div class="custom-file">
                                                                                                 <input type="file"
@@ -636,7 +634,7 @@
                                                                                 <div class="modal-header">
                                                                                     <h5 class="modal-title"
                                                                                         id="verticalModalTitle">Detail
-                                                                                        bridalstyle
+                                                                                        Bridalstyle
                                                                                     </h5>
                                                                                     <button type="button"
                                                                                         class="close"
@@ -662,7 +660,7 @@
                                                                                     <!-- Foto Thumbnail -->
                                                                                     <h5>Foto Thumbnail dekorasi:</h5>
                                                                                     <img src="{{ asset('storage/' . $br->foto_bridalstyle) }}"
-                                                                                        alt="Foto Thumbnail dekorasi"
+                                                                                        alt="Foto Thumbnail bridalstyle"
                                                                                         class="img-thumbnail"
                                                                                         style="width: 100%; max-width: 300px;">
 

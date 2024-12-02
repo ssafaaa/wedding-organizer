@@ -22,6 +22,7 @@ use App\Models\Bridalstyle;
 use App\Models\Dishes;
 use App\Models\Pemesanan;
 use App\Models\Sourvenir;
+use App\Models\Testimoni;
 
 Route::get('/', function () {
     return view('welcome');
@@ -34,9 +35,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/about' , [UserController::class, 'about'])->name('user.about');
         Route::get('/contact', [UserController::class, 'contact'])->name('user.contact');
         Route::get('/project' , [UserController::class, 'project'])->name('user.project');
-        
+
         Route::get('/checkout' , [UserController::class, 'checkout'])->name('user.checkout');
-        
+
         Route::post('/checkout' , [UserController::class, 'store'])->name('user.checkout.store');
 
         Route::get('/keranjang', [CartController::class, 'indexkeranjang'])->name('keranjang.index');
@@ -72,6 +73,8 @@ route::get('admin/dashboard', [HomeController::class, 'index'])->
 
 // testimoni
 Route::get('/admin/testimoni', [TestimoniController::class, 'index'])->name('testimoni.index');
+route::post('admin/testimoni/store', [TestimoniController::class, 'store'])->name('testimoni.store');
+
 
 Route::get('/profile', [CustomerController::class, 'profileAdmin'])->name('admin.profile');
 route::get('admin/gedung',[GedungController::class, 'index'])->name('gedung');
@@ -88,7 +91,7 @@ route::put('admin/sourvenir/update/{sourvenir}', [SourvenirController::class, 'u
 
 route::get('admin/bridalstyle',[BridalstyleController::class, 'index'])->name('bridalstyle');
 route::post('admin/bridalstyle/store', [BridalstyleController::class, 'store'])->name('bridalstyle.store');
-route::put('admin/bridalstyle/update/{bridal}', [BridalstyleController::class, 'update'])->name('bridalstyle.update');
+route::put('admin/bridalstyle/update/{id}', [BridalstyleController::class, 'update'])->name('bridalstyle.update');
 
 route::get('admin/dokumentasi',[DokumentasiController::class, 'index'])->name('dokumentasi');
 route::post('admin/dokumentasi/store', [DokumentasiController::class, 'store'])->name('dokumentasi.store');
